@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Lamwo Electrification web app Documentation",
+    "info": "Lean more about the project, and how to use this application",
+    "url": "https://docs.google.com/document/d/e/2PACX-1vQPJM6l0Y-22G6dEsIYnE8_AKL5F2EGcyZKtv25EupmN6P20DyhAxFfBIWv2lx1DAjEd7-GwUp6C-fI/pub",
+    "profileImage": "https://i.pinimg.com/originals/99/7b/0a/997b0a243df40b681d8c8177724f1b45.png"
+  },
+  {
+    "name": "Electrification Methodology",
+    "info": "Learn how the we combined several datasets to derive an electrification strategy for Lamwo.",
+    "url": "https://github.com/SunbirdAI/lamwo-electrification-project/tree/main/methodology",
+    "profileImage": "/google-slides.png"
+  },
+  {
+    "name": "Project Source Code",
+    "info": "Check out the project repository",
+    "url": "https://github.com/SunbirdAI/lamwo-electrification-project",
+    "profileImage": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+  },
+  {
+    "name": "Download the Project Datasets",
+    "info": "Get the project datasets",
+    "url": "https://github.com/SunbirdAI/lamwo-electrification-project/tree/main/datasets",
+    "profileImage": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+  }
+]

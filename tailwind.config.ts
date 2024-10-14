@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "sunbird-navy-blue": "#282850",
+        "sunbird-orange": "#FFAA28",
       },
     },
   },
