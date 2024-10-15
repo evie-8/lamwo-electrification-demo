@@ -11,13 +11,16 @@
   "dependencies": {
     "@turf/bbox": "^7.1.0",
     "@turf/turf": "^7.1.0",
+    "axios": "^1.7.7",
     "deck.gl": "^9.0.29",
     "install": "^0.13.0",
     "json-loader": "^0.5.7",
     "lucide-react": "^0.452.0",
     "next": "14.2.13",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-intersection-observer": "^9.13.1",
+    "reaviz": "^15.18.5"
   },
   "devDependencies": {
     "@types/mapbox-gl": "^3.4.0",

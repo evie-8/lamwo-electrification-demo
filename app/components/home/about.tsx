@@ -16,7 +16,7 @@ const AboutTab = () => {
       </h2>
       <p className="leading-6">
         <Link
-          className="text-sunbird-orange"
+          className="text-highlight-blue"
           href="https://energyandminerals.go.ug/"
         >
           The Ministry of Energy and Mineral Development (MEMD)
@@ -31,7 +31,7 @@ const AboutTab = () => {
       </h2>
       <p className="leading-6">
         <Link
-          className="text-sunbird-orange"
+          className="text-highlight-blue"
           href="https://www.giz.de/expertise/html/61982.html"
         >
           FAIR Forward - Artificial Intelligence for All
@@ -58,7 +58,7 @@ const AboutTab = () => {
       </p>
       <p className="leading-6">
         Find out more at{" "}
-        <Link className="text-sunbird-orange" href="https://sunbird.ai">
+        <Link className="text-highlight-blue" href="https://sunbird.ai">
           https://sunbird.ai
         </Link>
       </p>

@@ -120,7 +120,6 @@ const BuildingLayers = () => {
             "icon-image": "uncategorized-icon",
             "icon-size": 0.06,
             "icon-allow-overlap": true,
-            "icon-ignore-placement": false,
           }}
           paint={{
             "icon-opacity": [

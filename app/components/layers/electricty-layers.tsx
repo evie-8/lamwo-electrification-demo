@@ -17,7 +17,12 @@ const GridElectricityLayer = () => {
           "line-join": "round",
         }}
         paint={{
-          "line-color": "#ffffff",
+          "line-color": [
+            "case",
+            ["==", ["get", "Status"], "Existing"],
+            "#00FF00",
+            "#FFFFFF",
+          ],
           "line-width": 2,
           "line-dasharray": [1, 2],
         }}

@@ -12,7 +12,12 @@ const VillageLayers = () => {
         paint={{
           "fill-color": "#D3D3D3",
           //1e90ff
-          "fill-opacity": 0.3,
+          "fill-opacity": [
+            "case",
+            ["boolean", ["feature-state", "click"], false],
+            0.3,
+            0.4,
+          ],
         }}
       />
       <Layer

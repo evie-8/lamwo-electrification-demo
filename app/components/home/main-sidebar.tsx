@@ -3,14 +3,23 @@ import { Search } from "lucide-react";
 import Image from "next/image";
 import AboutTab from "./about";
 import { useMapContext } from "../map-provider";
-
 import ResearchTab from "./project-resources";
 import Villages from "./villages";
+import { useEffect, useRef, useState } from "react";
+import VillageDetails from "./village-details";
 
 const MainSideBar = () => {
-  const { screen, setScreen } = useMapContext();
+  const { screen, setScreen, detailsVillage, rightSideBar } = useMapContext();
+  const [query, setQuery] = useState("");
+  const scrollRef = useRef<HTMLElement | undefined>(undefined);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [screen]);
   return (
-    <section className="main-sidebar">
+    <section className={`main-sidebar ${rightSideBar ? "flex" : "hidden"}`}>
       <>
         <nav className="fixed top-0 left-0 w-[350px] flex flex-col gap-4 pb-3 border-b px-4 bg-white z-50 shadow-md">
           <div className="flex items-center justify-start gap-4 relative my-1">
@@ -21,6 +30,11 @@ const MainSideBar = () => {
           </div>
           <div className="relative">
             <input
+              defaultValue={""}
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+              }}
               placeholder="Search village ..."
               className="bg-white shadow-md text-start outline-none border text-[14px] placeholder:text-[14px] placeholder:text-gray-950 pl-10 pr-8 rounded-md h-10 w-full block"
             />
@@ -28,13 +42,14 @@ const MainSideBar = () => {
           </div>
           <p className="flex justify-between items-center text-[15px] ">
             {["Villages", "Project Resources", "About Project"].map(
-              (screenName) => {
+              (screenName, i) => {
                 return (
                   <span
-                    className={`relative cursor-pointer ${
-                      screen.toLowerCase() === screenName.toLowerCase()
+                    key={i}
+                    className={`relative cursor-pointer  ${
+                      screen.toLowerCase().startsWith(screenName.toLowerCase())
                         ? " font-bold text-sunbird-navy-blue after:content-[''] after:block after:w-full after:h-1 after:bg-sunbird-navy-blue after:rounded-full after:absolute after:left-0 after:bottom-[-5px]"
-                        : "font-medium"
+                        : "font-medium hover:opacity-80"
                     }`}
                     onClick={() => setScreen(screenName)}
                   >
@@ -47,11 +62,15 @@ const MainSideBar = () => {
         </nav>
 
         <section
+          ref={scrollRef}
           className={`h-[calc(10Ovh-190px)] overflow-y-auto mt-[190px] px-4 `}
         >
           {screen === "About Project" && <AboutTab />}
           {screen === "Project Resources" && <ResearchTab />}
-          {screen === "Villages" && <Villages />}
+          {screen === "Villages" && <Villages searchQuery={query} />}
+          {screen === "Villages Details" && (
+            <VillageDetails data={detailsVillage} />
+          )}
         </section>
       </>
     </section>

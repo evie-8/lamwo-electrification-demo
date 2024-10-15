@@ -13,7 +13,7 @@ const ResearchTab = () => {
         We provide resources and documentation related to the project here.
       </p>
 
-      <div className="contributors mt-4">
+      <div className="contributors mt-4 dl-4">
         {links.map((contributor: any, index: number) => {
           return (
             <Link key={contributor.url} href={contributor.url} target="_blank">

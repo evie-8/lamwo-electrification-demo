@@ -86,18 +86,18 @@ const LayersSideBar = () => {
     existing_MGs_layer: false,
   };
 
-  const { mapRef } = useMapContext();
+  const { mapRef, sideBar } = useMapContext();
   const [layerVisibility, setLayerVisibility] = useState<{
     [key: string]: boolean;
   }>(defaultLayerVisibility);
 
   const resetLayerVisibility = () => {
-    const map = mapRef.current.getMap();
+    const map = mapRef?.current?.getMap();
 
     // Loop through each layer and reset to default visibility
     Object.keys(defaultLayerVisibility).forEach((layer) => {
       const isVisible = defaultLayerVisibility[layer];
-      map.setLayoutProperty(
+      map?.setLayoutProperty(
         layer,
         "visibility",
         isVisible ? "visible" : "none"
@@ -109,7 +109,7 @@ const LayersSideBar = () => {
   };
 
   return (
-    <div className={`layer-sidebar`}>
+    <div className={`layer-sidebar  ${sideBar ? "flex" : "hidden"}`}>
       <div className="title">
         <div className="flex gap-3 items-center justify-center">
           <Image
@@ -151,7 +151,6 @@ const LayersSideBar = () => {
           title="Buildings"
           items={buildingCategories}
         />
-        
       </div>
     </div>
   );

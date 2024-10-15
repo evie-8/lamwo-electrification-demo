@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         "sunbird-navy-blue": "#282850",
         "sunbird-orange": "#FFAA28",
+        "highlight-blue": "#2258AA"
       },
     },
   },

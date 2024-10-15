@@ -13,122 +13,73 @@ import { useMapContext } from "./map-provider";
 import { Feature } from "geojson";
 import villages from "@/public/villages.json";
 import ResetControl from "./reset-control";
-import { interactiveLayerIds } from "@/constants";
-
+import { categoriesVillages, interactiveLayerIds } from "@/constants";
+import { handleFeatureSelection } from "@/utils";
 interface MapProps {
   children?: React.ReactNode;
 }
 
 const MapInterface: React.FC<MapProps> = ({ children }) => {
-  const { mapRef, setMapRef } = useMapContext();
-  const [selectedFeature, setSelectedFeature] = useState<
-    Feature | null | undefined
-  >(null);
-  const [filteredBuildings, setFilteredBuildings] = useState<Feature[] | null>(
-    null
-  );
+  const [isMounted, setIsMounted] = useState(false);
+  const {
+    mapRef,
+    setMapRef,
+    selectedFeature,
+    setSelectedFeature,
+    filteredBuildings,
+    setFilteredBuildings,
+    setDetailsVillage,
+    setScreen,
+    key,
+    sideBar,
+    rightSideBar,
+  } = useMapContext();
   const current = mapRef.current;
   const map = current?.getMap();
+  let mapWidth = `100vw`;
+  let zoom = 8.7;
+  if (rightSideBar && sideBar) {
+    mapWidth = `calc(100vw-600px)`;
+  } else if (rightSideBar) {
+    mapWidth = `calc(100vw-350px)`;
+    zoom = 9;
+  } else if (sideBar) {
+    mapWidth = `calc(100vw-250px)`;
+    zoom = 9;
+  } else {
+    mapWidth = `100vw`;
+    zoom = 9.1;
+  }
 
   const handleClick = (event: MapMouseEvent) => {
     const features = event.features;
     const sources = features?.map((f) => f.source);
 
+    console.log("sources", sources);
     const feature = features?.filter(
       (f) => f.layer?.id === "lamwo_villages"
     )[0];
 
     if (feature) {
-      const village = villages.filter(
-        (village) => village.ID === feature.id
-      )[0];
-      console.log("village", village);
-
-      const [minLng, minLat, maxLng, maxLat] = bbox(feature);
-
-      const boundsFilter = [
-        "all",
-        "within",
-        {
-          type: "Polygon",
-          coordinates: [
-            [
-              [minLng, minLat],
-              [maxLng, minLat],
-              [maxLng, maxLat],
-              [minLng, maxLat],
-              [minLng, minLat],
-            ],
-          ],
-        },
-      ];
-
-      mapRef.current?.fitBounds(
-        [
-          [minLng, minLat],
-          [maxLng, maxLat],
-        ],
-        { padding: 20, duration: 1000 }
+      const results = handleFeatureSelection(
+        mapRef,
+        feature,
+        selectedFeature,
+        filteredBuildings,
+        sources
       );
-
-      if (selectedFeature) {
-        sources?.forEach((source: string) => {
-          current?.setFeatureState(
-            { source: source, id: Number(selectedFeature?.id) },
-            { click: false }
-          );
-        });
-      }
-      setSelectedFeature(feature);
-      sources?.forEach((source) => {
-        current?.setFeatureState(
-          { source: source, id: Number(feature.id) },
-          { click: true }
-        );
-      });
-
-      const buildingsFiltered = current?.querySourceFeatures(
-        "lamwo_buildings",
-        {
-          //@ts-ignore
-          filter: boundsFilter,
-        }
-      );
-      console.log(buildingsFiltered);
-      if (buildingsFiltered) {
-        if (filteredBuildings) {
-          filteredBuildings.map((building: any) => {
-            current?.setFeatureState(
-              {
-                source: "lamwo_buildings",
-                id: building.id,
-              },
-              {
-                visible: false,
-              }
-            );
-          });
-        }
-        setFilteredBuildings(buildingsFiltered);
-        buildingsFiltered.map((building) => {
-          current?.setFeatureState(
-            {
-              source: "lamwo_buildings",
-              id: Number(building.id),
-            },
-            {
-              visible: true,
-            }
-          );
-        });
-      }
+      setFilteredBuildings(results?.newFilteredBuildings);
+      setSelectedFeature(results?.newSelectedFeature);
+      const village = villages.find((village) => village.ID === feature.id);
+      setDetailsVillage(village);
+      setScreen("Villages Details");
     }
   };
 
   const centerMap = () => {
     map?.flyTo({
       center: [32.765, 3.508],
-      zoom: 8.7,
+      zoom: zoom,
       essential: true,
       animate: true,
     });
@@ -158,23 +109,32 @@ const MapInterface: React.FC<MapProps> = ({ children }) => {
       }
     };
   }, [mapRef, centerControl]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
   return (
     <section className="map-container">
       <Map
         ref={(ref) => setMapRef(ref)}
+        key={key}
         mapboxAccessToken="pk.eyJ1IjoiZW13ZWJhemUiLCJhIjoiY2w2OHRpMzI5MGJhNDNkcGUycjVoYmZoNiJ9.XngKi9j4uHqN0iiJSlMyhQ"
         initialViewState={{
           longitude: 32.765,
           latitude: 3.508,
-          zoom: 8.7,
+          zoom: zoom,
         }}
         interactiveLayerIds={interactiveLayerIds}
         style={{
-          width: `calc(100vw - 600px)`,
+          width: mapWidth,
           height: "100vh",
-          zIndex: "5",
-          marginLeft: "350px",
-          marginRight: "250px",
+          zIndex: "50",
+          marginRight: sideBar ? "250px" : 0,
+          marginLeft: rightSideBar ? "350px" : 0,
         }}
         mapStyle="mapbox://styles/mapbox/light-v10"
         onClick={handleClick}

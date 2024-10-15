@@ -2,6 +2,7 @@ const theme = {
   "light": "mapbox://styles/mapbox/light-v10",
   "dark": "mapbox://styles/mapbox/navigation-night-v1"
 }
+
 export const iconUrls = [
   "/education.png",
   "/hospital.png",
@@ -15,6 +16,33 @@ export const iconNames = [
   "commercial-icon",
   "administrative-icon",
   "uncategorized-icon",
+];
+
+export  const categoriesVillages = [
+  {
+    category: "Candidate for solar home systems",
+    text: "Solar Candidate",
+    color: "#ccc",
+    source_id: "candidate_for_solar_home_systems",
+  },
+  {
+    category: "Existing minigrid site",
+    text: "Existing Grid",
+    color: "#3CB371",
+    source_id: "existing_minigrid_site",
+  },
+  {
+    category: "Grid extension",
+    text: "Grid Extension",
+    color: "#FF7F50",
+    source_id: "grid_extension",
+  },
+  {
+    category: "Candidate minigrid site",
+    text: "Mini Grid Candidate",
+    color: "#4682B4",
+    source_id: "candidate_minigrid_site",
+  },
 ];
 
 export const categoryVillagesSources = [
@@ -52,7 +80,6 @@ export const categoryVillagesSources = [
   },
 ];
 
-
 export const categoryVillagesLayers = [
   {
     id: "solar_home_systems",
@@ -61,7 +88,12 @@ export const categoryVillagesLayers = [
     layout: {},
     paint: {
       "fill-color": "#CCC",
-      "fill-opacity": 1,
+      "fill-opacity": [
+        "case",
+        ["boolean", ["feature-state", "click"], false],
+        0.3,
+        1,
+      ],
     },
   },
   {
@@ -71,7 +103,12 @@ export const categoryVillagesLayers = [
     layout: {},
     paint: {
       "fill-color": "#4682B4", // Steel blue for candidate minigrid sites
-      "fill-opacity": 1,
+      "fill-opacity": [
+        "case",
+        ["boolean", ["feature-state", "click"], false],
+        0.3,
+        1,
+      ],
     },
   },
   {
@@ -81,7 +118,12 @@ export const categoryVillagesLayers = [
     layout: {},
     paint: {
       "fill-color": "#3CB371", // Lime green for existing minigrid sites
-      "fill-opacity": 1,
+      "fill-opacity": [
+        "case",
+        ["boolean", ["feature-state", "click"], false],
+        0.3,
+        1,
+      ],
     },
   },
   {
@@ -91,7 +133,12 @@ export const categoryVillagesLayers = [
     layout: {},
     paint: {
       "fill-color": "#FF7F50", // red orange for grid extension
-      "fill-opacity": 1,
+      "fill-opacity": [
+        "case",
+        ["boolean", ["feature-state", "click"], false],
+        0.3,
+        1,
+      ],
     },
   },
 ];

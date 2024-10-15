@@ -3,11 +3,11 @@
 }
 
 .layer-sidebar {
-    @apply  flex flex-col fixed top-0 right-0 gap-2 bg-white ml-auto z-40  pb-2 h-full  shadow-md w-[250px]
+    @apply  flex-col fixed top-0 right-0 gap-2 bg-white ml-auto z-40  pb-2 h-full  shadow-md w-[250px]
 }
 
 .main-sidebar {
-    @apply flex flex-col gap-2 fixed left-0 top-0  w-[350px] bg-white z-40 pb-2  shadow-md h-full
+    @apply flex-col gap-2 fixed left-0 top-0  w-[350px] bg-white z-40 pb-2  shadow-md h-full
 }
 
 .layer-sidebar .title {
@@ -39,7 +39,7 @@
   }
  
   .contributors .contributor:hover {
-    background: rgba(221, 221, 221, 0.336);
+    background: #dddddd56;
   }
   .contributors .contributor img {
     @apply mr-2.5 rounded-full border; 
@@ -51,7 +51,7 @@
     @apply font-semibold text-[15px] text-sunbird-navy-blue;
   }
   .contributors .contributor .info .info {
-    @apply text-[13px] relative text-sunbird-navy-blue/60 top-0.5;
+    @apply text-[13px] relative text-highlight-blue top-0.5;
   }
   
   .cover-card {
@@ -66,3 +66,69 @@
     @apply text-white font-bold text-lg;
   }
   
+  .card-item {
+    @apply flex justify-between transition-[0.3s] p-2.5 border-l-transparent border-b-[0.3px] border-b-[rgba(221,221,221,0.712)] border-solid border-l hover:bg-[#dddddd56] hover:cursor-pointer hover:transition-[0.3s] hover:border-l-4 hover:border-l-[#4773b4] hover:border-solid;
+  }
+  .card-item .card-item-content {
+    @apply flex flex-row;
+  }
+  .card-item .card-item-content .card-info {
+    @apply flex flex-col;
+  }
+  .card-item .card-item-content .card-info span {
+    @apply  overflow-hidden w-[200px] text-[15px];
+  }
+  .card-item .card-item-content .card-info .tag-row {
+    @apply overflow-x-hidden;
+  }
+  /*details*/
+  .banner-image {
+    @apply bg-cover h-[150px] w-full flex shadow-[rgba(0,0,0,0.24)_0px_3px_8px] px-[25px] py-5 rounded-lg;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.315) 20%,
+        rgba(8, 8, 8, 0.979)
+      ),
+      url("https://images.unsplash.com/photo-1536481046830-9b11bb07e8b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=30")
+        no-repeat;
+  }
+ 
+  .banner-image span {
+    @apply text-white font-bold text-lg;
+  }
+
+
+  /*area explorer*/
+  /*
+  Based on TailwindCSS recommendations,
+  consider using classes instead of the `@apply` directive
+  @see https://tailwindcss.com/docs/reusing-styles#avoiding-premature-abstraction
+*/
+.area-explorer {
+  @apply grid grid-cols-2 grid-rows-1 w-full h-auto;
+}
+.area-explorer::-webkit-scrollbar {
+  @apply h-[9px];
+}
+.area-explorer::-webkit-scrollbar-track {
+  @apply rounded-[10px];
+  background: #f1f1f1;
+}
+.area-explorer::-webkit-scrollbar-thumb {
+  @apply rounded-[10px];
+  background: #5fa6f7;
+}
+.area-explorer::-webkit-scrollbar-thumb:hover {
+  background: #0a47c9;
+}
+.area-explorer .area-item {
+  @apply flex flex-col cursor-pointer transition-[0.3s] mr-0 px-2 py-2.5 rounded-[5px] hover:transition-[0.3s];
+}
+.area-explorer .area-item img {
+  @apply w-full h-[90px] object-cover mb-2.5 rounded-[5px];
+}
+.area-explorer .area-item span {
+  @apply text-sm;
+}
+.area-explorer .area-item:hover {
+  background: rgba(221, 221, 221, 0.432);
+}

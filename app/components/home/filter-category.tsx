@@ -6,7 +6,7 @@ import { MapRef } from "react-map-gl";
 interface Props {
   title: string;
   items: Array<{ id: string; text: string; url?: string; color?: string }>;
-  mapRef: MapRef;
+  mapRef: MapRef | null | undefined;
   layerVisibility: {
     [key: string]: boolean;
   };
@@ -44,7 +44,10 @@ const FilterCategory = ({
         {title}
       </p>
       {items.map((item) => (
-        <div className="flex items-center justify-between my-[5px]" key={item.id}>
+        <div
+          className="flex items-center justify-between my-[5px]"
+          key={item.id}
+        >
           <p className="flex items-center">
             {item.url && (
               <Image
