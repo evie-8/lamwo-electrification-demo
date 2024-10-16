@@ -104,31 +104,15 @@
   @see https://tailwindcss.com/docs/reusing-styles#avoiding-premature-abstraction
 */
 .area-explorer {
-  @apply grid grid-cols-2 grid-rows-1 w-full h-auto;
+  @apply grid grid-cols-1 w-full justify-center items-center;
 }
-.area-explorer::-webkit-scrollbar {
-  @apply h-[9px];
-}
-.area-explorer::-webkit-scrollbar-track {
-  @apply rounded-[10px];
-  background: #f1f1f1;
-}
-.area-explorer::-webkit-scrollbar-thumb {
-  @apply rounded-[10px];
-  background: #5fa6f7;
-}
-.area-explorer::-webkit-scrollbar-thumb:hover {
-  background: #0a47c9;
-}
+
 .area-explorer .area-item {
   @apply flex flex-col cursor-pointer transition-[0.3s] mr-0 px-2 py-2.5 rounded-[5px] hover:transition-[0.3s];
 }
 .area-explorer .area-item img {
-  @apply w-full h-[90px] object-cover mb-2.5 rounded-[5px];
+  @apply w-full h-[90px] object-cover rounded-[5px];
 }
 .area-explorer .area-item span {
   @apply text-sm;
-}
-.area-explorer .area-item:hover {
-  background: rgba(221, 221, 221, 0.432);
 }

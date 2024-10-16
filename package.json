@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
     "@turf/bbox": "^7.1.0",
     "@turf/turf": "^7.1.0",
     "axios": "^1.7.7",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "deck.gl": "^9.0.29",
+    "embla-carousel-react": "^8.3.0",
     "install": "^0.13.0",
     "json-loader": "^0.5.7",
     "lucide-react": "^0.452.0",

@@ -1,5 +1,5 @@
 "use client";
-import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react";
+import { ChevronRightCircle } from "lucide-react";
 import LayersSideBar from "./layer-sidebar";
 import MainSideBar from "./main-sidebar";
 import { useMapContext } from "../map-provider";
@@ -19,8 +19,8 @@ const Home = () => {
             setRightSideBar((prev) => !prev);
             setKey((prev) => prev + 1);
           }}
-          className={`fixed top-1/2 ${
-            rightSideBar ? "left-[28%]" : "left-1"
+          className={`fixed  -translate-x-1/2 -translate-y-1/2 top-1/2 ${
+            rightSideBar ? "left-[30%]" : "left-1"
           } flex items-center justify-center p-2 bg-black/20 rounded-full shadow-lg`}
           title={rightSideBar ? "Hide details" : "Show details"}
         >
@@ -40,8 +40,8 @@ const Home = () => {
             setKey((prev) => prev + 1);
           }}
           className={`${
-            sideBar ? "left-[76%]" : "left-[96%]"
-          } fixed top-1/2 flex items-center justify-center p-2 bg-black/20 rounded-full shadow-lg`}
+            sideBar ? "left-[78%]" : "left-[96%]"
+          } fixed  -translate-x-1/2 -translate-y-1/2 top-1/2 flex items-center justify-center p-2 bg-black/20 rounded-full shadow-lg`}
           title={rightSideBar ? "Hide filters" : "Show filters"}
         >
           <ChevronRightCircle

@@ -5,12 +5,18 @@ import {
   RadialAreaChart,
   RadialAxis,
   PieChart,
-  PieArcLabel,
   PieArcSeries,
 } from "reaviz";
 import { measureCoordDistance } from "@/utils";
 import { MapIcon } from "lucide-react";
 import { categoriesVillages } from "@/constants";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
 
 const VillageDetails = ({ data }: { data: any }) => {
   const [NESCategoryData, setNESCategory] = useState<any>([]);
@@ -249,22 +255,34 @@ const VillageDetails = ({ data }: { data: any }) => {
           </span>
         </h3>
 
-        <div className="area-explorer">
-          {nearbyAreas.slice(1, 3).map((item: any, index: number) => (
-            <div className="area-item" key={index}>
-              <img
-                src="https://images.unsplash.com/photo-1536481046830-9b11bb07e8b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=10"
-                alt="area image"
-              />
-              <span>
-                <strong>{item.village}</strong>
-              </span>
-              <span className="text-highlight-blue">
-                {item.distanceFromArea.toFixed(3)} km
-              </span>
-            </div>
-          ))}
-        </div>
+        <Carousel className="area-explorer relative ">
+          <CarouselContent className="w-full mb-9">
+            {nearbyAreas.map((item: any, index: number) => (
+              <CarouselItem className="basis-1/2 group">
+                <div className="area-item" key={index}>
+                  <div className="w-full overflow-hidden rounded-[5px] mb-2">
+                    <img
+                      className=" hover:transform hover:scale-105 transition-all ease duration-75"
+                      src="https://images.unsplash.com/photo-1536481046830-9b11bb07e8b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=10"
+                      alt="area image"
+                    />
+                  </div>
+
+                  <span>
+                    <strong className="line-clamp-1">{item.village}</strong>
+                  </span>
+                  <span className="text-highlight-blue">
+                    {item.distanceFromArea.toFixed(3)} km
+                  </span>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="absolute mb-4  bottom-2 left-1/2  -translate-x-1/2 -translate-y-1/2 flex  justify-between flex-nowrap gap-5">
+            <CarouselPrevious />
+            <CarouselNext />
+          </div>
+        </Carousel>
 
         <hr />
 
