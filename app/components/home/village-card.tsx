@@ -4,7 +4,7 @@ import { useMapContext } from "../map-provider";
 import { Feature } from "geojson";
 //@ts-ignore
 import geoData from "@/public/geojson_maps/lamwo_villages.geojson";
-import { handleFeatureSelection } from "@/utils";
+import { handleFeatureSelection } from "@/lib/highlight-features";
 import { categoriesVillages } from "@/constants";
 
 interface Props {
@@ -36,8 +36,7 @@ const VillageCard = ({ data }: Props) => {
         mapRef,
         feature,
         selectedFeature,
-        filteredBuildings,
-        [category.source_id, "id_lamwovillages"]
+        filteredBuildings
       );
       setFilteredBuildings(results?.newFilteredBuildings);
       setSelectedFeature(results?.newSelectedFeature);

@@ -90,12 +90,6 @@ const VillageDetails = ({ data }: { data: any }) => {
     setNearbyAreas(nearAreas);
   }, [data]);
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth", // This provides a smooth scrolling effect
-    });
-  }, []);
 
   if (!data) {
     return <div>Loading...</div>; // Return a loading message when no data is passed

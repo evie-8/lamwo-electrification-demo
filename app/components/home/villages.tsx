@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import VillageCard from "./village-card";
 import { useInView } from "react-intersection-observer";
-import { fetchVillages, getTotalPages } from "@/utils";
+import { fetchVillages, getTotalPages } from "@/lib/api";
 import { Loader2 } from "lucide-react";
 import { useMapContext } from "../map-provider";
 import data from "@/public/villages.json";

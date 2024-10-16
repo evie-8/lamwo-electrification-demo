@@ -8,13 +8,14 @@ import Map, {
 import MapLayers from "./layers/map-layers";
 import { MapMouseEvent } from "react-map-gl";
 import { useEffect, useState } from "react";
-import bbox from "@turf/bbox";
 import { useMapContext } from "./map-provider";
-import { Feature } from "geojson";
 import villages from "@/public/villages.json";
 import ResetControl from "./reset-control";
 import { categoriesVillages, interactiveLayerIds } from "@/constants";
-import { handleFeatureSelection } from "@/utils";
+import {
+  getVillageSources,
+  handleFeatureSelection,
+} from "@/lib/highlight-features";
 interface MapProps {
   children?: React.ReactNode;
 }
@@ -53,9 +54,7 @@ const MapInterface: React.FC<MapProps> = ({ children }) => {
 
   const handleClick = (event: MapMouseEvent) => {
     const features = event.features;
-    const sources = features?.map((f) => f.source);
 
-    console.log("sources", sources);
     const feature = features?.filter(
       (f) => f.layer?.id === "lamwo_villages"
     )[0];
@@ -65,8 +64,7 @@ const MapInterface: React.FC<MapProps> = ({ children }) => {
         mapRef,
         feature,
         selectedFeature,
-        filteredBuildings,
-        sources
+        filteredBuildings
       );
       setFilteredBuildings(results?.newFilteredBuildings);
       setSelectedFeature(results?.newSelectedFeature);
@@ -84,15 +82,18 @@ const MapInterface: React.FC<MapProps> = ({ children }) => {
       animate: true,
     });
     if (selectedFeature) {
-      current?.setFeatureState(
-        {
-          source: "id_lamwovillages",
-          id: Number(selectedFeature.id),
-        },
-        {
-          click: false,
-        }
-      );
+      const sources = getVillageSources(selectedFeature);
+      sources.forEach((source) => {
+        current?.setFeatureState(
+          {
+            source: source,
+            id: Number(selectedFeature.id),
+          },
+          {
+            click: false,
+          }
+        );
+      });
     }
   };
   const centerControl = new ResetControl({ eventHandler: centerMap });
