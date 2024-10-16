@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { useMapContext } from "../map-provider";
 import data from "@/public/villages.json";
 import { categoriesVillages } from "@/constants";
+import { Skeleton } from "../ui/skeleton";
 const Villages = ({ searchQuery }: { searchQuery?: string }) => {
   const { ref, inView } = useInView();
   const [page, setPage] = useState(0);
@@ -165,10 +166,16 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
       )}
 
       {villages.length === 0 && !searchQuery && (
-        <span className="flex items-center justify-center mt-[50px]">
-          <Loader2 size={30} className="m-auto animate-spin" fontWeight={800} />
-        </span>
+        <div className="mt-[20px]">
+          {[1, 2, 3].map((item) => (
+            <div key={item} className="flex flex-col border-b gap-2 mb-4 pb-2">
+              <Skeleton className="h-3 w-full" />
+              <Skeleton className="h-2 w-[50px]" />
+            </div>
+          ))}
+        </div>
       )}
+
       <div className="mt-3">
         {villages.length === 0 && !loading && searchQuery && (
           <span className=" font-bold text-gray-400">No Villages Found</span>
