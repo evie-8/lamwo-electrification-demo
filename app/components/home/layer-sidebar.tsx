@@ -5,6 +5,7 @@ import { useMapContext } from "../map-provider";
 import FilterCategory from "./filter-category";
 import Image from "next/image";
 import { RefreshCcwIcon } from "lucide-react";
+import useWindowDimensions from "@/hooks/window-dimensions";
 
 const layers = [
   {
@@ -85,6 +86,7 @@ const LayersSideBar = () => {
     candidate_MGs_layer: false,
     existing_MGs_layer: false,
   };
+  const { width } = useWindowDimensions();
 
   const { mapRef, sideBar } = useMapContext();
   const [layerVisibility, setLayerVisibility] = useState<{
@@ -109,7 +111,11 @@ const LayersSideBar = () => {
   };
 
   return (
-    <div className={`layer-sidebar  ${sideBar ? "flex" : "hidden"}`}>
+    <div
+      className={`layer-sidebar ${width < 1024 ? "hidden" : "flex"}  ${
+        sideBar ? "flex" : "hidden"
+      }`}
+    >
       <div className="title">
         <div className="flex gap-3 items-center justify-center">
           <Image

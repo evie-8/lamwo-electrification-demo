@@ -1,3 +1,5 @@
+//@ts-ignore
+import geoData from "@/public/geojson_maps/lamwo_villages.geojson";
 import { useEffect, useState } from "react";
 import villages from "@/public/villages.json";
 import {
@@ -17,10 +19,24 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+import { Feature } from "geojson";
+import { useMapContext } from "../map-provider";
+import { handleFeatureSelection } from "@/lib/highlight-features";
+import useWindowDimensions from "@/hooks/window-dimensions";
 
 const VillageDetails = ({ data }: { data: any }) => {
   const [NESCategoryData, setNESCategory] = useState<any>([]);
   const [nearbyAreas, setNearbyAreas] = useState<any>([]);
+  const {
+    mapRef,
+    setDetailsVillage,
+    setFilteredBuildings,
+    selectedFeature,
+    setSelectedFeature,
+    setScreen,
+    filteredBuildings,
+  } = useMapContext();
+  const { width } = useWindowDimensions();
 
   const getCategory = (cat: string) => {
     const category = categoriesVillages.find((c) => c.category === cat);
@@ -90,17 +106,43 @@ const VillageDetails = ({ data }: { data: any }) => {
     setNearbyAreas(nearAreas);
   }, [data]);
 
+  const feature = geoData.features.find(
+    (village: Feature) => village?.properties?.ID === data.ID
+  );
+  const handleClick = () => {
+    console.log("feature", feature);
 
+    if (feature && width >= 1024) {
+      feature.id = data.ID;
+      const results = handleFeatureSelection(
+        mapRef,
+        feature,
+        selectedFeature,
+        filteredBuildings
+      );
+      setFilteredBuildings(results?.newFilteredBuildings);
+      setSelectedFeature(results?.newSelectedFeature);
+    }
+    setScreen("Villages Details");
+    setDetailsVillage(data);
+  };
   if (!data) {
     return <div>Loading...</div>; // Return a loading message when no data is passed
   }
 
   return (
     <>
-      <div className="banner-image">
-        <span className="mt-auto">
+      <div className="cover-card fade-in relative flex w-full rounded-lg h-[200px] mb-4">
+        <img
+          src={
+            "https://images.unsplash.com/photo-1536481046830-9b11bb07e8b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=30"
+          }
+          alt="details"
+          className="aspect-video  w-full h-auto object-cover rounded-lg"
+        />
+        <h1 className="absolute bottom-4 left-4 mt-auto font-bold text-white text-xl  px-4 mb-1">
           {data.village || "No village name available"}
-        </span>
+        </h1>
       </div>
 
       <div className="research-tab pt-5 text-[14px]">
@@ -185,10 +227,13 @@ const VillageDetails = ({ data }: { data: any }) => {
         <h2 className="mt-4 text-lg font-extrabold text-sunbird-navy-blue">
           Potential for renewable energy
         </h2>
-        <img
-          src="https://images.unsplash.com/photo-1592833159117-ac790d4066e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=20"
-          className=" my-2"
-        />
+        <div className="cover-card fade-in relative flex w-full rounded-lg h-[200px] my-4">
+          <img
+            src="https://images.unsplash.com/photo-1592833159117-ac790d4066e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=20"
+            alt="details"
+            className="aspect-video  w-full h-auto object-cover rounded-lg"
+          />
+        </div>
 
         {/* Power Demand Analysis */}
         <div>
@@ -252,8 +297,11 @@ const VillageDetails = ({ data }: { data: any }) => {
         <Carousel className="area-explorer relative ">
           <CarouselContent className="w-full mb-9">
             {nearbyAreas.map((item: any, index: number) => (
-              <CarouselItem className="basis-1/2 group">
-                <div className="area-item" key={index}>
+              <CarouselItem
+                key={index}
+                className="basis-1/2 group cursor-pointer"
+              >
+                <div className="area-item" onClick={handleClick}>
                   <div className="w-full overflow-hidden rounded-[5px] mb-2">
                     <img
                       className=" hover:transform hover:scale-105 transition-all ease duration-75"

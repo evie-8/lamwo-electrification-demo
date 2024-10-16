@@ -19,7 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased`}>
         <MapProvider>
-          <MapInterface>{children}</MapInterface>
+          <MapInterface />
+          {children}
         </MapProvider>
       </body>
     </html>

@@ -7,7 +7,7 @@
 }
 
 .main-sidebar {
-    @apply flex-col gap-2 fixed left-0 top-0  w-[350px] bg-white z-40 pb-2  shadow-md h-full
+    @apply flex-col gap-2 fixed left-0 top-0 bg-white z-40 pb-2  shadow-md h-full
 }
 
 .layer-sidebar .title {
@@ -20,14 +20,19 @@
 }
 
 
-.research-cover-card {
-    @apply bg-cover h-[150px] w-full flex shadow-md mb-5 px-[25px] py-5 rounded-lg;
-    background: linear-gradient(
-        rgba(255, 255, 255, 0.315) 20%,
-        rgba(8, 8, 8, 0.979)
-      ),
-      url("/bkgrd-02.jpg") no-repeat;
-  }
+research-cover-card {
+  @apply h-[150px] w-full flex shadow-md mb-5 py-5 rounded-lg;
+  
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.315) 20%,
+    rgba(8, 8, 8, 0.979)
+  ),
+  url("/bkgrd-02.jpg") no-repeat center center;
+
+  
+  background-size: cover;
+
+}
   .research-cover-card span {
     @apply text-white font-bold text-lg;
   }
@@ -55,12 +60,11 @@
   }
   
   .cover-card {
-    @apply bg-cover h-[150px] w-full flex shadow-[rgba(0,0,0,0.24)_0px_3px_8px] mb-5 px-[25px] py-5 rounded-lg;
+    @apply shadow-[rgba(0,0,0,0.24)_0px_3px_8px];
     background: linear-gradient(
         rgba(255, 255, 255, 0.315) 20%,
         rgba(8, 8, 8, 0.979)
-      ),
-      url("/bkgrd-01.jpg") no-repeat;
+      );
   }
   .cover-card span {
     @apply text-white font-bold text-lg;
@@ -83,7 +87,7 @@
   }
   /*details*/
   .banner-image {
-    @apply bg-cover h-[150px] w-full flex shadow-[rgba(0,0,0,0.24)_0px_3px_8px] px-[25px] py-5 rounded-lg;
+    @apply bg-cover h-[150px] w-full flex shadow-[rgba(0,0,0,0.24)_0px_3px_8px] py-5 rounded-lg;
     background: linear-gradient(
         rgba(255, 255, 255, 0.315) 20%,
         rgba(8, 8, 8, 0.979)

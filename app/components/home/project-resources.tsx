@@ -3,9 +3,14 @@ import Link from "next/link";
 
 const ResearchTab = () => {
   return (
-    <div className="p-1">
-      <div className="research-cover-card fade-in">
-        <h1 className="mt-auto font-bold text-white text-xl  mb-1">
+    <div className="">
+      <div className="cover-card fade-in relative flex w-full rounded-lg h-[200px] mb-4">
+        <img
+          src={"/bkgrd-02.jpg"}
+          alt="project"
+          className="aspect-video  w-full h-auto object-cover rounded-lg"
+        />
+        <h1 className="absolute bottom-4 left-4 mt-auto font-bold text-white text-xl  px-4 mb-1">
           Resources
         </h1>
       </div>

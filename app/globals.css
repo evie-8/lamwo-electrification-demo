@@ -138,36 +138,6 @@ body {
     box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0);
  }
 }
-.dl-1 {
-  animation-delay: 0.1s;
-}
-.dl-2 {
-  animation-delay: 0.2s;
-}
-.dl-3 {
-  animation-delay: 0.3s;
-}
-.dl-4 {
-  animation-delay: 0.4s;
-}
-.dl-5 {
-  animation-delay: 0.5s;
-}
-.dl-6 {
-  animation-delay: 0.6s;
-}
-.dl-7 {
-  animation-delay: 0.7s;
-}
-.dl-8 {
-  animation-delay: 0.8s;
-}
-.dl-9 {
-  animation-delay: 0.9s;
-}
-.dl-10 {
-  animation-delay: 1s;
-}
 
 ol {
   list-style-type:disc;

@@ -12,13 +12,9 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
   const [page, setPage] = useState(0);
   const [category, setCategory] = useState("All");
   const [villages, setVillages] = useState([]);
-  const { mapRef, setScreen, screen } = useMapContext();
+  const { mapRef } = useMapContext();
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
-
-  if (searchQuery && screen !== "Villages") {
-    setScreen("Villages");
-  }
 
   const currentCategory = categoriesVillages.filter(
     (cat) => cat.text === category
@@ -137,13 +133,18 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
     <>
       {!searchQuery && (
         <>
-          <div className="cover-card fade-in">
-            <span className="mt-auto">
+          <div className="cover-card fade-in relative flex w-full rounded-lg h-[200px] mb-4 shado-lg">
+            <img
+              src={"/bkgrd-01.jpg"}
+              alt="project"
+              className="aspect-video w-full h-auto object-cover rounded-lg"
+            />
+            <h1 className="absolute bottom-4 left-4 mt-auto font-bold text-white text-xl  px-4 mb-1">
               Electrification strategy for Lamwo district
-            </span>
+            </h1>
           </div>
 
-          <div className="flex items-center center gap-y-2 gap-x-3 flex-wrap">
+          <div className="flex items-center center gap-y-2 gap-x-3 flex-wrap mt-8">
             {filters.map((cat, i) => {
               return (
                 <button
@@ -151,7 +152,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
                   onClick={() => {
                     categoryclicked(cat.text);
                   }}
-                  className={`flex justify-between items-center whitespace-nowrap rounded-full border-2 font-bold border-sunbird-navy-blue py-1 px-3 transition-all ease-in duration-100 ${
+                  className={`flex justify-between items-center text-sm whitespace-nowrap rounded-full border font-medium border-sunbird-navy-blue py-1 px-3 transition-all ease-in duration-100 ${
                     category === cat.text
                       ? "text-white bg-sunbird-navy-blue"
                       : "bg-transparent text-sunbird-navy-blue"
@@ -178,11 +179,21 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
 
       <div className="mt-3">
         {villages.length === 0 && !loading && searchQuery && (
-          <span className=" font-bold text-gray-400">No Villages Found</span>
+          <span className=" font-medium text-opacity-50">
+            No Villages Found
+          </span>
         )}
         {villages &&
           villages.map((village: any, i) => {
-            return <VillageCard key={i} data={village} />;
+            return (
+              <div
+                key={i}
+                className="fade-in"
+                style={{ animationDelay: `0.2s` }}
+              >
+                <VillageCard data={village} />
+              </div>
+            );
           })}
       </div>
 

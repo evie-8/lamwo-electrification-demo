@@ -1,27 +1,24 @@
 "use client";
 
-import Map, {
-  FullscreenControl,
-  GeolocateControl,
-  NavigationControl,
-} from "react-map-gl";
+import Map, { NavigationControl } from "react-map-gl";
 import MapLayers from "./layers/map-layers";
 import { MapMouseEvent } from "react-map-gl";
 import { useEffect, useState } from "react";
 import { useMapContext } from "./map-provider";
 import villages from "@/public/villages.json";
 import ResetControl from "./reset-control";
-import { categoriesVillages, interactiveLayerIds } from "@/constants";
+import { interactiveLayerIds } from "@/constants";
 import {
   getVillageSources,
   handleFeatureSelection,
 } from "@/lib/highlight-features";
-interface MapProps {
-  children?: React.ReactNode;
-}
+import useWindowDimensions from "@/hooks/window-dimensions";
+import SideBarToggles from "./home/toggle-sidebar";
 
-const MapInterface: React.FC<MapProps> = ({ children }) => {
+const MapInterface = () => {
+  const { width } = useWindowDimensions();
   const [isMounted, setIsMounted] = useState(false);
+
   const {
     mapRef,
     setMapRef,
@@ -119,7 +116,7 @@ const MapInterface: React.FC<MapProps> = ({ children }) => {
     return null;
   }
   return (
-    <section className="map-container">
+    <section className={`map-container ${width < 1024 ? "hidden" : "block"}`}>
       <Map
         ref={(ref) => setMapRef(ref)}
         key={key}
@@ -152,8 +149,7 @@ const MapInterface: React.FC<MapProps> = ({ children }) => {
         
         <ScaleControl />*/}
         <MapLayers />
-
-        {children}
+        <SideBarToggles />
       </Map>
     </section>
   );

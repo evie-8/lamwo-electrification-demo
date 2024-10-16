@@ -7,21 +7,32 @@ import ResearchTab from "./project-resources";
 import Villages from "./villages";
 import { useEffect, useRef, useState } from "react";
 import VillageDetails from "./village-details";
+import useWindowDimensions from "@/hooks/window-dimensions";
 
 const MainSideBar = () => {
+  const { width } = useWindowDimensions();
   const { screen, setScreen, detailsVillage, rightSideBar } = useMapContext();
   const [query, setQuery] = useState("");
   const scrollRef = useRef<HTMLElement | undefined>(undefined);
 
+  if (query.length > 0) {
+    setScreen("Villages");
+  }
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 0;
     }
   }, [screen]);
   return (
-    <section className={`main-sidebar ${rightSideBar ? "flex" : "hidden"}`}>
+    <section
+      className={`main-sidebar relative ${
+        width < 1024 ? "w-full" : "w-[350px]"
+      } ${rightSideBar ? "flex" : "hidden"}`}
+    >
       <>
-        <nav className="fixed top-0 left-0 w-[350px] flex flex-col gap-4 pb-3 border-b px-4 bg-white z-50 shadow-md">
+        <nav
+          className={`sticky top-0 left-0 w-full flex flex-col gap-4 pb-3 px-4 bg-white z-50 shadow-md`}
+        >
           <div className="flex items-center justify-start gap-4 relative my-1">
             <Image src={"/memdlogo.svg"} alt="logo" width={60} height={60} />
             <h2 className="font-extrabold text-xl text-center text-sunbird-navy-blue">
@@ -30,7 +41,6 @@ const MainSideBar = () => {
           </div>
           <div className="relative">
             <input
-              defaultValue={""}
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
@@ -63,7 +73,7 @@ const MainSideBar = () => {
 
         <section
           ref={scrollRef}
-          className={`h-[calc(10Ovh-190px)] overflow-y-auto mt-[190px] px-4 `}
+          className={`h-[calc(10Ovh-190px)] overflow-y-auto px-4  mb-3`}
         >
           {screen === "About Project" && <AboutTab />}
           {screen === "Project Resources" && <ResearchTab />}
