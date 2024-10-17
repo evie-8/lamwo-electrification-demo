@@ -16,6 +16,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
 
+  
   const currentCategory = categoriesVillages.filter(
     (cat) => cat.text === category
   )[0];
@@ -24,6 +25,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
     text: "All",
     category: "All",
   };
+
   const filters = [...categoriesVillages, newFilters];
   filters.sort((a, b) => a.text.localeCompare(b.text));
 
@@ -46,7 +48,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
   };
 
   const categoryclicked = (name: string) => {
-    setCategory(name);
+    //setCategory(name);
     if (currentCategory && currentCategory.text === name) {
       data.forEach((village) => {
         if (village.NES_category === currentCategory?.category) {
@@ -144,8 +146,9 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
                 <button
                   key={i}
                   onClick={() => {
-                    categoryclicked(cat.text);
+                    setCategory(cat.text);
                   }}
+                  onDoubleClick={() => categoryclicked(cat.text)}
                   className={`flex justify-between items-center text-sm whitespace-nowrap rounded-full border font-medium border-sunbird-navy-blue py-1 px-3 transition-all ease-in duration-100 ${
                     category === cat.text
                       ? "text-white bg-sunbird-navy-blue"

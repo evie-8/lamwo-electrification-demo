@@ -10,7 +10,7 @@ export const handleFeatureSelection = (
     previousSelectedFeature : Feature | null | undefined, 
     previousFilteredBuildings: Feature[] | null, 
   ) => {
-    if (!feature) return;
+    if (!feature || feature === previousSelectedFeature) return;
   
     const [minLng, minLat, maxLng, maxLat] = bbox(feature);
 

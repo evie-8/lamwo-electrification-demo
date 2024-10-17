@@ -18,7 +18,6 @@ const GridElectricityLayer = () => {
         }}
         paint={{
           "line-color": "#FFFFFF",
-
           "line-width": 2,
           "line-dasharray": [1, 2],
         }}

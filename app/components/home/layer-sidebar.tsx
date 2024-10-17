@@ -69,7 +69,7 @@ const buildingCategories = [
     id: "uncategorized_buildings",
     text: "Uncategorized",
     //url: "/uncategorized.png",
-    color: "#00F"
+    color: "#00F",
   },
 ];
 
@@ -88,6 +88,8 @@ const LayersSideBar = () => {
     candidate_MGs_layer: true,
     existing_MGs_layer: true,
   };
+  
+
   const { width } = useWindowDimensions();
 
   const { mapRef, sideBar } = useMapContext();

@@ -3,7 +3,7 @@
 import Map, { NavigationControl } from "react-map-gl";
 import MapLayers from "./layers/map-layers";
 import { MapMouseEvent } from "react-map-gl";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMapContext } from "../providers/map-provider";
 import villages from "@/public/villages.json";
 import ResetControl from "./reset-control";
@@ -17,8 +17,7 @@ import SideBarToggles from "./home/toggle-sidebar";
 
 const MapInterface = () => {
   const { width } = useWindowDimensions();
-  const [isMounted, setIsMounted] = useState(false);
-
+ 
   const {
     mapRef,
     setMapRef,
@@ -32,17 +31,19 @@ const MapInterface = () => {
     sideBar,
     rightSideBar,
   } = useMapContext();
+
   const current = mapRef.current;
   const map = current?.getMap();
+
   let mapWidth = `100vw`;
   let zoom = 8.7;
   if (rightSideBar && sideBar) {
-    mapWidth = `calc(100vw-600px)`;
+    mapWidth = `calc(100vw - 600px)`;
   } else if (rightSideBar) {
-    mapWidth = `calc(100vw-350px)`;
+    mapWidth = `calc(100vw - 350px)`;
     zoom = 9;
   } else if (sideBar) {
-    mapWidth = `calc(100vw-250px)`;
+    mapWidth = `calc(100vw - 250px)`;
     zoom = 9;
   } else {
     mapWidth = `100vw`;
@@ -108,13 +109,14 @@ const MapInterface = () => {
     };
   }, [mapRef, centerControl]);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsMounted(true);
+  // }, []);
 
-  if (!isMounted) {
-    return null;
-  }
+  // if (!isMounted) {
+  //   return null;
+  // }
+
   return (
     <section className={`map-container ${width < 1024 ? "hidden" : "block"}`}>
       <Map

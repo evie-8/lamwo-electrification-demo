@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useMapContext } from "../../providers/map-provider";
-import { Layer, Source } from "react-map-gl";
+import { Source } from "react-map-gl";
 
 const GridLayers = () => {
   const { mapRef } = useMapContext();

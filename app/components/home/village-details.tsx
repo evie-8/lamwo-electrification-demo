@@ -27,20 +27,11 @@ import useWindowDimensions from "@/hooks/window-dimensions";
 const VillageDetails = ({ data }: { data: any }) => {
   const [NESCategoryData, setNESCategory] = useState<any>([]);
   const [nearbyAreas, setNearbyAreas] = useState<any>([]);
-  const {
-    mapRef,
-    setDetailsVillage,
-    setFilteredBuildings,
-    selectedFeature,
-    setSelectedFeature,
-    setScreen,
-    filteredBuildings,
-  } = useMapContext();
+
   const { width } = useWindowDimensions();
 
   const getCategory = (cat: string) => {
     const category = categoriesVillages.find((c) => c.category === cat);
-    console.log("fff", category);
     return category?.text;
   };
 
@@ -106,26 +97,6 @@ const VillageDetails = ({ data }: { data: any }) => {
     setNearbyAreas(nearAreas);
   }, [data]);
 
-  const feature = geoData.features.find(
-    (village: Feature) => village?.properties?.ID === data.ID
-  );
-  const handleClick = () => {
-    console.log("feature", feature);
-
-    if (feature && width >= 1024) {
-      feature.id = data.ID;
-      const results = handleFeatureSelection(
-        mapRef,
-        feature,
-        selectedFeature,
-        filteredBuildings
-      );
-      setFilteredBuildings(results?.newFilteredBuildings);
-      setSelectedFeature(results?.newSelectedFeature);
-    }
-    setScreen("Villages Details");
-    setDetailsVillage(data);
-  };
   if (!data) {
     return <div>Loading...</div>; // Return a loading message when no data is passed
   }
@@ -297,7 +268,7 @@ const VillageDetails = ({ data }: { data: any }) => {
                 key={index}
                 className="basis-1/2 group cursor-pointer"
               >
-                <div className="area-item" onClick={handleClick}>
+                <div className="area-item">
                   <div className="w-full overflow-hidden rounded-[5px] mb-2">
                     <img
                       className=" hover:transform hover:scale-105 transition-all ease duration-75"

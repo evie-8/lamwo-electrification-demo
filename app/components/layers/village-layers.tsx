@@ -1,10 +1,13 @@
-//@ts-ignore
-import villages from "@/public/geojson_maps/lamwo_villages.geojson";
 import { Layer, Source } from "react-map-gl";
 
 const VillageLayers = () => {
   return (
-    <Source id="id_lamwovillages" type="geojson" data={villages} promoteId="ID">
+    <Source
+      id="id_lamwovillages"
+      type="geojson"
+      data={"geojson_maps/lamwo_villages.geojson"}
+      promoteId="ID"
+    >
       <Layer
         id="lamwo_villages"
         type="fill"

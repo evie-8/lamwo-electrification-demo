@@ -17,9 +17,11 @@ const MainSideBar = () => {
   const [query, setQuery] = useState("");
   const scrollRef = useRef<HTMLElement | undefined>(undefined);
 
-  if (query.length > 0) {
-    setScreen("Villages");
-  }
+  const handleClick = (screenName: any) => {
+    setScreen(screenName);
+    setQuery("");
+  };
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 0;
@@ -45,6 +47,14 @@ const MainSideBar = () => {
               onChange={(e) => {
                 setQuery(e.target.value);
               }}
+              onKeyDown={() =>
+                setScreen((prev: string) => {
+                  if (prev !== "Villages") {
+                    return "Villages";
+                  }
+                  return prev;
+                })
+              }
               placeholder="Search village ..."
             />
             <Search size={20} className={styles.search_icon} />
@@ -60,7 +70,9 @@ const MainSideBar = () => {
                         .toLowerCase()
                         .startsWith(screenName.toLowerCase()) && styles.active
                     }`}
-                    onClick={() => setScreen(screenName)}
+                    onClick={() => {
+                      handleClick(screenName);
+                    }}
                   >
                     {screenName}
                   </span>

@@ -85,7 +85,6 @@ export const categoryVillagesLayers = [
     id: "solar_home_systems",
     type: "fill",
     source: "candidate_for_solar_home_systems",
-    layout: {},
     paint: {
       "fill-color": "#CCC",
       "fill-opacity": [
@@ -100,7 +99,6 @@ export const categoryVillagesLayers = [
     id: "candidate_mg_site",
     type: "fill",
     source: "candidate_minigrid_site",
-    layout: {},
     paint: {
       "fill-color": "#4682B4", // Steel blue for candidate minigrid sites
       "fill-opacity": [
@@ -115,7 +113,6 @@ export const categoryVillagesLayers = [
     id: "existing_mg_site",
     type: "fill",
     source: "existing_minigrid_site",
-    layout: {},
     paint: {
       "fill-color": "#3CB371", // Lime green for existing minigrid sites
       "fill-opacity": [
@@ -129,8 +126,7 @@ export const categoryVillagesLayers = [
   {
     id: "grid_extension",
     type: "fill",
-    source: "grid_extension",
-    layout: {},
+    source: "grid_extension", 
     paint: {
       "fill-color": "#FF7F50", // red orange for grid extension
       "fill-opacity": [
@@ -146,6 +142,7 @@ export const categoryVillagesLayers = [
 export const interactiveLayerIds = [
   "lamwo_villages",
   "lamwo_villages_outline",
+  "viilage_name",
   "solar_home_systems",
   "candidate_mg_site",
   "grid_extension",
