@@ -1,0 +1,26 @@
+.container {
+    @apply flex flex-col mb-4
+}
+
+.container .title {
+    @apply text-[14px] font-semibold border-b pb-1 text-sunbird-navy-blue mb-2
+}
+
+.container .filter_container {
+    @apply flex items-center justify-between my-[5px]
+}
+
+.filter_container p {
+    @apply flex items-center
+}
+
+.filter_container p img{ 
+    @apply w-5 h-5
+}
+.filter_container p span:nth-child(1) {
+    @apply h-4 border w-4 inline-block
+}
+
+.filter_container p span:nth-child(2) {
+    @apply pl-2 text-[13px]
+}

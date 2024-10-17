@@ -1,25 +1,6 @@
-import { Layer, Source } from "react-map-gl";
 import { useEffect } from "react";
-import { useMapContext } from "../map-provider";
-
-const sources = [
-  {
-    source_id: "candidate_MGs",
-    source_config: {
-      type: "geojson",
-      promoteId: "ID",
-      data: "/geojson_maps/Candidate-MGs.geojson",
-    },
-  },
-  {
-    source_id: "Existing_MGs",
-    source_config: {
-      type: "geojson",
-      promoteId: "ID",
-      data: "/geojson_maps/Existing-MGs.geojson",
-    },
-  },
-];
+import { useMapContext } from "../../providers/map-provider";
+import { Layer, Source } from "react-map-gl";
 
 const GridLayers = () => {
   const { mapRef } = useMapContext();
@@ -29,7 +10,9 @@ const GridLayers = () => {
 
     const map = mapRef.current.getMap();
 
+    // Wait until the map has loaded
     map.on("load", () => {
+      // Add images for icons once the map is loaded
       map.loadImage("/location1.png", (error, image: any) => {
         if (error) throw error;
         if (!map.hasImage("mini-grid-icon")) {
@@ -43,43 +26,54 @@ const GridLayers = () => {
           map.addImage("candidate-icon", image);
         }
       });
+
+      // Safely add layers after the map has fully loaded
+      if (!map.getLayer("existing_MGs_layer")) {
+        map.addLayer({
+          id: "existing_MGs_layer",
+          type: "symbol",
+          source: "Existing_MGs",
+          layout: {
+            "icon-image": "mini-grid-icon",
+            "icon-size": 0.06,
+            "icon-anchor": "center",
+            "icon-allow-overlap": true,
+          },
+        });
+      }
+
+      if (!map.getLayer("candidate_MGs_layer")) {
+        map.addLayer({
+          id: "candidate_MGs_layer",
+          type: "symbol",
+          source: "candidate_MGs",
+          layout: {
+            "icon-image": "candidate-icon",
+            "icon-size": 0.06,
+            "icon-anchor": "center",
+            "icon-allow-overlap": true,
+          },
+        });
+      }
     });
+
+    // Clean up event listeners when the component unmounts
+    return () => {
+      map.off("load");
+    };
   }, [mapRef]);
 
   return (
     <>
-      {sources.map((source) => (
-        <Source
-          key={source.source_id}
-          id={source.source_id}
-          {...source.source_config}
-        />
-      ))}
-
-      <Layer
-        id="candidate_MGs_layer"
-        type="symbol"
-        source="candidate_MGs"
-        layout={{
-          "icon-image": "candidate-icon",
-          "icon-size": 0.06,
-          "icon-anchor": "center",
-          "icon-allow-overlap": true,
-          visibility: "none",
-        }}
+      <Source
+        id="candidate_MGs"
+        type="geojson"
+        data="/geojson_maps/Candidate-MGs.geojson"
       />
-
-      <Layer
-        id="existing_MGs_layer"
-        type="symbol"
-        source="Existing_MGs"
-        layout={{
-          "icon-image": "mini-grid-icon",
-          "icon-size": 0.06,
-          "icon-anchor": "center",
-          "icon-allow-overlap": true,
-          visibility: "none",
-        }}
+      <Source
+        id="Existing_MGs"
+        type="geojson"
+        data="/geojson_maps/Existing-MGs.geojson"
       />
     </>
   );

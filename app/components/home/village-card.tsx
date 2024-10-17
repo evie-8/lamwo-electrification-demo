@@ -1,9 +1,10 @@
-import { ChevronRightCircle } from "lucide-react";
-import React from "react";
-import { useMapContext } from "../map-provider";
-import { Feature } from "geojson";
 //@ts-ignore
 import geoData from "@/public/geojson_maps/lamwo_villages.geojson";
+import styles from "@/app/styles/village-card.module.css";
+import { ChevronRightCircle } from "lucide-react";
+import React from "react";
+import { useMapContext } from "../../providers/map-provider";
+import { Feature } from "geojson";
 import { handleFeatureSelection } from "@/lib/highlight-features";
 import { categoriesVillages } from "@/constants";
 import useWindowDimensions from "@/hooks/window-dimensions";
@@ -53,17 +54,16 @@ const VillageCard = ({ data }: Props) => {
   };
 
   return (
-    <div className="card-item group dl-3" onClick={handleClick}>
-      <div className="card-item-content">
-        <div className="card-info">
-          <span className="font-semibold">{data.village}</span>
-          <div className="tag-row mt-2">
+    <div className={`${styles.card_item} group`} onClick={handleClick}>
+      <div className={styles.card_item_content}>
+        <div className={styles.card_info}>
+          <span>{data.village}</span>
+          <div className={styles.tag_row}>
             <p
               style={{
                 backgroundColor: category.color,
                 borderColor: category.color,
               }}
-              className={`flex items-center justify-center w-fit rounded-full py-[0.5px] px-2 border text-xs text-white font-medium `}
             >
               {category.text}
             </p>
@@ -73,7 +73,7 @@ const VillageCard = ({ data }: Props) => {
       <ChevronRightCircle
         size={25}
         fontWeight={700}
-        className="text-highlight-blue my-auto group-hover:opacity-35"
+        className={`${styles.icon} group-hover:opacity-35`}
       />
     </div>
   );

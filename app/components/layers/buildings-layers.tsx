@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Layer, Source } from "react-map-gl";
-import { useMapContext } from "../map-provider";
+import { useMapContext } from "../../providers/map-provider";
 import { iconNames, iconUrls } from "@/constants";
 
 const BuildingLayers = () => {
@@ -111,23 +111,25 @@ const BuildingLayers = () => {
             ],
           }}
         />
-        <Layer
+        {/* <Layer
           id="uncategorized_buildings"
-          type="symbol"
+          type="fill"
           source="lamwo_buildings"
           filter={["==", ["get", "category"], null]}
-          layout={{
-            "icon-image": "uncategorized-icon",
-            "icon-size": 0.06,
-            "icon-allow-overlap": true,
-          }}
           paint={{
-            "icon-opacity": [
-              "case",
-              ["boolean", ["feature-state", "visible"], false],
-              1,
-              0,
-            ],
+            "fill-color": "#00f", // Color of the fill
+            "fill-opacity": 0.3, // Opacity of the fill
+          }}
+        /> */}
+        <Layer
+          id="uncategorized_buildings"
+          type="line"
+          source="lamwo_buildings"
+          filter={["==", ["get", "category"], null]}
+          paint={{
+            "line-color": "#00f", // Color of the outline (black)
+            "line-width": 1.5, // Increase the width of the outline (adjust this value for size)
+            "line-opacity": 1, // Full opacity for the outline
           }}
         />
       </Source>

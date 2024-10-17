@@ -1,0 +1,26 @@
+.layer_sidebar {
+    @apply  flex-col fixed top-0 right-0 gap-2 bg-white ml-auto z-40  pb-2 h-full shadow-md w-[250px]
+}
+
+.layer_sidebar .title {
+    @apply flex gap-4 items-center  justify-between px-4 my-3 sticky top-0 shadow-md pb-2
+}
+
+.layer_sidebar .title .title_wrapper {
+    @apply flex gap-3 items-center justify-center
+}
+
+.title_wrapper img {
+    @apply aspect-square w-5 h-5
+}
+ .title_wrapper h1  {
+    @apply font-extrabold text-lg text-sunbird-navy-blue
+}
+
+.title button {
+    @apply text-sunbird-navy-blue text-[14px] hover:opacity-60
+}
+
+.layer_sidebar .filter_wrapper {
+    @apply px-4 overflow-y-auto
+}

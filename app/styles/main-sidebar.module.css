@@ -1,0 +1,39 @@
+.main_sidebar {
+    @apply flex-col gap-2 fixed left-0 top-0 bg-white z-40 pb-2 shadow-md h-full
+  }
+  
+  .main_sidebar nav {
+    @apply sticky top-0 left-0 w-full flex flex-col gap-4 pb-3 px-4 bg-white z-50 shadow-md
+  }
+
+  .main_sidebar nav div:nth-child(1) {
+    @apply flex items-center justify-start gap-4 relative my-1
+  }
+
+  nav .title {
+     @apply font-extrabold text-xl text-center text-sunbird-navy-blue
+  }
+
+   .search_input {
+    @apply bg-white shadow-md text-start outline-none border text-[14px] placeholder:text-[14px] placeholder:text-gray-950 pl-10 pr-8 rounded-md h-10 w-full block
+    
+  }
+
+  .search_icon {
+    @apply absolute top-2 left-2
+  }
+
+  .category_filters {
+    @apply  flex justify-between items-center text-[15px] 
+  }
+
+  .category_filters span {
+    @apply relative cursor-pointer font-medium hover:opacity-80
+  }
+  .category_filters span.active {
+    @apply font-bold text-sunbird-navy-blue after:content-[''] after:block after:w-full after:h-1 after:bg-sunbird-navy-blue after:rounded-full after:absolute after:left-0 after:bottom-[-5px]
+  }
+
+  .screen_wrapper {
+    @apply h-[calc(10Ovh-190px)] overflow-y-auto px-4 mt-2  mb-3
+  }

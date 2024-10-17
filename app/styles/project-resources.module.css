@@ -1,0 +1,25 @@
+.description {
+    @apply my-2 text-[14px]
+  }
+.contributors {
+    @apply flex flex-col mt-4;
+  }
+  .contributors .contributor {
+    @apply flex items-center cursor-pointer transition-[0.3s] px-[5px] py-2.5 border-b-[0.3px] border-b-[#ddd] border-solid;
+  }
+ 
+  .contributors .contributor:hover {
+    @apply  bg-[#dddddd56];
+  }
+  .contributors .contributor img {
+    @apply mr-2.5 rounded-full border; 
+  }
+  .contributors .contributor p {
+    @apply flex flex-col;
+  }
+  .contributors .contributor p span:nth-child(1) {
+    @apply font-semibold text-[15px] text-sunbird-navy-blue;
+  }
+  .contributors .contributor p span:nth-child(2) {
+    @apply text-[13px] relative text-highlight-blue top-0.5;
+  }

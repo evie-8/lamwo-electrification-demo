@@ -4,7 +4,7 @@ import Map, { NavigationControl } from "react-map-gl";
 import MapLayers from "./layers/map-layers";
 import { MapMouseEvent } from "react-map-gl";
 import { useEffect, useState } from "react";
-import { useMapContext } from "./map-provider";
+import { useMapContext } from "../providers/map-provider";
 import villages from "@/public/villages.json";
 import ResetControl from "./reset-control";
 import { interactiveLayerIds } from "@/constants";
@@ -130,7 +130,6 @@ const MapInterface = () => {
         style={{
           width: mapWidth,
           height: "100vh",
-          zIndex: "50",
           marginRight: sideBar ? "250px" : 0,
           marginLeft: rightSideBar ? "350px" : 0,
         }}

@@ -1,0 +1,27 @@
+.card_item {
+  @apply flex justify-between transition-[0.3s] p-2.5 border-l-transparent border-b-[0.3px]  border-solid border-l hover:bg-[#dddddd56] hover:cursor-pointer hover:transition-[0.3s] hover:border-l-4 hover:border-l-[#4773b4] hover:border-solid animate-fade-in;
+}
+
+.card_item .card_item_content {
+  @apply flex flex-row;
+}
+
+.card_item .card_item_content .card_info {
+  @apply flex flex-col;
+}
+
+.card_item .card_item_content .card_info span {
+  @apply overflow-hidden w-[200px] font-semibold
+}
+
+.card_item .card_item_content .card_info .tag_row {
+  @apply overflow-x-hidden mt-2;
+}
+
+.card_item .card_item_content .card_info .tag_row p {
+  @apply flex items-center justify-center w-fit rounded-full py-[0.5px] px-2 border text-xs text-white font-medium
+}
+
+.icon {
+  @apply text-highlight-blue my-auto
+}

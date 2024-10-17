@@ -1,3 +1,4 @@
+import styles from "@/app/styles/filter-category.module.css";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 
@@ -38,33 +39,20 @@ const FilterCategory = ({
       [layer]: newVisibility,
     }));
   };
+
   return (
-    <div className="flex flex-col mb-4">
-      <p className="text-[14px] font-semibold border-b pb-1 text-sunbird-navy-blue mb-2">
-        {title}
-      </p>
+    <div className={styles.container}>
+      <p className={styles.title}>{title}</p>
       {items.map((item) => (
-        <div
-          className="flex items-center justify-between my-[5px]"
-          key={item.id}
-        >
-          <p className="flex items-center">
+        <div className={styles.filter_container} key={item.id}>
+          <p>
             {item.url && (
-              <Image
-                src={item.url}
-                className="w-5 h-5"
-                width={10}
-                height={10}
-                alt="icon"
-              />
+              <Image src={item.url} width={10} height={10} alt="icon" />
             )}
             {!item.url && item.color && (
-              <span
-                className={"h-4 border w-4 inline-block`"}
-                style={{ backgroundColor: item.color }}
-              />
+              <span style={{ backgroundColor: item.color }} />
             )}
-            <span className="pl-2 text-[13px]">{item.text}</span>
+            <span>{item.text}</span>
           </p>
           <button onClick={() => toggleLayerVisibility(item.id)}>
             {layerVisibility[item.id] ? (

@@ -20,7 +20,7 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { Feature } from "geojson";
-import { useMapContext } from "../map-provider";
+import { useMapContext } from "../../providers/map-provider";
 import { handleFeatureSelection } from "@/lib/highlight-features";
 import useWindowDimensions from "@/hooks/window-dimensions";
 
@@ -132,17 +132,14 @@ const VillageDetails = ({ data }: { data: any }) => {
 
   return (
     <>
-      <div className="cover-card fade-in relative flex w-full rounded-lg h-[200px] mb-4">
+      <div className="cover-card">
         <img
           src={
             "https://images.unsplash.com/photo-1536481046830-9b11bb07e8b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=30"
           }
           alt="details"
-          className="aspect-video  w-full h-auto object-cover rounded-lg"
         />
-        <h1 className="absolute bottom-4 left-4 mt-auto font-bold text-white text-xl  px-4 mb-1">
-          {data.village || "No village name available"}
-        </h1>
+        <h1>{data.village || "No village name available"}</h1>
       </div>
 
       <div className="research-tab pt-5 text-[14px]">
@@ -227,11 +224,10 @@ const VillageDetails = ({ data }: { data: any }) => {
         <h2 className="mt-4 text-lg font-extrabold text-sunbird-navy-blue">
           Potential for renewable energy
         </h2>
-        <div className="cover-card fade-in relative flex w-full rounded-lg h-[200px] my-4">
+        <div className="cover-card mt-2">
           <img
             src="https://images.unsplash.com/photo-1592833159117-ac790d4066e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=20"
             alt="details"
-            className="aspect-video  w-full h-auto object-cover rounded-lg"
           />
         </div>
 

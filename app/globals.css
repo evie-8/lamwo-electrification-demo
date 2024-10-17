@@ -38,107 +38,6 @@ body {
      /* Rounded corners for the track */
 }
 
-.fade-in-bottom {
-  -webkit-animation: fade-in-bottom 0.7s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-  animation: fade-in-bottom 0.7s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-}
-@-webkit-keyframes fade-in-bottom {
-  0% {
-    -webkit-transform: translateY(20px);
-    transform: translateY(20px);
-    opacity: 0;
- }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-    opacity: 1;
- }
-}
-@keyframes fade-in-bottom {
-  0% {
-    -webkit-transform: translateY(20px);
-    transform: translateY(20px);
-    opacity: 0;
- }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-    opacity: 1;
- }
-}
-.fade-in {
-  -webkit-animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-  animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-}
-@-webkit-keyframes fade-in {
-  0% {
-    opacity: 0;
- }
-  100% {
-    opacity: 1;
- }
-}
-@keyframes fade-in {
-  0% {
-    opacity: 0;
- }
-  100% {
-    opacity: 1;
- }
-}
-@keyframes slide-in-right {
-  0% {
-    -webkit-transform: translateX(1000px);
-    transform: translateX(1000px);
-    opacity: 0;
- }
-  100% {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    opacity: 1;
- }
-}
-.slide-in-right {
-  -webkit-animation: slide-in-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: slide-in-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-@-webkit-keyframes slide-in-left {
-  0% {
-    -webkit-transform: translateX(-1000px);
-    transform: translateX(-1000px);
-    opacity: 0;
- }
-  100% {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    opacity: 1;
- }
-}
-@keyframes slide-in-left {
-  0% {
-    -webkit-transform: translateX(-1000px);
-    transform: translateX(-1000px);
-    opacity: 0;
- }
-  100% {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    opacity: 1;
- }
-}
-.slide-in-left {
-  -webkit-animation: slide-in-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: slide-in-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-@keyframes pulse-selected {
-  0% {
-    box-shadow: 0px 0px 0px 0px rgba(91, 211, 219, 0.897);
- }
-  100% {
-    box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0);
- }
-}
-
 ol {
   list-style-type:disc;
   
@@ -153,7 +52,37 @@ body {
 }
 
 .map-container {
- @apply w-full h-screen fixed top-0 left-0 z-0
+ @apply w-full h-screen fixed top-0 left-0
+}
+
+.cover-card {
+  @apply shadow-[rgba(0,0,0,0.24)_0px_3px_8px] relative flex w-full rounded-lg h-[200px] mb-4 animate-fade-in;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.315) 20%,
+      rgba(8, 8, 8, 0.979)
+    );
+}
+
+.cover-card img {
+  @apply aspect-video  w-full h-auto object-cover rounded-lg
+}
+
+.cover-card h1 {
+  @apply absolute bottom-4 left-4 mt-auto font-bold text-white text-xl  px-4 mb-1
+}
+
+.area-explorer {
+  @apply grid grid-cols-1 w-full justify-center items-center;
+}
+
+.area-explorer .area-item {
+  @apply flex flex-col cursor-pointer transition-[0.3s] mr-0 px-2 py-2.5 rounded-[5px] hover:transition-[0.3s];
+}
+.area-explorer .area-item img {
+  @apply w-full h-[90px] object-cover rounded-[5px];
+}
+.area-explorer .area-item span {
+  @apply text-sm;
 }
 
 }

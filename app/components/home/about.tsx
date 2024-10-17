@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import styles from "@/app/styles/about.module.css";
 
 const AboutTab = () => {
   return (
-    <div className="text-[14px] overflow-y-auto ">
+    <div className={styles.container}>
       <Image
         src={"/memdlogo.svg"}
         className="mx-auto text-center"
@@ -11,14 +12,9 @@ const AboutTab = () => {
         width={160}
         height={160}
       />
-      <h2 className="mt-4 mb-3 text-sunbird-navy-blue font-extrabold text-xl">
-        Ministry of Energy and Mineral Development
-      </h2>
-      <p className="leading-6">
-        <Link
-          className="text-highlight-blue"
-          href="https://energyandminerals.go.ug/"
-        >
+      <h2>Ministry of Energy and Mineral Development</h2>
+      <p>
+        <Link href="https://energyandminerals.go.ug/">
           The Ministry of Energy and Mineral Development (MEMD)
         </Link>{" "}
         partnered with GIZ FAIR Forward and Sunbird AI to develop this system
@@ -26,14 +22,9 @@ const AboutTab = () => {
         district. MEMD is the government of Uganda ministry responsible for
         rural electrification.
       </p>
-      <h2 className="mt-4 mb-3 text-sunbird-navy-blue font-extrabold text-xl">
-        GIZ FAIR Foward
-      </h2>
-      <p className="leading-6">
-        <Link
-          className="text-highlight-blue"
-          href="https://www.giz.de/expertise/html/61982.html"
-        >
+      <h2>GIZ FAIR Foward</h2>
+      <p>
+        <Link href="https://www.giz.de/expertise/html/61982.html">
           FAIR Forward - Artificial Intelligence for All
         </Link>{" "}
         strives for a more open, inclusive and sustainable approach to on an
@@ -42,10 +33,8 @@ const AboutTab = () => {
         particularly supports partnering countries in Africa and Asia on behalf
         of the Federal Ministry for Economic Cooperation and Development.
       </p>
-      <h2 className="mt-4 mb-3 text-sunbird-navy-blue font-extrabold text-xl">
-        Sunbird AI
-      </h2>
-      <p className="leading-6">
+      <h2>Sunbird AI</h2>
+      <p>
         Sunbird AI is a non-profit based in Uganda. Sunbird AI uses artificial
         intelligence to advance sustainable development in Africa and works to
         strengthen the AI ecosystem in Africa. We work with partners to use data
@@ -56,11 +45,9 @@ const AboutTab = () => {
         take full advantage of AI opportunities in Africa, we also help African
         public sector institutions increase capacities and improve policies.
       </p>
-      <p className="leading-6">
+      <p>
         Find out more at{" "}
-        <Link className="text-highlight-blue" href="https://sunbird.ai">
-          https://sunbird.ai
-        </Link>
+        <Link href="https://sunbird.ai">https://sunbird.ai</Link>
       </p>
     </div>
   );

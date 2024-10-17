@@ -1,0 +1,15 @@
+.container {
+    @apply text-[14px] overflow-y-auto
+}
+
+.container h2 {
+    @apply mt-4 mb-3 text-sunbird-navy-blue font-extrabold text-xl
+}
+
+.container a {
+    @apply text-highlight-blue
+}
+
+.container p {
+    @apply leading-6
+}

@@ -1,7 +1,15 @@
 "use client";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+} from "react";
 import { MapRef } from "react-map-gl";
 import { Feature } from "geojson";
+
 // Create a context for the map reference
 interface MapContextType {
   mapRef: React.RefObject<MapRef>;
@@ -37,7 +45,7 @@ export const useMapContext = () => {
 export const MapProvider = ({ children }: { children: React.ReactNode }) => {
   const [isMounted, setIsMounted] = useState(false);
 
-  let mapRef = useRef<MapRef>(null);
+  const mapRef = useRef<MapRef>(null);
   const [detailsVillage, setDetailsVillage] = useState({});
   const [sideBar, setSideBar] = useState(true);
   const [rightSideBar, setRightSideBar] = useState(true);
@@ -49,39 +57,49 @@ export const MapProvider = ({ children }: { children: React.ReactNode }) => {
   const [filteredBuildings, setFilteredBuildings] = useState<Feature[] | null>(
     null
   );
+
   const setMapRef = (map: MapRef | null) => {
-    //@ts-ignore
     mapRef.current = map;
   };
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Memoizing the context value to avoid unnecessary re-renders
+  const value = useMemo(
+    () => ({
+      mapRef,
+      setMapRef,
+      sideBar,
+      setSideBar,
+      screen,
+      setScreen,
+      filteredBuildings,
+      setFilteredBuildings,
+      selectedFeature,
+      setSelectedFeature,
+      detailsVillage,
+      setDetailsVillage,
+      key,
+      setKey,
+      rightSideBar,
+      setRightSideBar,
+    }),
+    [
+      sideBar,
+      screen,
+      filteredBuildings,
+      selectedFeature,
+      detailsVillage,
+      key,
+      rightSideBar,
+    ]
+  );
+
   if (!isMounted) {
     return null;
   }
 
-  return (
-    <MapContext.Provider
-      value={{
-        mapRef,
-        setMapRef,
-        sideBar,
-        setSideBar,
-        screen,
-        setScreen,
-        filteredBuildings,
-        setFilteredBuildings,
-        selectedFeature,
-        setSelectedFeature,
-        detailsVillage,
-        setDetailsVillage,
-        key,
-        setKey,
-        rightSideBar,
-        setRightSideBar,
-      }}
-    >
-      {children}
-    </MapContext.Provider>
-  );
+  return <MapContext.Provider value={value}>{children}</MapContext.Provider>;
 };

@@ -3,7 +3,7 @@ import VillageCard from "./village-card";
 import { useInView } from "react-intersection-observer";
 import { fetchVillages, getTotalPages } from "@/lib/api";
 import { Loader2 } from "lucide-react";
-import { useMapContext } from "../map-provider";
+import { useMapContext } from "../../providers/map-provider";
 import data from "@/public/villages.json";
 import { categoriesVillages } from "@/constants";
 import { Skeleton } from "../ui/skeleton";
@@ -133,15 +133,9 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
     <>
       {!searchQuery && (
         <>
-          <div className="cover-card fade-in relative flex w-full rounded-lg h-[200px] mb-4 shado-lg">
-            <img
-              src={"/bkgrd-01.jpg"}
-              alt="project"
-              className="aspect-video w-full h-auto object-cover rounded-lg"
-            />
-            <h1 className="absolute bottom-4 left-4 mt-auto font-bold text-white text-xl  px-4 mb-1">
-              Electrification strategy for Lamwo district
-            </h1>
+          <div className="cover-card">
+            <img src={"/bkgrd-01.jpg"} alt="project" />
+            <h1>Electrification strategy for Lamwo district</h1>
           </div>
 
           <div className="flex items-center center gap-y-2 gap-x-3 flex-wrap mt-8">
@@ -169,9 +163,15 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
       {villages.length === 0 && !searchQuery && (
         <div className="mt-[20px]">
           {[1, 2, 3].map((item) => (
-            <div key={item} className="flex flex-col border-b gap-2 mb-4 pb-2">
-              <Skeleton className="h-3 w-full" />
-              <Skeleton className="h-2 w-[50px]" />
+            <div
+              key={item}
+              className="flex items-center justify-between border-b gap-12 mb-4 pb-2"
+            >
+              <div className="flex flex-col gap-2 w-full">
+                <Skeleton className="h-2 w-full" />
+                <Skeleton className="h-2 w-[50px]" />
+              </div>
+              <Skeleton className="p-2 rounded-full" />
             </div>
           ))}
         </div>
@@ -185,15 +185,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
         )}
         {villages &&
           villages.map((village: any, i) => {
-            return (
-              <div
-                key={i}
-                className="fade-in"
-                style={{ animationDelay: `0.2s` }}
-              >
-                <VillageCard data={village} />
-              </div>
-            );
+            return <VillageCard data={village} key={i} />;
           })}
       </div>
 

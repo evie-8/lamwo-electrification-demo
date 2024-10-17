@@ -1,5 +1,6 @@
+import styles from "@/app/styles/toggle-sidebar.module.css";
 import { ChevronRightCircle } from "lucide-react";
-import { useMapContext } from "../map-provider";
+import { useMapContext } from "../../providers/map-provider";
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Tooltip } from "@radix-ui/react-tooltip";
 
@@ -8,7 +9,7 @@ const SideBarToggles = () => {
     useMapContext();
 
   return (
-    <div className="flex items-center justify-between w-full z-50">
+    <div className={styles.container}>
       {/* Right Side Button */}
       <TooltipProvider>
         <Tooltip>
@@ -18,20 +19,16 @@ const SideBarToggles = () => {
                 setRightSideBar((prev) => !prev);
                 setKey((prev) => prev + 1);
               }}
-              className={`fixed  -translate-x-1/2 -translate-y-1/2 top-1/2 ${
-                rightSideBar ? "left-[30%]" : "left-8"
-              } flex items-center justify-center p-2 bg-black/20 rounded-full shadow-lg`}
+              className={`${rightSideBar ? "left-[30%]" : "left-8"}`}
             >
               <ChevronRightCircle
-                className={`text-sunbird-navy-blue transition-all ease duration-75 hover:opacity-60 ${
-                  rightSideBar && "transform rotate-180"
-                }`}
+                className={`${styles.icon} ${rightSideBar && styles.active}`}
                 fontWeight={800}
                 size={30}
               />
             </button>
           </TooltipTrigger>
-          <TooltipContent className="bg-white">
+          <TooltipContent>
             {rightSideBar ? "Hide details" : "Show details"}
           </TooltipContent>
         </Tooltip>
@@ -46,20 +43,16 @@ const SideBarToggles = () => {
                 setSideBar((prev) => !prev);
                 setKey((prev) => prev + 1);
               }}
-              className={`${
-                sideBar ? "left-[78%]" : "left-[97%]"
-              } fixed  -translate-x-1/2 -translate-y-1/2 top-1/2 flex items-center justify-center p-2 bg-black/20 rounded-full shadow-lg`}
+              className={`${sideBar ? "left-[78%]" : "left-[97%]"} `}
             >
               <ChevronRightCircle
-                className={`text-sunbird-navy-blue transition-all ease duration-75 hover:opacity-60 ${
-                  !sideBar && "transform rotate-180"
-                }`}
+                className={`${styles.icon} ${!sideBar && styles.active}`}
                 fontWeight={800}
                 size={30}
               />
             </button>
           </TooltipTrigger>
-          <TooltipContent className="bg-white">
+          <TooltipContent>
             {rightSideBar ? "Hide filters" : "Show filters"}
           </TooltipContent>
         </Tooltip>

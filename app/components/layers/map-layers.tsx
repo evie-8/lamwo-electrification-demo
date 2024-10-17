@@ -9,9 +9,9 @@ const MapLayers = () => {
     <>
       <VillageLayers />
       <VillageCategoryLayers />
+      <BuildingLayers />
       <GridElectricityLayer />
       <GridLayers />
-      <BuildingLayers />
     </>
   );
 };

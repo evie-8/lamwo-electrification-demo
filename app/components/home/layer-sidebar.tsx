@@ -1,7 +1,8 @@
 "use client";
 
+import styles from "@/app/styles/layer-sidebar.module.css";
 import { useState } from "react";
-import { useMapContext } from "../map-provider";
+import { useMapContext } from "../../providers/map-provider";
 import FilterCategory from "./filter-category";
 import Image from "next/image";
 import { RefreshCcwIcon } from "lucide-react";
@@ -67,7 +68,8 @@ const buildingCategories = [
   {
     id: "uncategorized_buildings",
     text: "Uncategorized",
-    url: "/uncategorized.png",
+    //url: "/uncategorized.png",
+    color: "#00F"
   },
 ];
 
@@ -83,8 +85,8 @@ const LayersSideBar = () => {
     commercial_buildings: true,
     school_buildings: true,
     uncategorized_buildings: true,
-    candidate_MGs_layer: false,
-    existing_MGs_layer: false,
+    candidate_MGs_layer: true,
+    existing_MGs_layer: true,
   };
   const { width } = useWindowDimensions();
 
@@ -112,30 +114,21 @@ const LayersSideBar = () => {
 
   return (
     <div
-      className={`layer-sidebar ${width < 1024 ? "hidden" : "flex"}  ${
-        sideBar ? "flex" : "hidden"
-      }`}
+      className={`${styles.layer_sidebar} ${
+        width < 1024 ? "hidden" : "flex"
+      }  ${sideBar ? "flex" : "hidden"}`}
     >
-      <div className="title">
-        <div className="flex gap-3 items-center justify-center">
-          <Image
-            src={"/filter.png"}
-            alt="filter icon"
-            className="aspect-square w-5 h-5"
-            width={10}
-            height={10}
-          />
-          <h1 className=" text-sunbird-navy-blue">Filters</h1>
+      <div className={styles.title}>
+        <div className={styles.title_wrapper}>
+          <Image src={"/filter.png"} alt="filter icon" width={10} height={10} />
+          <h1>Filters</h1>
         </div>
-        <button
-          onClick={resetLayerVisibility}
-          className="text-sunbird-navy-blue text-[14px] hover:opacity-60"
-        >
+        <button onClick={resetLayerVisibility}>
           <RefreshCcwIcon size={20} fontWeight={800} />
         </button>
       </div>
 
-      <div className="px-4 overflow-y-auto">
+      <div className={styles.filter_wrapper}>
         <FilterCategory
           layerVisibility={layerVisibility}
           setLayerVisibility={setLayerVisibility}
