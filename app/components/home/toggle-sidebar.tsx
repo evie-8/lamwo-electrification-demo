@@ -19,7 +19,7 @@ const SideBarToggles = () => {
                 setRightSideBar((prev) => !prev);
                 setKey((prev) => prev + 1);
               }}
-              className={`${rightSideBar ? "left-[30%]" : "left-8"}`}
+              className={"left-8"}
             >
               <ChevronRightCircle
                 className={`${styles.icon} ${rightSideBar && styles.active}`}
@@ -43,7 +43,7 @@ const SideBarToggles = () => {
                 setSideBar((prev) => !prev);
                 setKey((prev) => prev + 1);
               }}
-              className={`${sideBar ? "left-[78%]" : "left-[97%]"} `}
+              className={`-right-4`}
             >
               <ChevronRightCircle
                 className={`${styles.icon} ${!sideBar && styles.active}`}
@@ -53,7 +53,7 @@ const SideBarToggles = () => {
             </button>
           </TooltipTrigger>
           <TooltipContent>
-            {rightSideBar ? "Hide filters" : "Show filters"}
+            {sideBar ? "Hide filters" : "Show filters"}
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

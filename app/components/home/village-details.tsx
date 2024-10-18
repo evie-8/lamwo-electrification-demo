@@ -1,6 +1,3 @@
-//@ts-ignore
-import geoData from "@/public/geojson_maps/lamwo_villages.geojson";
-
 import { useEffect, useState } from "react";
 import villages from "@/public/villages.json";
 import {

@@ -11,12 +11,18 @@ import VillageDetails from "./village-details";
 import useWindowDimensions from "@/hooks/window-dimensions";
 import styles from "@/app/styles/main-sidebar.module.css";
 import Screens from "./screens";
+import { viewStates } from "@/constants";
 
 const MainSideBar = () => {
   const { width } = useWindowDimensions();
   const { screen, setScreen, detailsVillage, rightSideBar } = useMapContext();
   const [query, setQuery] = useState("");
   const scrollRef = useRef<HTMLElement | undefined>(undefined);
+  let widthSideBar = "w-[350px]"
+
+  if (width > 1350) {
+   widthSideBar = "w-[400px]"
+  } 
 
   const handleClick = (screenName: string) => {
     setScreen(screenName);
@@ -29,13 +35,13 @@ const MainSideBar = () => {
     }
   }, [screen]);
   return (
-    <section
-      className={`${styles.main_sidebar}  ${
-        width < 1024 ? "w-full" : "w-[350px]"
-      } ${rightSideBar ? "flex" : "hidden"}`}
-    >
-      {screen === "Villages" ? (
-        <>
+    <>
+      {screen !== "Villages Details" ? (
+        <section
+          className={`${styles.main_sidebar}  ${
+            width < 1024 ? "w-full" : widthSideBar
+          } ${rightSideBar ? "flex" : "hidden"}`}
+        >
           <nav>
             <div>
               <Image src={"/memdlogo.svg"} alt="logo" width={60} height={60} />
@@ -85,19 +91,17 @@ const MainSideBar = () => {
           </nav>
 
           <section ref={scrollRef} className={styles.screen_wrapper}>
-            <Villages searchQuery={query} />
+            {screen === "Villages" && <Villages searchQuery={query} />}
+            {screen === "About Project" && <AboutTab />}
+            {screen === "Project Resources" && <ResearchTab />}
           </section>
-        </>
+        </section>
       ) : (
         <Screens>
-          {screen === "About Project" && <AboutTab />}
-          {screen === "Project Resources" && <ResearchTab />}
-          {screen === "Villages Details" && (
-            <VillageDetails data={detailsVillage} />
-          )}
+          <VillageDetails data={detailsVillage} />
         </Screens>
       )}
-    </section>
+    </>
   );
 };
 

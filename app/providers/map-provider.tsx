@@ -50,7 +50,7 @@ export const MapProvider = ({ children }: { children: React.ReactNode }) => {
   const [detailsVillage, setDetailsVillage] = useState<VillageData | null>(
     null
   );
-  const [sideBar, setSideBar] = useState(true);
+  const [sideBar, setSideBar] = useState(false);
   const [rightSideBar, setRightSideBar] = useState(true);
   const [screen, setScreen] = useState("Villages");
   const [key, setKey] = useState(0);

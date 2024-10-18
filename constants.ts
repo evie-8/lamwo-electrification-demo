@@ -152,4 +152,10 @@ export const interactiveLayerIds = [
   "school_buildings",
   "commercial_buildings",
   "health_facility_buildings",
-]
+] 
+
+export const viewStates = [
+    { maxWidth: 1350, longitude: 32.765, latitude: 3.508, zoom: 9, sidebarWidth: "400px", rightSideBarWidth: "300px" },
+   // { maxWidth: , longitude: 32.765, latitude: 3.508, zoom: 9},
+    //{ maxWidth: Infinity, longitude: 32.765, latitude: 3.508, zoom: 9.0 }, // Default for larger screens
+  ];

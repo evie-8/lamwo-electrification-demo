@@ -1,16 +1,24 @@
 "use client";
 
-import styles from "@/app/styles/main-sidebar.module.css";
+import styles from "@/app/styles/screens.module.css";
 import { useMapContext } from "@/app/providers/map-provider";
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useRef } from "react";
+import useWindowDimensions from "@/hooks/window-dimensions";
 
 interface Props {
   children: React.ReactNode;
 }
 const Screens = ({ children }: Props) => {
-  const { screen, setScreen } = useMapContext();
+  const { screen, setScreen, rightSideBar } = useMapContext();
+  const { width } = useWindowDimensions();
   const scrollRef = useRef<HTMLElement | undefined>(undefined);
+  
+  let widthSideBar = "w-[350px]"
+
+  if (width > 1350) {
+   widthSideBar = "w-[400px]"
+  } 
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -18,26 +26,20 @@ const Screens = ({ children }: Props) => {
     }
   }, [screen]);
   return (
-    <>
-      <div className="backdrop-blur-lg sticky top-0 left-0 w-full flex items-center gap-4 justify-start px-4 pb-2 my-3 bg-white z-50 shadow-md">
-        <button
-          className="hover:opacity-45 p-2 rounded-full border border-transparent hover:border-sunbird-navy-blue hover:bg-sunbird-navy-blue/40"
-          onClick={() => setScreen("Villages")}
-        >
-          <ArrowLeft
-            size={20}
-            className="font-extrabold text-sunbird-navy-blue"
-          />
+    <div
+      className={`${styles.screen_wrapper} ${
+        width < 1024 ? "w-full" : widthSideBar
+      } ${rightSideBar ? "flex" : "hidden"}`}
+    >
+      <div className={styles.nav_bar}>
+        <button onClick={() => setScreen("Villages")}>
+          <ArrowLeft size={18} className={styles.icon} />
         </button>
-        <p className="text-sunbird-navy-blue font-extrabold text-lg">
-          {screen}
-        </p>
+        <p>{screen}</p>
       </div>
 
-      <div className="px-4 h-[calc(100vh-56px)] overflow-y-auto mx-auto">
-        {children}
-      </div>
-    </>
+      <div className={styles.content}>{children}</div>
+    </div>
   );
 };
 export default Screens;
