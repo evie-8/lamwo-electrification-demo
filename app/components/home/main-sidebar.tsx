@@ -29,13 +29,13 @@ const MainSideBar = () => {
     }
   }, [screen]);
   return (
-    <section
-      className={`${styles.main_sidebar}  ${
-        width < 1024 ? "w-full" : "w-[350px]"
-      } ${rightSideBar ? "flex" : "hidden"}`}
-    >
-      {screen === "Villages" ? (
-        <>
+    <>
+      {screen !== "Villages Details" ? (
+        <section
+          className={`${styles.main_sidebar}  ${
+            width < 1024 ? "w-full" : "w-[350px]"
+          } ${rightSideBar ? "flex" : "hidden"}`}
+        >
           <nav>
             <div>
               <Image src={"/memdlogo.svg"} alt="logo" width={60} height={60} />
@@ -85,19 +85,17 @@ const MainSideBar = () => {
           </nav>
 
           <section ref={scrollRef} className={styles.screen_wrapper}>
-            <Villages searchQuery={query} />
+            {screen === "Villages" && <Villages searchQuery={query} />}
+            {screen === "About Project" && <AboutTab />}
+            {screen === "Project Resources" && <ResearchTab />}
           </section>
-        </>
+        </section>
       ) : (
         <Screens>
-          {screen === "About Project" && <AboutTab />}
-          {screen === "Project Resources" && <ResearchTab />}
-          {screen === "Villages Details" && (
-            <VillageDetails data={detailsVillage} />
-          )}
+          <VillageDetails data={detailsVillage} />
         </Screens>
       )}
-    </section>
+    </>
   );
 };
 

@@ -35,5 +35,5 @@
   }
 
   .screen_wrapper {
-    @apply h-[calc(10Ovh-190px)] overflow-y-auto px-4 mt-2  mb-3
+    @apply h-[calc(10Ovh-190px)] overflow-y-auto px-5 mt-2 mb-3
   }
