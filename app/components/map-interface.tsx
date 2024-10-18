@@ -17,7 +17,7 @@ import SideBarToggles from "./home/toggle-sidebar";
 
 const MapInterface = () => {
   const { width } = useWindowDimensions();
- 
+
   const {
     mapRef,
     setMapRef,
@@ -72,31 +72,31 @@ const MapInterface = () => {
     }
   };
 
-  const centerMap = () => {
-    map?.flyTo({
-      center: [32.765, 3.508],
-      zoom: zoom,
-      essential: true,
-      animate: true,
-    });
-    if (selectedFeature) {
-      const sources = getVillageSources(selectedFeature);
-      sources.forEach((source) => {
-        current?.setFeatureState(
-          {
-            source: source,
-            id: Number(selectedFeature.id),
-          },
-          {
-            click: false,
-          }
-        );
-      });
-    }
-  };
-  const centerControl = new ResetControl({ eventHandler: centerMap });
-
   useEffect(() => {
+    const centerMap = () => {
+      map?.flyTo({
+        center: [32.765, 3.508],
+        zoom: zoom,
+        essential: true,
+        animate: true,
+      });
+      if (selectedFeature) {
+        const sources = getVillageSources(selectedFeature);
+        sources.forEach((source) => {
+          current?.setFeatureState(
+            {
+              source: source,
+              id: Number(selectedFeature.id),
+            },
+            {
+              click: false,
+            }
+          );
+        });
+      }
+    };
+    const centerControl = new ResetControl({ eventHandler: centerMap });
+
     if (current) {
       map?.addControl(centerControl, "bottom-right");
     }
@@ -107,18 +107,10 @@ const MapInterface = () => {
         map?.removeControl(centerControl);
       }
     };
-  }, [mapRef, centerControl]);
-
-  // useEffect(() => {
-  //   setIsMounted(true);
-  // }, []);
-
-  // if (!isMounted) {
-  //   return null;
-  // }
+  }, [current, map, selectedFeature, zoom]);
 
   return (
-    <section className={`map-container ${width < 1024 ? "hidden" : "block"}`}>
+    <section className={`map-container ${width < 1024 ? "hidden" : "flex"}`}>
       <Map
         ref={(ref) => setMapRef(ref)}
         key={key}
@@ -131,7 +123,8 @@ const MapInterface = () => {
         interactiveLayerIds={interactiveLayerIds}
         style={{
           width: mapWidth,
-          height: "100vh",
+          height: "100%",
+
           marginRight: sideBar ? "250px" : 0,
           marginLeft: rightSideBar ? "350px" : 0,
         }}

@@ -1,3 +1,5 @@
+/* The `ResetControl` class implements a custom Mapbox GL JS control with a button that triggers a
+specified event handler when clicked. */
 import { Map, IControl } from "mapbox-gl";
 
 class ResetControl implements IControl {

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+"use client";
+import styles from "@/app/styles/villages.module.css";
+import { useCallback, useEffect, useState } from "react";
 import VillageCard from "./village-card";
 import { useInView } from "react-intersection-observer";
 import { fetchVillages, getTotalPages } from "@/lib/api";
@@ -7,16 +9,17 @@ import { useMapContext } from "../../providers/map-provider";
 import data from "@/public/villages.json";
 import { categoriesVillages } from "@/constants";
 import { Skeleton } from "../ui/skeleton";
+import Image from "next/image";
+import { VillageData } from "@/types";
 const Villages = ({ searchQuery }: { searchQuery?: string }) => {
   const { ref, inView } = useInView();
   const [page, setPage] = useState(0);
   const [category, setCategory] = useState("All");
-  const [villages, setVillages] = useState([]);
+  const [villages, setVillages] = useState<VillageData[]>([]);
   const { mapRef } = useMapContext();
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
 
-  
   const currentCategory = categoriesVillages.filter(
     (cat) => cat.text === category
   )[0];
@@ -58,7 +61,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
     }
   };
 
-  const loadVillages = async () => {
+  const loadVillages = useCallback(async () => {
     setLoading(true);
     const nextPage = page + 1;
 
@@ -76,8 +79,6 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
         // Fetch without category filter
         newVillages = await fetchVillages(searchQuery, nextPage);
       }
-
-      //@ts-ignore
       setVillages((prev) => [...prev, ...newVillages]);
       if (searchQuery) {
         setTotalPages(Math.ceil(villages.length / 15));
@@ -87,13 +88,13 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
 
       console.log("data", newVillages);
     }
-  };
+  }, [category, currentCategory, page, searchQuery, villages]);
 
   useEffect(() => {
     if (inView) {
       loadVillages();
     }
-  }, [inView]);
+  }, [inView, loadVillages]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -114,7 +115,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
       setLoading(false);
     };
     fetchData();
-  }, [category]);
+  }, [category, currentCategory]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,11 +137,11 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
       {!searchQuery && (
         <>
           <div className="cover-card">
-            <img src={"/bkgrd-01.jpg"} alt="project" />
+            <Image alt="village" fill src={"/bkgrd-01.jpg"} />
             <h1>Electrification strategy for Lamwo district</h1>
           </div>
 
-          <div className="flex items-center center gap-y-2 gap-x-3 flex-wrap mt-8">
+          <div className={styles.filter_container}>
             {filters.map((cat, i) => {
               return (
                 <button
@@ -149,11 +150,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
                     setCategory(cat.text);
                   }}
                   onDoubleClick={() => categoryclicked(cat.text)}
-                  className={`flex justify-between items-center text-sm whitespace-nowrap rounded-full border font-medium border-sunbird-navy-blue py-1 px-3 transition-all ease-in duration-100 ${
-                    category === cat.text
-                      ? "text-white bg-sunbird-navy-blue"
-                      : "bg-transparent text-sunbird-navy-blue"
-                  }`}
+                  className={`${category === cat.text && styles.active}`}
                 >
                   <span>{cat.text}</span>
                 </button>
@@ -187,7 +184,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
           </span>
         )}
         {villages &&
-          villages.map((village: any, i) => {
+          villages.map((village: VillageData, i) => {
             return <VillageCard data={village} key={i} />;
           })}
       </div>

@@ -1,7 +1,6 @@
 import styles from "@/app/styles/filter-category.module.css";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
-
 import { MapRef } from "react-map-gl";
 
 interface Props {
@@ -22,7 +21,6 @@ const FilterCategory = ({
   layerVisibility,
 }: Props) => {
   const toggleLayerVisibility = (layer: string) => {
-    //@ts-ignore
     const map = mapRef?.current?.getMap();
     const newVisibility = !layerVisibility[layer]; // Toggle visibility state
 

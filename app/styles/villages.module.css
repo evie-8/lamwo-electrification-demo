@@ -1,0 +1,15 @@
+.filter_container {
+    @apply flex items-center gap-y-2 gap-x-3 flex-wrap mt-8
+}
+
+.filter_container button {
+    @apply flex justify-between items-center text-sm whitespace-nowrap rounded-full border font-medium border-sunbird-navy-blue py-1 px-3 transition-all ease-in duration-100 bg-transparent text-sunbird-navy-blue
+}
+
+.filter_container button.active {
+    @apply text-white bg-sunbird-navy-blue
+    
+}
+
+
+

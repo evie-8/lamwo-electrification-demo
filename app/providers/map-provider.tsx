@@ -9,6 +9,7 @@ import {
 } from "react";
 import { MapRef } from "react-map-gl";
 import { Feature } from "geojson";
+import { VillageData } from "@/types";
 
 // Create a context for the map reference
 interface MapContextType {
@@ -21,8 +22,8 @@ interface MapContextType {
   screen: string;
   setScreen: React.Dispatch<React.SetStateAction<string>>;
   selectedFeature: Feature | null | undefined;
-  setDetailsVillage: React.Dispatch<React.SetStateAction<any>>;
-  detailsVillage: any;
+  setDetailsVillage: React.Dispatch<React.SetStateAction<VillageData | null>>;
+  detailsVillage: VillageData | null;
   setSelectedFeature: React.Dispatch<
     React.SetStateAction<Feature | null | undefined>
   >;
@@ -46,7 +47,9 @@ export const MapProvider = ({ children }: { children: React.ReactNode }) => {
   const [isMounted, setIsMounted] = useState(false);
 
   const mapRef = useRef<MapRef>(null);
-  const [detailsVillage, setDetailsVillage] = useState({});
+  const [detailsVillage, setDetailsVillage] = useState<VillageData | null>(
+    null
+  );
   const [sideBar, setSideBar] = useState(true);
   const [rightSideBar, setRightSideBar] = useState(true);
   const [screen, setScreen] = useState("Villages");

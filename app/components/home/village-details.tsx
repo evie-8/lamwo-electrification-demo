@@ -1,5 +1,6 @@
 //@ts-ignore
 import geoData from "@/public/geojson_maps/lamwo_villages.geojson";
+
 import { useEffect, useState } from "react";
 import villages from "@/public/villages.json";
 import {
@@ -19,16 +20,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import { Feature } from "geojson";
-import { useMapContext } from "../../providers/map-provider";
-import { handleFeatureSelection } from "@/lib/highlight-features";
-import useWindowDimensions from "@/hooks/window-dimensions";
 
-const VillageDetails = ({ data }: { data: any }) => {
-  const [NESCategoryData, setNESCategory] = useState<any>([]);
-  const [nearbyAreas, setNearbyAreas] = useState<any>([]);
+import Image from "next/image";
+import { VillageData } from "@/types";
 
-  const { width } = useWindowDimensions();
+type CategoryData = {
+  key: string;
+  data: number;
+};
+
+const VillageDetails = ({ data }: { data: VillageData | null }) => {
+  const [NESCategoryData, setNESCategory] = useState<CategoryData[]>([]);
+  const [nearbyAreas, setNearbyAreas] = useState<VillageData[]>([]);
 
   const getCategory = (cat: string) => {
     const category = categoriesVillages.find((c) => c.category === cat);
@@ -44,29 +47,29 @@ const VillageDetails = ({ data }: { data: any }) => {
     };
   });
 
-  let nesData: any = [];
+  let nesData: CategoryData[] = [];
   let totalEmissions = 0;
-  let nearAreas: any = [];
+  let nearAreas: VillageData[] = [];
 
   useEffect(() => {
     if (!data) return;
 
     // plot NES electrification strategy
-    villagesData.forEach((village: any) => {
-      let psInstance = nesData.find((y: any) => y.key === village.NES_category);
+    villagesData.forEach((village) => {
+      const psInstance = nesData.find((y) => y.key === village?.NES_category);
 
       if (psInstance) {
         psInstance.data += 1;
       } else {
         nesData.push({
-          key: String(village.NES_category),
+          key: String(village?.NES_category),
           data: 1,
         });
       }
       totalEmissions += 1;
     });
 
-    nesData.forEach((x: any) => {
+    nesData.forEach((x) => {
       if (x.data !== 0) {
         x.data = (x.data / totalEmissions) * 100;
       } else {
@@ -74,11 +77,11 @@ const VillageDetails = ({ data }: { data: any }) => {
       }
     });
 
-    nesData = nesData.sort((a: any, b: any) => b.data - a.data);
+    nesData = nesData.sort((a, b) => b.data - a.data);
     setNESCategory(nesData);
 
     // produce data for the nearby areas to explore
-    villagesData.forEach((x: any) => {
+    villagesData.forEach((x) => {
       if (data.latitude && data.longitude) {
         x.distanceFromArea = measureCoordDistance(
           data.latitude,
@@ -92,7 +95,7 @@ const VillageDetails = ({ data }: { data: any }) => {
     });
 
     nearAreas = nearAreas.sort(
-      (a: any, b: any) => a.distanceFromArea - b.distanceFromArea
+      (a, b) => a.distanceFromArea - b.distanceFromArea
     );
     setNearbyAreas(nearAreas);
   }, [data]);
@@ -196,9 +199,10 @@ const VillageDetails = ({ data }: { data: any }) => {
           Potential for renewable energy
         </h2>
         <div className="cover-card mt-2">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1592833159117-ac790d4066e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=20"
             alt="details"
+            fill
           />
         </div>
 
@@ -254,7 +258,7 @@ const VillageDetails = ({ data }: { data: any }) => {
           <MapIcon
             size={15}
             fontWeight={700}
-            className="la la-map text-highlight-blue mr-1"
+            className=" text-highlight-blue mr-1"
           />
           <span className="text-lg font-extrabold text-sunbird-navy-blue ">
             Explore Nearby Areas:
@@ -270,10 +274,12 @@ const VillageDetails = ({ data }: { data: any }) => {
               >
                 <div className="area-item">
                   <div className="w-full overflow-hidden rounded-[5px] mb-2">
-                    <img
+                    <Image
                       className=" hover:transform hover:scale-105 transition-all ease duration-75"
                       src="https://images.unsplash.com/photo-1536481046830-9b11bb07e8b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=10"
                       alt="area image"
+                      width={100}
+                      height={100}
                     />
                   </div>
 

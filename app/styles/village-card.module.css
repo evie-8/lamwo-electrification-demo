@@ -11,7 +11,7 @@
 }
 
 .card_item .card_item_content .card_info span {
-  @apply overflow-hidden w-[200px] font-semibold
+  @apply overflow-hidden w-full line-clamp-1 text-[15px] font-semibold
 }
 
 .card_item .card_item_content .card_info .tag_row {

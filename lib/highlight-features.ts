@@ -4,6 +4,7 @@ import { MapRef } from "react-map-gl";
 import villages from "@/public/villages.json"
 import { categoriesVillages } from "@/constants";
 
+
 export const handleFeatureSelection = (
     mapInstance: MapRef,
     feature: Feature,

@@ -88,7 +88,6 @@ const LayersSideBar = () => {
     candidate_MGs_layer: true,
     existing_MGs_layer: true,
   };
-  
 
   const { width } = useWindowDimensions();
 

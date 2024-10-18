@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import VillageDetails from "./village-details";
 import useWindowDimensions from "@/hooks/window-dimensions";
 import styles from "@/app/styles/main-sidebar.module.css";
+import Screens from "./screens";
 
 const MainSideBar = () => {
   const { width } = useWindowDimensions();
@@ -17,7 +18,7 @@ const MainSideBar = () => {
   const [query, setQuery] = useState("");
   const scrollRef = useRef<HTMLElement | undefined>(undefined);
 
-  const handleClick = (screenName: any) => {
+  const handleClick = (screenName: string) => {
     setScreen(screenName);
     setQuery("");
   };
@@ -33,64 +34,69 @@ const MainSideBar = () => {
         width < 1024 ? "w-full" : "w-[350px]"
       } ${rightSideBar ? "flex" : "hidden"}`}
     >
-      <>
-        <nav>
-          <div>
-            <Image src={"/memdlogo.svg"} alt="logo" width={60} height={60} />
-            <h2 className={styles.title}>Lamwo Electrification</h2>
-          </div>
-          <div className="relative">
-            <input
-              id="search"
-              value={query}
-              className={styles.search_input}
-              onChange={(e) => {
-                setQuery(e.target.value);
-              }}
-              onKeyDown={() =>
-                setScreen((prev: string) => {
-                  if (prev !== "Villages") {
-                    return "Villages";
-                  }
-                  return prev;
-                })
-              }
-              placeholder="Search village ..."
-            />
-            <Search size={20} className={styles.search_icon} />
-          </div>
-          <p className={styles.category_filters}>
-            {["Villages", "Project Resources", "About Project"].map(
-              (screenName, i) => {
-                return (
-                  <span
-                    key={i}
-                    className={`${
-                      screen
-                        .toLowerCase()
-                        .startsWith(screenName.toLowerCase()) && styles.active
-                    }`}
-                    onClick={() => {
-                      handleClick(screenName);
-                    }}
-                  >
-                    {screenName}
-                  </span>
-                );
-              }
-            )}
-          </p>
-        </nav>
+      {screen === "Villages" ? (
+        <>
+          <nav>
+            <div>
+              <Image src={"/memdlogo.svg"} alt="logo" width={60} height={60} />
+              <h2 className={styles.title}>Lamwo Electrification</h2>
+            </div>
+            <div className="relative">
+              <input
+                id="search"
+                value={query}
+                className={styles.search_input}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                }}
+                onKeyDown={() =>
+                  setScreen((prev: string) => {
+                    if (prev !== "Villages") {
+                      return "Villages";
+                    }
+                    return prev;
+                  })
+                }
+                placeholder="Search village ..."
+              />
+              <Search size={20} className={styles.search_icon} />
+            </div>
+            <p className={styles.category_filters}>
+              {["Villages", "Project Resources", "About Project"].map(
+                (screenName, i) => {
+                  return (
+                    <span
+                      key={i}
+                      className={`${
+                        screen
+                          .toLowerCase()
+                          .startsWith(screenName.toLowerCase()) && styles.active
+                      }`}
+                      onClick={() => {
+                        handleClick(screenName);
+                      }}
+                    >
+                      {screenName}
+                    </span>
+                  );
+                }
+              )}
+            </p>
+          </nav>
 
-        <section ref={scrollRef} className={styles.screen_wrapper}>
+          <section ref={scrollRef} className={styles.screen_wrapper}>
+            <Villages searchQuery={query} />
+          </section>
+        </>
+      ) : (
+        <Screens>
           {screen === "About Project" && <AboutTab />}
           {screen === "Project Resources" && <ResearchTab />}
-          {screen === "Villages" && <Villages searchQuery={query} />}
           {screen === "Villages Details" && (
             <VillageDetails data={detailsVillage} />
           )}
-        </section>
-      </>
+        </Screens>
+      )}
     </section>
   );
 };

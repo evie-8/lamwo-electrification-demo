@@ -1,4 +1,3 @@
-//@ts-ignore
 import geoData from "@/public/geojson_maps/lamwo_villages.geojson";
 import styles from "@/app/styles/village-card.module.css";
 import { ChevronRightCircle } from "lucide-react";
@@ -8,9 +7,10 @@ import { Feature } from "geojson";
 import { handleFeatureSelection } from "@/lib/highlight-features";
 import { categoriesVillages } from "@/constants";
 import useWindowDimensions from "@/hooks/window-dimensions";
+import { VillageData } from "@/types";
 
 interface Props {
-  data: any;
+  data: VillageData;
 }
 const VillageCard = ({ data }: Props) => {
   const {
