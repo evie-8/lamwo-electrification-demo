@@ -3,7 +3,7 @@
 }
 
 .container button {
-    @apply fixed -translate-x-1/2 -translate-y-1/2 top-1/2 flex items-center justify-center p-2 bg-black/20 rounded-full shadow-lg 
+    @apply absolute -translate-x-1/2 -translate-y-1/2 top-1/2 flex items-center justify-center p-2 bg-black/20 rounded-full shadow-lg 
 }
 
 .icon {

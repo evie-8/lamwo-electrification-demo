@@ -1,5 +1,5 @@
 .layer_sidebar {
-    @apply  flex-col fixed top-0 right-0 gap-2 bg-white ml-auto z-40  pb-2 h-full shadow-md w-[250px]
+    @apply  flex-col fixed top-0 right-0 gap-2 bg-white ml-auto z-40  pb-2 h-full shadow-md
 }
 
 .layer_sidebar .title {

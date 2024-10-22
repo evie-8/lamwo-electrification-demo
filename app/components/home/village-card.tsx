@@ -1,6 +1,6 @@
 import geoData from "@/public/geojson_maps/lamwo_villages.geojson";
 import styles from "@/app/styles/village-card.module.css";
-import { ChevronRightCircle } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import React from "react";
 import { useMapContext } from "../../providers/map-provider";
 import { Feature } from "geojson";
@@ -70,7 +70,7 @@ const VillageCard = ({ data }: Props) => {
           </div>
         </div>
       </div>
-      <ChevronRightCircle
+      <ChevronRight
         size={25}
         fontWeight={700}
         className={`${styles.icon} group-hover:opacity-35`}

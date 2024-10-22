@@ -17,6 +17,11 @@ const MainSideBar = () => {
   const { screen, setScreen, detailsVillage, rightSideBar } = useMapContext();
   const [query, setQuery] = useState("");
   const scrollRef = useRef<HTMLElement | undefined>(undefined);
+  let widthSideBar = "w-[350px]";
+
+  if (width > 1350) {
+    widthSideBar = "w-[400px]";
+  }
 
   const handleClick = (screenName: string) => {
     setScreen(screenName);
@@ -33,7 +38,7 @@ const MainSideBar = () => {
       {screen !== "Villages Details" ? (
         <section
           className={`${styles.main_sidebar}  ${
-            width < 1024 ? "w-full" : "w-[350px]"
+            width < 1024 ? "w-full" : widthSideBar
           } ${rightSideBar ? "flex" : "hidden"}`}
         >
           <nav>

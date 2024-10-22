@@ -19,7 +19,7 @@
 }
 
 .card_item .card_item_content .card_info .tag_row p {
-  @apply flex items-center justify-center w-fit rounded-full py-[0.5px] px-2 border text-xs text-white font-medium
+  @apply flex items-center justify-center w-fit rounded-full py-[1px] px-2 border text-xs text-white font-medium
 }
 
 .icon {

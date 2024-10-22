@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "@/app/styles/layer-sidebar.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMapContext } from "../../providers/map-provider";
 import FilterCategory from "./filter-category";
 import Image from "next/image";
@@ -90,11 +90,24 @@ const LayersSideBar = () => {
   };
 
   const { width } = useWindowDimensions();
+  let widthSideBar = "w-[250px]";
 
-  const { mapRef, sideBar } = useMapContext();
+  if (width > 1350) {
+    widthSideBar = "w-[300px]";
+  }
+
+  const { mapRef, sideBar, setSideBar } = useMapContext();
   const [layerVisibility, setLayerVisibility] = useState<{
     [key: string]: boolean;
   }>(defaultLayerVisibility);
+
+  useEffect(() => {
+    if (width >= 1024 && width <= 1250) {
+      setSideBar(false);
+    } else {
+      setSideBar(true);
+    }
+  }, [width, setSideBar]);
 
   const resetLayerVisibility = () => {
     const map = mapRef?.current?.getMap();
@@ -115,7 +128,7 @@ const LayersSideBar = () => {
 
   return (
     <div
-      className={`${styles.layer_sidebar} ${
+      className={`${widthSideBar} ${styles.layer_sidebar} ${
         width < 1024 ? "hidden" : "flex"
       }  ${sideBar ? "flex" : "hidden"}`}
     >

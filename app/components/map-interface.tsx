@@ -37,17 +37,45 @@ const MapInterface = () => {
 
   let mapWidth = `100vw`;
   let zoom = 8.7;
-  if (rightSideBar && sideBar) {
-    mapWidth = `calc(100vw - 600px)`;
-  } else if (rightSideBar) {
-    mapWidth = `calc(100vw - 350px)`;
-    zoom = 9;
-  } else if (sideBar) {
-    mapWidth = `calc(100vw - 250px)`;
-    zoom = 9;
+  let marginLeft = `250px`;
+  let marginRight = `350px`;
+  if (width > 1350) {
+    if (rightSideBar && sideBar) {
+      mapWidth = `calc(100vw - 700px)`;
+      if (width > 1500) {
+        zoom = 9;
+      } else {
+        zoom = 8.7;
+      }
+
+      marginLeft = `300px`;
+      marginRight = `400px`;
+    } else if (rightSideBar) {
+      mapWidth = `calc(100vw -  400px)`;
+      marginRight = `400px`;
+      zoom = 9;
+    } else if (sideBar) {
+      mapWidth = `calc(100vw - 300px)`;
+      marginLeft = `300px`;
+      zoom = 9;
+    } else {
+      mapWidth = `100vw`;
+      zoom = 9.1;
+    }
   } else {
-    mapWidth = `100vw`;
-    zoom = 9.1;
+    if (rightSideBar && sideBar) {
+      mapWidth = `calc(100vw - 600px)`;
+      zoom = 8.7;
+    } else if (rightSideBar) {
+      mapWidth = `calc(100vw - 350px)`;
+      zoom = 9;
+    } else if (sideBar) {
+      mapWidth = `calc(100vw - 250px)`;
+      zoom = 9;
+    } else {
+      mapWidth = `100vw`;
+      zoom = 9.1;
+    }
   }
 
   const handleClick = (event: MapMouseEvent) => {
@@ -119,29 +147,22 @@ const MapInterface = () => {
           longitude: 32.765,
           latitude: 3.508,
           zoom: zoom,
+          pitch: 0,
         }}
         interactiveLayerIds={interactiveLayerIds}
+        pitchWithRotate={false}
+        dragRotate={false}
         style={{
           width: mapWidth,
           height: "100%",
 
-          marginRight: sideBar ? "250px" : 0,
-          marginLeft: rightSideBar ? "350px" : 0,
+          marginRight: sideBar ? marginLeft : 0,
+          marginLeft: rightSideBar ? marginRight : 0,
         }}
         mapStyle="mapbox://styles/mapbox/light-v10"
         onClick={handleClick}
       >
-        <NavigationControl
-          showCompass={true}
-          showZoom={true}
-          visualizePitch={true}
-          position="bottom-right"
-        />
-
-        {/* <GeolocateControl position="bottom-right" />
-        <FullscreenControl position="bottom-right" />
-        
-        <ScaleControl />*/}
+        <NavigationControl showZoom={true} position="bottom-right" />
         <MapLayers />
         <SideBarToggles />
       </Map>

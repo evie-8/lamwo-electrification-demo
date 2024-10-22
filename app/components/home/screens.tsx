@@ -13,6 +13,12 @@ const Screens = ({ children }: Props) => {
   const { screen, setScreen, rightSideBar } = useMapContext();
   const { width } = useWindowDimensions();
   const scrollRef = useRef<HTMLElement | undefined>(undefined);
+  
+  let widthSideBar = "w-[350px]"
+
+  if (width > 1350) {
+   widthSideBar = "w-[400px]"
+  } 
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -22,7 +28,7 @@ const Screens = ({ children }: Props) => {
   return (
     <div
       className={`${styles.screen_wrapper} ${
-        width < 1024 ? "w-full" : "w-[350px]"
+        width < 1024 ? "w-full" : widthSideBar
       } ${rightSideBar ? "flex" : "hidden"}`}
     >
       <div className={styles.nav_bar}>

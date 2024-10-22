@@ -17,5 +17,5 @@
 }
 
 .screen_wrapper .content {
-    @apply px-5 h-[calc(100vh-43.33px)] overflow-y-auto mx-auto
+    @apply px-5 h-[calc(100vh-43.33px)] overflow-y-auto mx-auto w-full
 }

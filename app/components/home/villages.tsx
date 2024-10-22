@@ -162,9 +162,9 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
 
       {villages.length === 0 && !searchQuery && (
         <div className="mt-[20px]">
-          {[1, 2, 3].map((item) => (
+          {[...Array(5)].map((_, i) => (
             <div
-              key={item}
+              key={i}
               className="flex items-center justify-between border-b gap-12 mb-4 pb-2"
             >
               <div className="flex flex-col gap-2 w-full">
@@ -189,7 +189,7 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
           })}
       </div>
 
-      {page !== 0 && page < totalPages && !loading && (
+      {page !== 0 && page < totalPages && !loading && villages.length > 0 && (
         <div className="flex items-center justify-center mt-3" ref={ref}>
           <Loader2 size={20} className="animate-spin" />
         </div>

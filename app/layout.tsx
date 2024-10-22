@@ -1,3 +1,4 @@
+import {Poppins} from "next/font/google"
 import type { Metadata } from "next";
 import "./globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     //images: "https://yourdomain.com/images/electrification.jpg",
   },
 };
+//const poppins = Poppins({subsets: ['latin'], weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']})
 
 export default function RootLayout({
   children,
