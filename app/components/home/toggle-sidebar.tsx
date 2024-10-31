@@ -5,7 +5,7 @@ import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Tooltip } from "@radix-ui/react-tooltip";
 
 const SideBarToggles = () => {
-  const { setSideBar, setKey, setRightSideBar, rightSideBar, sideBar } =
+  const { setSideBar, setRightSideBar, rightSideBar, sideBar } =
     useMapContext();
 
   return (
@@ -17,7 +17,6 @@ const SideBarToggles = () => {
             <button
               onClick={() => {
                 setRightSideBar((prev) => !prev);
-                setKey((prev) => prev + 1);
               }}
               className={"left-8"}
             >
@@ -41,7 +40,6 @@ const SideBarToggles = () => {
             <button
               onClick={() => {
                 setSideBar((prev) => !prev);
-                setKey((prev) => prev + 1);
               }}
               className={`-right-4`}
             >

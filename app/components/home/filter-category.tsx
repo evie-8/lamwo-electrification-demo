@@ -16,7 +16,7 @@ interface Props {
   >;
 }
 
-const categoryColorMapping: { [key: string]: string } = {
+export const categoryColorMapping: { [key: string]: string } = {
   candidate_for_solar_home_systems: "#CCC",
   candidate_minigrid_site: "#4682B4",
   existing_minigrid_site: "#3CB371",

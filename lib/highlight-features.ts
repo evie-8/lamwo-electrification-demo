@@ -1,10 +1,7 @@
 import bbox from "@turf/bbox";
 import {Feature} from "geojson"
 import { MapRef } from "react-map-gl";
-import villages from "@/public/villages.json"
-import { categoriesVillages } from "@/constants";
 import { FilterSpecification } from "mapbox-gl";
-
 
 export const handleFeatureSelection = (
     mapInstance: MapRef,
@@ -16,7 +13,6 @@ export const handleFeatureSelection = (
   
     const [minLng, minLat, maxLng, maxLat] = bbox(feature);
 
-  const sources = getVillageSources(feature)
     const boundsFilter: FilterSpecification = [
       "all",
       "within",
@@ -43,21 +39,17 @@ export const handleFeatureSelection = (
     );
   
     if (previousSelectedFeature) {
-      sources?.forEach((source) => {
+    
         mapInstance?.setFeatureState(
-          { source, id: Number(previousSelectedFeature.id) },
+          { source: 'id_lamwovillages', id: Number(previousSelectedFeature.id) },
           { click: false }
         );
-      });
+      
     }
-  
-
-    sources?.forEach((source) => {
       mapInstance?.setFeatureState(
-        { source, id: Number(feature.id) },
+        { source: "id_lamwovillages", id: Number(feature.id) },
         { click: true }
       );
-    });
 
     const buildingsFiltered = mapInstance?.querySourceFeatures(
       "lamwo_buildings",
@@ -94,15 +86,15 @@ export const handleFeatureSelection = (
     return null;
   };
 
-  export const getVillageSources = (feature: Feature | null | undefined) => {
-    const filteredVillage = villages.filter(
-      (v) => v.ID === feature?.id
-    )[0];
-    const sourceFiltered = categoriesVillages.filter(
-      (f) => f.category === filteredVillage.NES_category
-    )[0];
+  // export const getVillageSources = (feature: Feature | null | undefined) => {
+  //   const filteredVillage = villages.filter(
+  //     (v) => v.ID === feature?.id
+  //   )[0];
+  //   const sourceFiltered = categoriesVillages.filter(
+  //     (f) => f.category === filteredVillage.NES_category
+  //   )[0];
 
-    const sources = ["id_lamwovillages", sourceFiltered.source_id];
-    return sources
+  //   const sources = ["id_lamwovillages", sourceFiltered.source_id];
+  //   return sources
 
-  }
+  // }

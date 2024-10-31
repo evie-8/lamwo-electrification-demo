@@ -3,11 +3,12 @@
 import styles from "@/app/styles/layer-sidebar.module.css";
 import { useEffect, useState } from "react";
 import { useMapContext } from "../../providers/map-provider";
-import FilterCategory from "./filter-category";
+import FilterCategory, { categoryColorMapping } from "./filter-category";
 import Image from "next/image";
 import { RefreshCcwIcon } from "lucide-react";
 import useWindowDimensions from "@/hooks/window-dimensions";
 import { LayerKeys } from "@/types";
+import { FilterSpecification } from "mapbox-gl";
 
 const layers = [
   {
@@ -116,11 +117,36 @@ const LayersSideBar = () => {
     // Loop through each layer and reset to default visibility
     Object.keys(defaultLayerVisibility).forEach((layer) => {
       const isVisible = defaultLayerVisibility[layer as LayerKeys];
-      map?.setLayoutProperty(
-        layer,
-        "visibility",
-        isVisible ? "visible" : "none"
-      );
+
+      // Check if the layer is a category that requires color resetting
+      if (categoryColorMapping[layer]) {
+        // Reset the colors for the lamwo_villages layer
+        const colorExpression: FilterSpecification = [
+          "match",
+          ["get", "category"],
+        ];
+
+        // Iterate over the categories to set their default colors
+        Object.keys(categoryColorMapping).forEach((category) => {
+          colorExpression.push(
+            category,
+            categoryColorMapping[category] // Use the color for each category
+          );
+        });
+
+        // Add a default color at the end of the expression
+        colorExpression.push(categoryColorMapping.default);
+
+        // Apply the color expression to the lamwo_villages layer
+        map?.setPaintProperty("lamwo_villages", "fill-color", colorExpression);
+      } else {
+        // For layers that are not categories, set their visibility
+        map?.setLayoutProperty(
+          layer,
+          "visibility",
+          isVisible ? "visible" : "none"
+        );
+      }
     });
 
     // Reset the state to default visibility

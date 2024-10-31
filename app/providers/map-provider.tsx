@@ -33,8 +33,6 @@ interface MapContextType {
   setFilteredBuildings: React.Dispatch<
     React.SetStateAction<Feature[] | null | undefined>
   >;
-  key: number;
-  setKey: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const MapContext = createContext<MapContextType | undefined>(undefined);
@@ -57,7 +55,7 @@ export const MapProvider = ({ children }: { children: React.ReactNode }) => {
   const [sideBar, setSideBar] = useState(true);
   const [rightSideBar, setRightSideBar] = useState(true);
   const [screen, setScreen] = useState("Villages");
-  const [key, setKey] = useState(0);
+
   const [selectedFeature, setSelectedFeature] = useState<
     Feature | null | undefined
   >(null);
@@ -88,8 +86,6 @@ export const MapProvider = ({ children }: { children: React.ReactNode }) => {
       setSelectedFeature,
       detailsVillage,
       setDetailsVillage,
-      key,
-      setKey,
       rightSideBar,
       setRightSideBar,
     }),
@@ -99,7 +95,6 @@ export const MapProvider = ({ children }: { children: React.ReactNode }) => {
       filteredBuildings,
       selectedFeature,
       detailsVillage,
-      key,
       rightSideBar,
     ]
   );
