@@ -34,93 +34,92 @@ const BuildingLayers = () => {
   }, [mapRef]);
 
   return (
-    <>
-      <Source
-        id="lamwo_buildings"
-        type="geojson"
-        data={"geojson_maps/lamwo_buildings.geojson"}
-        promoteId="fid"
-      >
-        <Layer
-          id="school_buildings"
-          type="symbol"
-          source="lamwo_buildings"
-          filter={["==", ["get", "category"], "school"]}
-          layout={{
-            "icon-image": "school-icon",
-            "icon-size": 0.06,
-            "icon-allow-overlap": true,
-          }}
-          paint={{
-            "icon-opacity": [
-              "case",
-              ["boolean", ["feature-state", "visible"], false],
-              1,
-              0,
-            ],
-          }}
-        />
+    <Source
+      id="lamwo_buildings"
+      type="geojson"
+      data={"/geojson_maps/lamwo_buildings.geojson"}
+      promoteId="fid"
+    >
+      <Layer
+        id="school_buildings"
+        type="symbol"
+        source="lamwo_buildings"
+        filter={["==", ["get", "category"], "school"]}
+        layout={{
+          "icon-image": "school-icon",
+          "icon-size": 0.06,
+          "icon-allow-overlap": true,
+        }}
+        paint={{
+          "icon-opacity": [
+            "case",
+            ["boolean", ["feature-state", "visible"], false],
+            1,
+            0,
+          ],
+        }}
+      />
 
-        <Layer
-          id="health_facility_buildings"
-          type="symbol"
-          source="lamwo_buildings"
-          filter={["==", ["get", "category"], "health facility"]}
-          layout={{
-            "icon-image": "hospital-icon",
-            "icon-size": 0.06,
-            "icon-allow-overlap": true,
-          }}
-          paint={{
-            "icon-opacity": [
-              "case",
-              ["boolean", ["feature-state", "visible"], false],
-              1,
-              0,
-            ],
-          }}
-        />
+      <Layer
+        id="health_facility_buildings"
+        type="symbol"
+        source="lamwo_buildings"
+        filter={["==", ["get", "category"], "health facility"]}
+        layout={{
+          "icon-image": "hospital-icon",
+          "icon-size": 0.06,
+          "icon-allow-overlap": true,
+        }}
+        paint={{
+          "icon-opacity": [
+            "case",
+            ["boolean", ["feature-state", "visible"], false],
+            1,
+            0,
+          ],
+        }}
+      />
 
-        <Layer
-          id="commercial_buildings"
-          type="symbol"
-          source="lamwo_buildings"
-          filter={["==", ["get", "category"], "commercial"]}
-          layout={{
-            "icon-image": "commercial-icon",
-            "icon-size": 0.06,
-            "icon-allow-overlap": true,
-          }}
-          paint={{
-            "icon-opacity": [
-              "case",
-              ["boolean", ["feature-state", "visible"], false],
-              1,
-              0,
-            ],
-          }}
-        />
+      <Layer
+        id="commercial_buildings"
+        type="symbol"
+        source="lamwo_buildings"
+        filter={["==", ["get", "category"], "commercial"]}
+        layout={{
+          "icon-image": "commercial-icon",
+          "icon-size": 0.06,
+          "icon-allow-overlap": true,
+        }}
+        paint={{
+          "icon-opacity": [
+            "case",
+            ["boolean", ["feature-state", "visible"], false],
+            1,
+            0,
+          ],
+        }}
+      />
 
-        <Layer
-          id="administrative_buildings"
-          type="symbol"
-          source="lamwo_buildings"
-          filter={["==", ["get", "category"], "administrative"]}
-          layout={{
-            "icon-image": "administrative-icon",
-            "icon-size": 0.06,
-            "icon-allow-overlap": true,
-          }}
-          paint={{
-            "icon-opacity": [
-              "case",
-              ["boolean", ["feature-state", "visible"], false],
-              1,
-              0,
-            ],
-          }}
-        />
-        {/* <Layer
+      <Layer
+        id="administrative_buildings"
+        type="symbol"
+        source="lamwo_buildings"
+        filter={["==", ["get", "category"], "administrative"]}
+        layout={{
+          "icon-image": "administrative-icon",
+          "icon-size": 0.06,
+          "icon-allow-overlap": true,
+        }}
+        paint={{
+          "icon-opacity": [
+            "case",
+            ["boolean", ["feature-state", "visible"], false],
+            1,
+            0,
+          ],
+        }}
+      />
+      {/* <Layer
           id="uncategorized_buildings"
           type="fill"
           source="lamwo_buildings"
@@ -130,19 +129,18 @@ const BuildingLayers = () => {
             "fill-opacity": 0.3, // Opacity of the fill
           }}
         /> */}
-        <Layer
-          id="uncategorized_buildings"
-          type="line"
-          source="lamwo_buildings"
-          filter={["==", ["get", "category"], null]}
-          paint={{
-            "line-color": "#00f", // Color of the outline (black)
-            "line-width": 1.5, // Increase the width of the outline (adjust this value for size)
-            "line-opacity": 1, // Full opacity for the outline
-          }}
-        />
-      </Source>
-    </>
+      <Layer
+        id="uncategorized_buildings"
+        type="line"
+        source="lamwo_buildings"
+        filter={["==", ["get", "category"], null]}
+        paint={{
+          "line-color": "#00f", // Color of the outline (black)
+          "line-width": 1.5, // Increase the width of the outline (adjust this value for size)
+          "line-opacity": 1, // Full opacity for the outline
+        }}
+      />
+    </Source>
   );
 };
 

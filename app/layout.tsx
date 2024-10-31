@@ -7,13 +7,13 @@ import { MapProvider } from "./providers/map-provider";
 export const metadata: Metadata = {
   title: "Lamwo District Electrification",
   description: "Electrification strategy for Lamwo District",
-  keywords: ["Machine learning", "Electrification In Uganda"],
+  keywords: ["Machine learning", "Electrification In Uganda", "Lamwo", "Lamwo District", "Sustainable energy"],
   authors: [{ name: "Sunbird AI", url: "https//sunbird.ai" }],
   robots: "index, follow",
   openGraph: {
     title: "Lamwo District Electrification",
     description: "Electrification strategy for Lamwo District",
-    url: "https://lamwo-electrification.vercel.app", //getimages
+    url: "https://lamwo-electrification-demo.vercel.app", //getimages
     //images: "https://yourdomain.com/images/electrification.jpg",
   },
 };

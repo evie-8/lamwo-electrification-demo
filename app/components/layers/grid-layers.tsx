@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useMapContext } from "../../providers/map-provider";
-import { Source } from "react-map-gl";
+import { Layer, Source } from "react-map-gl";
 
 const GridLayers = () => {
   const { mapRef } = useMapContext();
@@ -12,7 +12,7 @@ const GridLayers = () => {
 
     // Wait until the map has loaded
     map.on("load", () => {
-      // Add images for icons once the map is loaded
+      //Add images for icons once the map is loaded
       map.loadImage(
         "/location1.png",
         (
@@ -44,35 +44,6 @@ const GridLayers = () => {
           }
         }
       );
-
-      // Safely add layers after the map has fully loaded
-      if (!map.getLayer("existing_MGs_layer")) {
-        map.addLayer({
-          id: "existing_MGs_layer",
-          type: "symbol",
-          source: "Existing_MGs",
-          layout: {
-            "icon-image": "mini-grid-icon",
-            "icon-size": 0.06,
-            "icon-anchor": "center",
-            "icon-allow-overlap": true,
-          },
-        });
-      }
-
-      if (!map.getLayer("candidate_MGs_layer")) {
-        map.addLayer({
-          id: "candidate_MGs_layer",
-          type: "symbol",
-          source: "candidate_MGs",
-          layout: {
-            "icon-image": "candidate-icon",
-            "icon-size": 0.06,
-            "icon-anchor": "center",
-            "icon-allow-overlap": true,
-          },
-        });
-      }
     });
   }, [mapRef]);
 
@@ -82,12 +53,36 @@ const GridLayers = () => {
         id="candidate_MGs"
         type="geojson"
         data="/geojson_maps/Candidate-MGs.geojson"
-      />
+      >
+        <Layer
+          id="candidate_MGs_layer"
+          type="symbol"
+          source="candidate_MGs"
+          layout={{
+            "icon-image": "candidate-icon",
+            "icon-size": 0.06,
+            "icon-anchor": "center",
+            "icon-allow-overlap": true,
+          }}
+        />
+      </Source>
       <Source
         id="Existing_MGs"
         type="geojson"
         data="/geojson_maps/Existing-MGs.geojson"
-      />
+      >
+        <Layer
+          id="existing_MGs_layer"
+          type="symbol"
+          source="Existing_MGs"
+          layout={{
+            "icon-image": "mini-grid-icon",
+            "icon-size": 0.06,
+            "icon-anchor": "center",
+            "icon-allow-overlap": true,
+          }}
+        />
+      </Source>
     </>
   );
 };

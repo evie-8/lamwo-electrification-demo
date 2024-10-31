@@ -5,8 +5,6 @@ import VillageCard from "./village-card";
 import { useInView } from "react-intersection-observer";
 import { fetchVillages, getTotalPages } from "@/lib/api";
 import { Loader2 } from "lucide-react";
-import { useMapContext } from "../../providers/map-provider";
-import data from "@/public/villages.json";
 import { categoriesVillages } from "@/constants";
 import { Skeleton } from "../ui/skeleton";
 import Image from "next/image";
@@ -16,7 +14,6 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
   const [page, setPage] = useState(0);
   const [category, setCategory] = useState("All");
   const [villages, setVillages] = useState<VillageData[]>([]);
-  const { mapRef } = useMapContext();
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -32,34 +29,34 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
   const filters = [...categoriesVillages, newFilters];
   filters.sort((a, b) => a.text.localeCompare(b.text));
 
-  const triggerFlicker = (id: number, source: string) => {
-    if (mapRef.current) {
-      // Reduce opacity
-      mapRef.current.setFeatureState(
-        { source: source, id: id },
-        { click: true }
-      );
+  // const triggerFlicker = (id: number, source: string) => {
+  //   if (mapRef.current) {
+  //     // Reduce opacity
+  //     mapRef.current.setFeatureState(
+  //       { source: source, id: id },
+  //       { click: true }
+  //     );
 
-      // Restore opacity after a short delay (e.g., 500ms)
-      setTimeout(() => {
-        mapRef?.current?.setFeatureState(
-          { source: source, id: id },
-          { click: false }
-        );
-      }, 500);
-    }
-  };
+  //     // Restore opacity after a short delay (e.g., 500ms)
+  //     setTimeout(() => {
+  //       mapRef?.current?.setFeatureState(
+  //         { source: source, id: id },
+  //         { click: false }
+  //       );
+  //     }, 500);
+  //   }
+  // };
 
-  const categoryclicked = (name: string) => {
-    //setCategory(name);
-    if (currentCategory && currentCategory.text === name) {
-      data.forEach((village) => {
-        if (village.NES_category === currentCategory?.category) {
-          triggerFlicker(village.ID, currentCategory.source_id);
-        }
-      });
-    }
-  };
+  // const categoryclicked = (name: string) => {
+  //   //setCategory(name);
+  //   if (currentCategory && currentCategory.text === name) {
+  //     data.forEach((village) => {
+  //       if (village.NES_category === currentCategory?.category) {
+  //         triggerFlicker(village.ID, currentCategory.source_id);
+  //       }
+  //     });
+  //   }
+  // };
 
   const loadVillages = useCallback(async () => {
     setLoading(true);
@@ -149,7 +146,6 @@ const Villages = ({ searchQuery }: { searchQuery?: string }) => {
                   onClick={() => {
                     setCategory(cat.text);
                   }}
-                  onDoubleClick={() => categoryclicked(cat.text)}
                   className={`${category === cat.text && styles.active}`}
                 >
                   <span>{cat.text}</span>

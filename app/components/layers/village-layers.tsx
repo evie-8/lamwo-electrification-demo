@@ -5,7 +5,7 @@ const VillageLayers = () => {
     <Source
       id="id_lamwovillages"
       type="geojson"
-      data={"geojson_maps/lamwo_villages.geojson"}
+      data={"/geojson_maps/mergedfile.geojson"}
       promoteId="ID"
     >
       <Layer
@@ -13,17 +13,38 @@ const VillageLayers = () => {
         type="fill"
         source="id_lamwovillages"
         paint={{
-          "fill-color": "#D3D3D3",
-          //1e90ff
+          "fill-color": [
+            "case",
+            // Case for solar home systems
+            ["==", ["get", "category"], "candidate_for_solar_home_systems"],
+            "#CCC",
+            // Case for candidate minigrid sites
+            ["==", ["get", "category"], "candidate_minigrid_site"],
+            "#4682B4",
+            // Case for existing minigrid sites
+            ["==", ["get", "category"], "existing_minigrid_site"],
+            "#3CB371",
+            // Case for grid extension
+            ["==", ["get", "category"], "grid_extension"],
+            "#FF7F50",
+            // Default color if no match found
+            "#D3D3D3", // Black or any default color you choose
+          ],
           "fill-opacity": [
             "case",
             ["boolean", ["feature-state", "click"], false],
             0.3,
-            0.4,
+            1,
+          ],
+          "fill-outline-color": [
+            "case",
+            ["boolean", ["feature-state", "click"], false],
+            "#000",
+            "#696969",
           ],
         }}
       />
-      <Layer
+      {/* <Layer
         id="village_name"
         type="symbol"
         source="id_lamowvillages"
@@ -44,8 +65,8 @@ const VillageLayers = () => {
             0,
           ],
         }}
-      />
-      <Layer
+      /> */}
+      {/* <Layer
         id="lamwo_villages_outline"
         type="line"
         source="id_lamwovillages"
@@ -63,7 +84,7 @@ const VillageLayers = () => {
             0.5,
           ],
         }}
-      />
+      /> */}
     </Source>
   );
 };

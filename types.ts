@@ -42,9 +42,9 @@ export type PowerAnalysis = {
   };
   
   export type LayerKeys = 
-  | "solar_home_systems"
-  | "candidate_mg_site"
-  | "existing_mg_site"
+  | "candidate_for_solar_home_systems"
+  | "candidate_minigrid_site"
+  | "existing_minigrid_site"
   | "grid_extension"
   | "grid_electricity"
   | "health_facility_buildings"

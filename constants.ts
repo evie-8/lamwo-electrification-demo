@@ -53,7 +53,7 @@ export const categoryVillagesSources = [
     source_config: {
       type: "geojson",
       promoteId: "ID",
-      data: "geojson_maps/candidate_for_solar_home_systems.geojson",
+      data: "/geojson_maps/candidate_for_solar_home_systems.geojson",
     },
   },
   {
@@ -61,7 +61,7 @@ export const categoryVillagesSources = [
     source_config: {
       type: "geojson",
       promoteId: "ID",
-      data: "geojson_maps/candidate_minigrid_site.geojson",
+      data: "/geojson_maps/candidate_minigrid_site.geojson",
     },
   },
   {
@@ -69,7 +69,7 @@ export const categoryVillagesSources = [
     source_config: {
       type: "geojson",
       promoteId: "ID",
-      data: "geojson_maps/existing_minigrid_site.geojson",
+      data: "/geojson_maps/existing_minigrid_site.geojson",
     },
   },
   {
@@ -77,7 +77,7 @@ export const categoryVillagesSources = [
     source_config: {
       type: "geojson",
       promoteId: "ID",
-      data: "geojson_maps/grid_extension.geojson",
+      data: "/geojson_maps/grid_extension.geojson",
     },
   },
 ];

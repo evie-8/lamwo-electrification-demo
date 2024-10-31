@@ -15,9 +15,9 @@ const VillageCategoryLayers = () => {
 
       {/* Render layers */}
       {categoryVillagesLayers.map((layer) => (
-        
         <Layer key={layer.id} {...layer} />
       ))}
+      
     </>
   );
 };

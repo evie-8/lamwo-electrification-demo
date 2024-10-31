@@ -11,17 +11,17 @@ import { LayerKeys } from "@/types";
 
 const layers = [
   {
-    id: "solar_home_systems",
+    id: "candidate_for_solar_home_systems",
     color: "#CCC",
     text: "Candidate for solar",
   },
   {
-    id: "candidate_mg_site",
+    id: "candidate_minigrid_site",
     color: "#4682B4",
     text: "Candidate for mini grid",
   },
   {
-    id: "existing_mg_site",
+    id: "existing_minigrid_site",
     color: "#3CB371",
     text: "Existing mini grid",
   },
@@ -76,9 +76,9 @@ const buildingCategories = [
 
 const LayersSideBar = () => {
   const defaultLayerVisibility = {
-    solar_home_systems: true,
-    candidate_mg_site: true,
-    existing_mg_site: true,
+    candidate_for_solar_home_systems: true,
+    candidate_minigrid_site: true,
+    existing_minigrid_site: true,
     grid_extension: true,
     grid_electricity: true,
     health_facility_buildings: true,

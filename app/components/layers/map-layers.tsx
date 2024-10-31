@@ -1,4 +1,4 @@
-import VillageCategoryLayers from "./village-category-layers";
+//import VillageCategoryLayers from "./village-category-layers";
 import VillageLayers from "./village-layers";
 import BuildingLayers from "./buildings-layers";
 import GridLayers from "./grid-layers";
@@ -8,7 +8,7 @@ const MapLayers = () => {
   return (
     <>
       <VillageLayers />
-      <VillageCategoryLayers />
+      {/* <VillageCategoryLayers /> */}
       <BuildingLayers />
       <GridElectricityLayer />
       <GridLayers />
