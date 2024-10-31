@@ -1,4 +1,17 @@
- type PowerAnalysis = {
+export type Contributor = {
+  name: string;
+  info: string;
+  url: string;
+  profileImage: string;
+  }
+
+  export type NESCategoryData = {
+    key: string;
+    data: number;
+
+  };
+
+export type PowerAnalysis = {
     detail: string;
     factor_in_favour: boolean;
     source: string;
@@ -6,11 +19,11 @@
   
   export type VillageData = {
     ID: number;
-    NES_category: string;
+    NES_category: string | undefined;
     district: string;
     latitude: number;
     longitude: number;
-    distanceFromArea?: number | 0;
+    distanceFromArea?: number;
     max_num_buildings_in_1km_radius: number;
     mean_wind_speed: number;
     num_admin_facilities: number;
@@ -28,3 +41,16 @@
     village: string;
   };
   
+  export type LayerKeys = 
+  | "solar_home_systems"
+  | "candidate_mg_site"
+  | "existing_mg_site"
+  | "grid_extension"
+  | "grid_electricity"
+  | "health_facility_buildings"
+  | "administrative_buildings"
+  | "commercial_buildings"
+  | "school_buildings"
+  | "uncategorized_buildings"
+  | "candidate_MGs_layer"
+  | "existing_MGs_layer";

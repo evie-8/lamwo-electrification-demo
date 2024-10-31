@@ -7,6 +7,7 @@ import FilterCategory from "./filter-category";
 import Image from "next/image";
 import { RefreshCcwIcon } from "lucide-react";
 import useWindowDimensions from "@/hooks/window-dimensions";
+import { LayerKeys } from "@/types";
 
 const layers = [
   {
@@ -114,7 +115,7 @@ const LayersSideBar = () => {
 
     // Loop through each layer and reset to default visibility
     Object.keys(defaultLayerVisibility).forEach((layer) => {
-      const isVisible = defaultLayerVisibility[layer];
+      const isVisible = defaultLayerVisibility[layer as LayerKeys];
       map?.setLayoutProperty(
         layer,
         "visibility",

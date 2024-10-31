@@ -40,14 +40,16 @@ const VillageCard = ({ data }: Props) => {
 
     if (feature && width >= 1024) {
       feature.id = data.ID;
+      if (mapRef?.current) {
       const results = handleFeatureSelection(
-        mapRef,
+        mapRef.current,
         feature,
         selectedFeature,
         filteredBuildings
       );
       setFilteredBuildings(results?.newFilteredBuildings);
       setSelectedFeature(results?.newSelectedFeature);
+    }
     }
     setScreen("Villages Details");
     setDetailsVillage(data);

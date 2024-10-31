@@ -6,11 +6,13 @@ import { MapRef } from "react-map-gl";
 interface Props {
   title: string;
   items: Array<{ id: string; text: string; url?: string; color?: string }>;
-  mapRef: MapRef | null | undefined;
+  mapRef: React.MutableRefObject<MapRef | null> | null | undefined;
   layerVisibility: {
     [key: string]: boolean;
   };
-  setLayerVisibility: any;
+  setLayerVisibility: React.Dispatch<
+    React.SetStateAction<{ [key: string]: boolean }>
+  >;
 }
 
 const FilterCategory = ({
@@ -25,14 +27,14 @@ const FilterCategory = ({
     const newVisibility = !layerVisibility[layer]; // Toggle visibility state
 
     // Set the visibility of the layer
-    map.setLayoutProperty(
+    map?.setLayoutProperty(
       layer,
       "visibility",
       newVisibility ? "visible" : "none"
     );
 
     // Update local state to reflect visibility change
-    setLayerVisibility((prev: []) => ({
+    setLayerVisibility((prev) => ({
       ...prev,
       [layer]: newVisibility,
     }));

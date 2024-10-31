@@ -15,7 +15,7 @@ const VillageCategoryLayers = () => {
 
       {/* Render layers */}
       {categoryVillagesLayers.map((layer) => (
-        //@ts-ignore
+        
         <Layer key={layer.id} {...layer} />
       ))}
     </>

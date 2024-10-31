@@ -14,12 +14,21 @@ const BuildingLayers = () => {
 
     map.on("load", () => {
       iconUrls.forEach((url, index) => {
-        map.loadImage(url, (error, image: any) => {
-          if (error) throw error;
-          if (!map.hasImage(iconNames[index])) {
-            map.addImage(iconNames[index], image);
+        map.loadImage(
+          url,
+          (
+            error,
+            image: ImageBitmap | HTMLImageElement | ImageData | null | undefined
+          ) => {
+            if (error) throw error;
+            if (!map.hasImage(iconNames[index])) {
+              map.addImage(
+                iconNames[index],
+                image as ImageBitmap | HTMLImageElement | ImageData
+              );
+            }
           }
-        });
+        );
       });
     });
   }, [mapRef]);

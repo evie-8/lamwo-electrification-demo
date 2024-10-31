@@ -12,7 +12,7 @@ interface Props {
 const Screens = ({ children }: Props) => {
   const { screen, setScreen, rightSideBar } = useMapContext();
   const { width } = useWindowDimensions();
-  const scrollRef = useRef<HTMLElement | undefined>(undefined);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   
   let widthSideBar = "w-[350px]"
 
@@ -38,7 +38,7 @@ const Screens = ({ children }: Props) => {
         <p>{screen}</p>
       </div>
 
-      <div className={styles.content}>{children}</div>
+      <div className={styles.content} ref={scrollRef}>{children}</div>
     </div>
   );
 };

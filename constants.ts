@@ -1,7 +1,9 @@
-const theme = {
-  "light": "mapbox://styles/mapbox/light-v10",
-  "dark": "mapbox://styles/mapbox/navigation-night-v1"
-}
+import { LayerProps } from "react-map-gl";
+
+// const theme = {
+//   "light": "mapbox://styles/mapbox/light-v10",
+//   "dark": "mapbox://styles/mapbox/navigation-night-v1"
+// }
 
 export const iconUrls = [
   "/education.png",
@@ -80,7 +82,7 @@ export const categoryVillagesSources = [
   },
 ];
 
-export const categoryVillagesLayers = [
+export const categoryVillagesLayers: LayerProps[] = [
   {
     id: "solar_home_systems",
     type: "fill",

@@ -13,19 +13,37 @@ const GridLayers = () => {
     // Wait until the map has loaded
     map.on("load", () => {
       // Add images for icons once the map is loaded
-      map.loadImage("/location1.png", (error, image: any) => {
-        if (error) throw error;
-        if (!map.hasImage("mini-grid-icon")) {
-          map.addImage("mini-grid-icon", image);
+      map.loadImage(
+        "/location1.png",
+        (
+          error,
+          image: ImageBitmap | HTMLImageElement | ImageData | null | undefined
+        ) => {
+          if (error) throw error;
+          if (!map.hasImage("mini-grid-icon")) {
+            map.addImage(
+              "mini-grid-icon",
+              image as ImageBitmap | HTMLImageElement | ImageData
+            );
+          }
         }
-      });
+      );
 
-      map.loadImage("/location.png", (error, image: any) => {
-        if (error) throw error;
-        if (!map.hasImage("candidate-icon")) {
-          map.addImage("candidate-icon", image);
+      map.loadImage(
+        "/location.png",
+        (
+          error,
+          image: ImageBitmap | HTMLImageElement | ImageData | null | undefined
+        ) => {
+          if (error) throw error;
+          if (!map.hasImage("candidate-icon")) {
+            map.addImage(
+              "candidate-icon",
+              image as ImageBitmap | HTMLImageElement | ImageData
+            );
+          }
         }
-      });
+      );
 
       // Safely add layers after the map has fully loaded
       if (!map.getLayer("existing_MGs_layer")) {
@@ -56,11 +74,6 @@ const GridLayers = () => {
         });
       }
     });
-
-    // Clean up event listeners when the component unmounts
-    return () => {
-      map.off("load");
-    };
   }, [mapRef]);
 
   return (

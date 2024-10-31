@@ -32,7 +32,7 @@ const MapInterface = () => {
     rightSideBar,
   } = useMapContext();
 
-  const current = mapRef.current;
+  const current = mapRef?.current;
   const map = current?.getMap();
 
   let mapWidth = `100vw`;
@@ -86,14 +86,16 @@ const MapInterface = () => {
     )[0];
 
     if (feature) {
-      const results = handleFeatureSelection(
-        mapRef,
-        feature,
-        selectedFeature,
-        filteredBuildings
-      );
-      setFilteredBuildings(results?.newFilteredBuildings);
-      setSelectedFeature(results?.newSelectedFeature);
+      if (current) {
+        const results = handleFeatureSelection(
+          current,
+          feature,
+          selectedFeature,
+          filteredBuildings
+        );
+        setFilteredBuildings(results?.newFilteredBuildings);
+        setSelectedFeature(results?.newSelectedFeature);
+      }
       const village = villages.find((village) => village.ID === feature.id);
       setDetailsVillage(village);
       setScreen("Villages Details");

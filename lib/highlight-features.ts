@@ -3,20 +3,21 @@ import {Feature} from "geojson"
 import { MapRef } from "react-map-gl";
 import villages from "@/public/villages.json"
 import { categoriesVillages } from "@/constants";
+import { FilterSpecification } from "mapbox-gl";
 
 
 export const handleFeatureSelection = (
     mapInstance: MapRef,
     feature: Feature,
     previousSelectedFeature : Feature | null | undefined, 
-    previousFilteredBuildings: Feature[] | null, 
+    previousFilteredBuildings: Feature[] | null | undefined, 
   ) => {
     if (!feature || feature === previousSelectedFeature) return;
   
     const [minLng, minLat, maxLng, maxLat] = bbox(feature);
 
   const sources = getVillageSources(feature)
-    const boundsFilter = [
+    const boundsFilter: FilterSpecification = [
       "all",
       "within",
       {
@@ -33,7 +34,7 @@ export const handleFeatureSelection = (
       },
     ];
   
-    mapInstance?.current?.fitBounds(
+    mapInstance?.fitBounds(
       [
         [minLng, minLat],
         [maxLng, maxLat],
@@ -41,12 +42,9 @@ export const handleFeatureSelection = (
       { padding: 20, duration: 1000 }
     );
   
-  
-   
-
     if (previousSelectedFeature) {
       sources?.forEach((source) => {
-        mapInstance?.current?.setFeatureState(
+        mapInstance?.setFeatureState(
           { source, id: Number(previousSelectedFeature.id) },
           { click: false }
         );
@@ -55,13 +53,13 @@ export const handleFeatureSelection = (
   
 
     sources?.forEach((source) => {
-      mapInstance?.current?.setFeatureState(
+      mapInstance?.setFeatureState(
         { source, id: Number(feature.id) },
         { click: true }
       );
     });
 
-    const buildingsFiltered = mapInstance?.current?.querySourceFeatures(
+    const buildingsFiltered = mapInstance?.querySourceFeatures(
       "lamwo_buildings",
       {
         filter: boundsFilter,
@@ -73,15 +71,15 @@ export const handleFeatureSelection = (
       if (previousFilteredBuildings) {
        
         previousFilteredBuildings.forEach((building: Feature) => {
-          mapInstance?.current?.setFeatureState(
-            { source: "lamwo_buildings", id: building.id },
+          mapInstance?.setFeatureState(
+            { source: "lamwo_buildings", id: Number(building?.id) },
             { visible: false }
           );
         });
       }
   
       buildingsFiltered.forEach((building: Feature) => {
-        mapInstance?.current?.setFeatureState(
+        mapInstance?.setFeatureState(
           { source: "lamwo_buildings", id: Number(building.id) },
           { visible: true }
         );

@@ -1,5 +1,6 @@
 import styles from "@/app/styles/project-resources.module.css";
 import links from "@/public/research_links.json";
+import { Contributor } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,7 +17,7 @@ const ResearchTab = () => {
       </p>
 
       <div className={styles.contributors}>
-        {links.map((contributor: any, index: number) => {
+        {links.map((contributor: Contributor, index: number) => {
           return (
             <Link key={contributor.url} href={contributor.url} target="_blank">
               <div className={styles.contributor} key={index}>

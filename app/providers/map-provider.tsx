@@ -22,13 +22,17 @@ interface MapContextType {
   screen: string;
   setScreen: React.Dispatch<React.SetStateAction<string>>;
   selectedFeature: Feature | null | undefined;
-  setDetailsVillage: React.Dispatch<React.SetStateAction<VillageData | null>>;
-  detailsVillage: VillageData | null;
+  setDetailsVillage: React.Dispatch<
+    React.SetStateAction<VillageData | null | undefined>
+  >;
+  detailsVillage: VillageData | null | undefined;
   setSelectedFeature: React.Dispatch<
     React.SetStateAction<Feature | null | undefined>
   >;
-  filteredBuildings: Feature[] | null;
-  setFilteredBuildings: React.Dispatch<React.SetStateAction<Feature[] | null>>;
+  filteredBuildings: Feature[] | null | undefined;
+  setFilteredBuildings: React.Dispatch<
+    React.SetStateAction<Feature[] | null | undefined>
+  >;
   key: number;
   setKey: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -46,10 +50,10 @@ export const useMapContext = () => {
 export const MapProvider = ({ children }: { children: React.ReactNode }) => {
   const [isMounted, setIsMounted] = useState(false);
 
-  const mapRef = useRef<MapRef>(null);
-  const [detailsVillage, setDetailsVillage] = useState<VillageData | null>(
-    null
-  );
+  const mapRef = useRef<MapRef | null>(null);
+  const [detailsVillage, setDetailsVillage] = useState<
+    VillageData | null | undefined
+  >(undefined);
   const [sideBar, setSideBar] = useState(true);
   const [rightSideBar, setRightSideBar] = useState(true);
   const [screen, setScreen] = useState("Villages");
@@ -57,9 +61,9 @@ export const MapProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedFeature, setSelectedFeature] = useState<
     Feature | null | undefined
   >(null);
-  const [filteredBuildings, setFilteredBuildings] = useState<Feature[] | null>(
-    null
-  );
+  const [filteredBuildings, setFilteredBuildings] = useState<
+    Feature[] | null | undefined
+  >(undefined);
 
   const setMapRef = (map: MapRef | null) => {
     mapRef.current = map;

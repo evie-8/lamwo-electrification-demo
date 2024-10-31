@@ -19,15 +19,10 @@ import {
 } from "../ui/carousel";
 
 import Image from "next/image";
-import { VillageData } from "@/types";
+import { NESCategoryData, PowerAnalysis, VillageData } from "@/types";
 
-type CategoryData = {
-  key: string;
-  data: number;
-};
-
-const VillageDetails = ({ data }: { data: VillageData | null }) => {
-  const [NESCategoryData, setNESCategory] = useState<CategoryData[]>([]);
+const VillageDetails = ({ data }: { data: VillageData | null | undefined }) => {
+  const [NESCategoryData, setNESCategory] = useState<NESCategoryData[]>([]);
   const [nearbyAreas, setNearbyAreas] = useState<VillageData[]>([]);
 
   const getCategory = (cat: string) => {
@@ -41,10 +36,11 @@ const VillageDetails = ({ data }: { data: VillageData | null }) => {
     return {
       ...village,
       NES_category: getCategory(village.NES_category),
+      distanceFromArea: 0,
     };
   });
 
-  let nesData: CategoryData[] = [];
+  let nesData: NESCategoryData[] = [];
   let totalEmissions = 0;
   let nearAreas: VillageData[] = [];
 
@@ -92,7 +88,7 @@ const VillageDetails = ({ data }: { data: VillageData | null }) => {
     });
 
     nearAreas = nearAreas.sort(
-      (a, b) => a.distanceFromArea - b.distanceFromArea
+      (a, b) => Number(a.distanceFromArea) - Number(b.distanceFromArea)
     );
     setNearbyAreas(nearAreas);
   }, [data]);
@@ -104,11 +100,12 @@ const VillageDetails = ({ data }: { data: VillageData | null }) => {
   return (
     <>
       <div className="cover-card">
-        <img
+        <Image
           src={
             "https://images.unsplash.com/photo-1536481046830-9b11bb07e8b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=30"
           }
           alt="details"
+          fill
         />
         <h1>{data.village || "No village name available"}</h1>
       </div>
@@ -207,21 +204,23 @@ const VillageDetails = ({ data }: { data: VillageData | null }) => {
         <div>
           {data.power_demand_analysis &&
           data.power_demand_analysis.length > 0 ? (
-            data.power_demand_analysis.map((element: any, index: number) => (
-              <div key={index}>
-                <h4 className="text-highlight-blue font-bold mt-2">
-                  Power demand analysis for {element.source}
-                </h4>
-                <p>{element.detail}</p>
-                <span>
-                  <strong>
-                    {element.factor_in_favour
-                      ? "HIGH POTENTIAL"
-                      : "LOW POTENTIAL"}
-                  </strong>
-                </span>
-              </div>
-            ))
+            data.power_demand_analysis.map(
+              (element: PowerAnalysis, index: number) => (
+                <div key={index}>
+                  <h4 className="text-highlight-blue font-bold mt-2">
+                    Power demand analysis for {element.source}
+                  </h4>
+                  <p>{element.detail}</p>
+                  <span>
+                    <strong>
+                      {element.factor_in_favour
+                        ? "HIGH POTENTIAL"
+                        : "LOW POTENTIAL"}
+                    </strong>
+                  </span>
+                </div>
+              )
+            )
           ) : (
             <p>No power demand analysis available.</p>
           )}
@@ -231,21 +230,23 @@ const VillageDetails = ({ data }: { data: VillageData | null }) => {
         <div>
           {data.power_supply_analysis &&
           data.power_supply_analysis.length > 0 ? (
-            data.power_supply_analysis.map((element: any, index: number) => (
-              <div className="content" key={index}>
-                <h4 className="text-highlight-blue font-bold mt-2">
-                  Power supply analysis for {element.source}
-                </h4>
-                <p>{element.detail}</p>
-                <span>
-                  <strong>
-                    {element.factor_in_favour
-                      ? "HIGH POTENTIAL"
-                      : "LOW POTENTIAL"}
-                  </strong>
-                </span>
-              </div>
-            ))
+            data.power_supply_analysis.map(
+              (element: PowerAnalysis, index: number) => (
+                <div className="content" key={index}>
+                  <h4 className="text-highlight-blue font-bold mt-2">
+                    Power supply analysis for {element.source}
+                  </h4>
+                  <p>{element.detail}</p>
+                  <span>
+                    <strong>
+                      {element.factor_in_favour
+                        ? "HIGH POTENTIAL"
+                        : "LOW POTENTIAL"}
+                    </strong>
+                  </span>
+                </div>
+              )
+            )
           ) : (
             <p>No power supply analysis available.</p>
           )}
@@ -264,7 +265,7 @@ const VillageDetails = ({ data }: { data: VillageData | null }) => {
 
         <Carousel className="area-explorer relative ">
           <CarouselContent className="w-full mb-9">
-            {nearbyAreas.map((item: any, index: number) => (
+            {nearbyAreas.map((item: VillageData, index: number) => (
               <CarouselItem
                 key={index}
                 className="basis-1/2 group cursor-pointer"
@@ -284,7 +285,7 @@ const VillageDetails = ({ data }: { data: VillageData | null }) => {
                     <strong className="line-clamp-1">{item.village}</strong>
                   </span>
                   <span className="text-highlight-blue">
-                    {item.distanceFromArea.toFixed(3)} km
+                    {Number(item.distanceFromArea).toFixed(3)} km
                   </span>
                 </div>
               </CarouselItem>
@@ -341,7 +342,7 @@ const VillageDetails = ({ data }: { data: VillageData | null }) => {
         </div>
 
         <ol className="my-3 pl-8">
-          {NESCategoryData.map((x: any) => (
+          {NESCategoryData.map((x: NESCategoryData) => (
             <li key={x.key}>
               <strong>{x.key}</strong> - {x.data.toFixed(3)}%
             </li>

@@ -16,7 +16,7 @@ const MainSideBar = () => {
   const { width } = useWindowDimensions();
   const { screen, setScreen, detailsVillage, rightSideBar } = useMapContext();
   const [query, setQuery] = useState("");
-  const scrollRef = useRef<HTMLElement | undefined>(undefined);
+  const scrollRef = useRef<HTMLElement | null>(null);
   let widthSideBar = "w-[350px]";
 
   if (width > 1350) {
