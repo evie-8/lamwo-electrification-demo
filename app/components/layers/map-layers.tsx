@@ -1,14 +1,12 @@
-//import VillageCategoryLayers from "./village-category-layers";
-import VillageLayers from "./village-layers";
-import BuildingLayers from "./buildings-layers";
-import GridLayers from "./grid-layers";
-import GridElectricityLayer from "./electricty-layers";
+import VillageLayers from "@/app/components/layers/village-layers";
+import BuildingLayers from "@/app/components/layers/buildings-layers";
+import GridLayers from "@/app/components/layers/grid-layers";
+import GridElectricityLayer from "@/app/components/layers/electricty-layers";
 
 const MapLayers = () => {
   return (
     <>
       <VillageLayers />
-      {/* <VillageCategoryLayers /> */}
       <BuildingLayers />
       <GridElectricityLayer />
       <GridLayers />

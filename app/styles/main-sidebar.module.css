@@ -1,5 +1,5 @@
 .main_sidebar {
-    @apply flex-col gap-2 fixed left-0 top-0 bg-white z-40 pb-2 shadow-md h-full
+    @apply flex-col gap-2 absolute top-0 left-0 bg-white z-40 pb-2 shadow-md h-full lg:max-w-[350px] 2xl:max-w-[400px] w-full
   }
   
   .main_sidebar nav {

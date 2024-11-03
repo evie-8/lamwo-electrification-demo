@@ -1,9 +1,8 @@
-import styles from "@/app/styles/filter-category.module.css";
 import { Eye, EyeOff } from "lucide-react";
 import { FilterSpecification } from "mapbox-gl";
 import Image from "next/image";
 import { MapRef } from "react-map-gl";
-
+import styles from "@/app/styles/filter-category.module.css";
 interface Props {
   title: string;
   items: Array<{ id: string; text: string; url?: string; color?: string }>;
@@ -21,7 +20,7 @@ export const categoryColorMapping: { [key: string]: string } = {
   candidate_minigrid_site: "#4682B4",
   existing_minigrid_site: "#3CB371",
   grid_extension: "#FF7F50",
-  default: "transparent", //"#F6F6F4",
+  default: "#EDEDED",
 };
 
 const FilterCategory = ({

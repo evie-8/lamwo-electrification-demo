@@ -1,14 +1,16 @@
 "use client";
 
-import styles from "@/app/styles/layer-sidebar.module.css";
 import { useEffect, useState } from "react";
-import { useMapContext } from "../../providers/map-provider";
-import FilterCategory, { categoryColorMapping } from "./filter-category";
 import Image from "next/image";
 import { RefreshCcwIcon } from "lucide-react";
+import { FilterSpecification } from "mapbox-gl";
+import styles from "@/app/styles/layer-sidebar.module.css";
+import { useMapContext } from "@/app/providers/map-provider";
+import FilterCategory, {
+  categoryColorMapping,
+} from "@/app/components/home/filter-category";
 import useWindowDimensions from "@/hooks/window-dimensions";
 import { LayerKeys } from "@/types";
-import { FilterSpecification } from "mapbox-gl";
 
 const layers = [
   {
@@ -92,13 +94,9 @@ const LayersSideBar = () => {
   };
 
   const { width } = useWindowDimensions();
-  let widthSideBar = "w-[250px]";
-
-  if (width > 1350) {
-    widthSideBar = "w-[300px]";
-  }
 
   const { mapRef, sideBar, setSideBar } = useMapContext();
+  const [spin, setSpin] = useState(false);
   const [layerVisibility, setLayerVisibility] = useState<{
     [key: string]: boolean;
   }>(defaultLayerVisibility);
@@ -112,6 +110,8 @@ const LayersSideBar = () => {
   }, [width, setSideBar]);
 
   const resetLayerVisibility = () => {
+    setSpin(true);
+
     const map = mapRef?.current?.getMap();
 
     // Loop through each layer and reset to default visibility
@@ -151,11 +151,12 @@ const LayersSideBar = () => {
 
     // Reset the state to default visibility
     setLayerVisibility(defaultLayerVisibility);
+    setTimeout(() => setSpin(false), 500);
   };
 
   return (
     <div
-      className={`${widthSideBar} ${styles.layer_sidebar} ${
+      className={`${styles.layer_sidebar} ${
         width < 1024 ? "hidden" : "flex"
       }  ${sideBar ? "flex" : "hidden"}`}
     >
@@ -164,7 +165,10 @@ const LayersSideBar = () => {
           <Image src={"/filter.png"} alt="filter icon" width={10} height={10} />
           <h1>Filters</h1>
         </div>
-        <button onClick={resetLayerVisibility}>
+        <button
+          onClick={resetLayerVisibility}
+          className={`${spin && "animate-spin"}`}
+        >
           <RefreshCcwIcon size={20} fontWeight={800} />
         </button>
       </div>

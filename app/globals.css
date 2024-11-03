@@ -52,9 +52,22 @@ body {
 }
 
 .map-container {
- @apply relative w-full h-screen items-center justify-center
+ @apply relative w-full h-screen items-center justify-center mx-0
 }
+/* .map-container {
+  @apply w-screen h-screen
+} */
+.map-container.active {
+@apply lg:w-[calc(100%-600px)] 2xl:w-[calc(100%-700px)] lg:mr-[250px] lg:ml-[350px] 2xl:mr-[300px] 2xl:ml-[400px]
 
+            
+}
+.map-container.rightSideBar {
+  @apply lg:w-[calc(100%-350px)]  2xl:w-[calc(100%-400px)] lg:ml-[350px] 2xl:ml-[400px]
+}
+.map-container.leftSideBar {
+  @apply lg:w-[calc(100%-250px)]  2xl:w-[calc(100%-300px)] lg:mr-[250px]  2xl:mr-[300px]
+}
 .cover-card {
   @apply shadow-[rgba(0,0,0,0.24)_0px_3px_8px] relative flex w-full rounded-lg h-[200px] mb-4 animate-fade-in;
   background: linear-gradient(

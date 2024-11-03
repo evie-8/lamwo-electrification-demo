@@ -7,7 +7,11 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+   
     extend: {
+      screens: {
+        '2xl': '1350px',
+      },
       colors: {
         "sunbird-navy-blue": "#282850",
         "sunbird-orange": "#FFAA28",

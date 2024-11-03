@@ -1,8 +1,8 @@
+import Image from "next/image";
+import Link from "next/link";
 import styles from "@/app/styles/project-resources.module.css";
 import links from "@/public/research_links.json";
 import { Contributor } from "@/types";
-import Image from "next/image";
-import Link from "next/link";
 
 const ResearchTab = () => {
   return (

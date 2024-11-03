@@ -1,8 +1,12 @@
-import styles from "@/app/styles/toggle-sidebar.module.css";
 import { ChevronRightCircle } from "lucide-react";
-import { useMapContext } from "../../providers/map-provider";
-import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Tooltip } from "@radix-ui/react-tooltip";
+import styles from "@/app/styles/toggle-sidebar.module.css";
+import { useMapContext } from "@/app/providers/map-provider";
+import {
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/app/components/ui/tooltip";
 
 const SideBarToggles = () => {
   const { setSideBar, setRightSideBar, rightSideBar, sideBar } =

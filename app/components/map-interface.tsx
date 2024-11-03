@@ -1,16 +1,15 @@
 "use client";
 
-import Map, { NavigationControl } from "react-map-gl";
-import MapLayers from "./layers/map-layers";
-import { MapMouseEvent } from "react-map-gl";
-import { useEffect } from "react";
-import { useMapContext } from "../providers/map-provider";
+import { useCallback, useEffect, useState } from "react";
+import Map, { NavigationControl, MapMouseEvent } from "react-map-gl";
+import MapLayers from "@/app/components/layers/map-layers";
+import { useMapContext } from "@/app/providers/map-provider";
 import villages from "@/public/villages.json";
-import ResetControl from "./reset-control";
+import ResetControl from "@/app/components/reset-control";
 import { interactiveLayerIds } from "@/constants";
 import { handleFeatureSelection } from "@/lib/highlight-features";
 import useWindowDimensions from "@/hooks/window-dimensions";
-import SideBarToggles from "./home/toggle-sidebar";
+import SideBarToggles from "@/app/components/home/toggle-sidebar";
 
 const MapInterface = () => {
   const { width } = useWindowDimensions();
@@ -23,61 +22,14 @@ const MapInterface = () => {
     filteredBuildings,
     setFilteredBuildings,
     setDetailsVillage,
+    screen,
     setScreen,
     sideBar,
     rightSideBar,
   } = useMapContext();
-
+  const [zoom, setZoom] = useState<number>(8.7);
   const current = mapRef?.current;
   const map = current?.getMap();
-
-  let mapWidth = `100vw`;
-  let zoom = 8.7;
-  let marginLeft = `250px`;
-  let marginRight = `350px`;
-
-  if (width > 1350) {
-    if (rightSideBar && sideBar) {
-      mapWidth = `calc(100vw - 700px)`;
-
-      if (width > 1500) {
-        zoom = 9;
-      } else {
-        zoom = 8.7;
-      }
-      marginLeft = `300px`;
-      marginRight = `400px`;
-    } else if (rightSideBar) {
-      mapWidth = `calc(100vw -  400px)`;
-      marginRight = `400px`;
-      zoom = 9;
-    } else if (sideBar) {
-      mapWidth = `calc(100vw - 300px)`;
-      marginLeft = `300px`;
-      zoom = 9;
-    } else {
-      mapWidth = `100vw`;
-      zoom = 9.1;
-    }
-  } else {
-    if (rightSideBar && sideBar) {
-      mapWidth = `calc(100vw - 600px)`;
-
-      zoom = 8.7;
-    } else if (rightSideBar) {
-      mapWidth = `calc(100vw - 350px)`;
-
-      zoom = 9;
-    } else if (sideBar) {
-      mapWidth = `calc(100vw - 250px)`;
-
-      zoom = 9;
-    } else {
-      mapWidth = `100vw`;
-
-      zoom = 9.1;
-    }
-  }
 
   const handleClick = (event: MapMouseEvent) => {
     const features = event.features;
@@ -105,15 +57,18 @@ const MapInterface = () => {
     }
   };
 
-  useEffect(() => {
-    const centerMap = () => {
-      map?.flyTo({
-        center: [32.765, 3.508],
-        zoom: zoom,
-        essential: true,
-        animate: true,
-      });
+  const centerMap = useCallback(() => {
+    map?.flyTo({
+      center: [32.765, 3.508],
+      zoom: zoom,
+      essential: true,
+      animate: true,
+    });
+  }, [map, zoom]);
 
+  useEffect(() => {
+    const centerMapButton = () => {
+      centerMap();
       if (selectedFeature) {
         current?.setFeatureState(
           {
@@ -127,7 +82,7 @@ const MapInterface = () => {
       }
     };
 
-    const centerControl = new ResetControl({ eventHandler: centerMap });
+    const centerControl = new ResetControl({ eventHandler: centerMapButton });
 
     if (current) {
       map?.addControl(centerControl, "bottom-right");
@@ -138,16 +93,46 @@ const MapInterface = () => {
         map?.removeControl(centerControl);
       }
     };
-  }, [current, map, selectedFeature, zoom]);
+  }, [current, map, selectedFeature, centerMap]);
 
   useEffect(() => {
     if (map) {
-      map.resize(); // Call resize on the map when sidebars change
+      if (screen !== "Villages Details") {
+        map.resize(); // Call resize on the map when sidebars change
+        centerMap();
+      } else {
+        map.resize();
+      }
     }
-  }, [sideBar, rightSideBar, map]);
+  }, [sideBar, rightSideBar, map, screen, centerMap]);
+
+  useEffect(() => {
+    let newZoom = zoom;
+
+    if (rightSideBar && sideBar) {
+      newZoom = width > 1500 ? 9.2 : 8.7;
+    } else if (rightSideBar || sideBar) {
+      newZoom = 9;
+    } else {
+      newZoom = 9.1;
+    }
+    if (newZoom !== zoom) {
+      setZoom(newZoom);
+    }
+  }, [width, rightSideBar, sideBar, zoom]);
 
   return (
-    <section className={`map-container ${width < 1024 ? "hidden" : "flex"}`}>
+    <section
+      className={`map-container ${width < 1024 ? "hidden" : "flex"} ${
+        rightSideBar && sideBar
+          ? "active"
+          : sideBar
+          ? "leftSideBar"
+          : rightSideBar
+          ? "rightSideBar"
+          : "w-full"
+      }`}
+    >
       <Map
         ref={(ref) => setMapRef(ref)}
         trackResize={true}
@@ -163,12 +148,6 @@ const MapInterface = () => {
         interactiveLayerIds={interactiveLayerIds}
         pitchWithRotate={false}
         dragRotate={false}
-        style={{
-          width: mapWidth,
-          height: "100%",
-          marginRight: sideBar ? marginLeft : 0,
-          marginLeft: rightSideBar ? marginRight : 0,
-        }}
         mapStyle="mapbox://styles/mapbox/light-v10"
         onClick={handleClick}
       >

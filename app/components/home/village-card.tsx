@@ -1,9 +1,8 @@
+import { ChevronRight } from "lucide-react";
+import { Feature } from "geojson";
 import geoData from "@/public/geojson_maps/lamwo_villages.geojson";
 import styles from "@/app/styles/village-card.module.css";
-import { ChevronRight } from "lucide-react";
-import React from "react";
-import { useMapContext } from "../../providers/map-provider";
-import { Feature } from "geojson";
+import { useMapContext } from "@/app/providers/map-provider";
 import { handleFeatureSelection } from "@/lib/highlight-features";
 import { categoriesVillages } from "@/constants";
 import useWindowDimensions from "@/hooks/window-dimensions";
@@ -41,15 +40,15 @@ const VillageCard = ({ data }: Props) => {
     if (feature && width >= 1024) {
       feature.id = data.ID;
       if (mapRef?.current) {
-      const results = handleFeatureSelection(
-        mapRef.current,
-        feature,
-        selectedFeature,
-        filteredBuildings
-      );
-      setFilteredBuildings(results?.newFilteredBuildings);
-      setSelectedFeature(results?.newSelectedFeature);
-    }
+        const results = handleFeatureSelection(
+          mapRef.current,
+          feature,
+          selectedFeature,
+          filteredBuildings
+        );
+        setFilteredBuildings(results?.newFilteredBuildings);
+        setSelectedFeature(results?.newSelectedFeature);
+      }
     }
     setScreen("Villages Details");
     setDetailsVillage(data);

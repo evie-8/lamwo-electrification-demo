@@ -1,27 +1,20 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import Image from "next/image";
-import AboutTab from "./about";
-import { useMapContext } from "../../providers/map-provider";
-import ResearchTab from "./project-resources";
-import Villages from "./villages";
-import { useEffect, useRef, useState } from "react";
-import VillageDetails from "./village-details";
-import useWindowDimensions from "@/hooks/window-dimensions";
+import AboutTab from "@/app/components/home/about";
+import { useMapContext } from "@/app/providers/map-provider";
+import ResearchTab from "@/app/components/home/project-resources";
+import Villages from "@/app/components/home/villages";
+import VillageDetails from "@/app/components/home/village-details";
 import styles from "@/app/styles/main-sidebar.module.css";
-import Screens from "./screens";
+import Screens from "@/app/components/home/screens";
 
 const MainSideBar = () => {
-  const { width } = useWindowDimensions();
   const { screen, setScreen, detailsVillage, rightSideBar } = useMapContext();
   const [query, setQuery] = useState("");
   const scrollRef = useRef<HTMLElement | null>(null);
-  let widthSideBar = "w-[350px]";
-
-  if (width > 1350) {
-    widthSideBar = "w-[400px]";
-  }
 
   const handleClick = (screenName: string) => {
     setScreen(screenName);
@@ -37,8 +30,7 @@ const MainSideBar = () => {
     <>
       {screen !== "Villages Details" ? (
         <section
-          className={`${styles.main_sidebar}  ${
-            width < 1024 ? "w-full" : widthSideBar
+          className={`${styles.main_sidebar}
           } ${rightSideBar ? "flex" : "hidden"}`}
         >
           <nav>

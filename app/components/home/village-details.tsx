@@ -1,5 +1,6 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import villages from "@/public/villages.json";
 import {
   BarChart,
   RadialAreaChart,
@@ -7,18 +8,18 @@ import {
   PieChart,
   PieArcSeries,
 } from "reaviz";
-import { measureCoordDistance } from "@/utils";
 import { MapIcon } from "lucide-react";
-import { categoriesVillages } from "@/constants";
+import Image from "next/image";
+import villages from "@/public/villages.json";
+import { measureCoordDistance } from "@/utils";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../ui/carousel";
-
-import Image from "next/image";
+} from "@/app/components/ui/carousel";
+import { categoriesVillages } from "@/constants";
 import { NESCategoryData, PowerAnalysis, VillageData } from "@/types";
 
 const VillageDetails = ({ data }: { data: VillageData | null | undefined }) => {

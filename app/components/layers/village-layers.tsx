@@ -5,7 +5,7 @@ const VillageLayers = () => {
     <Source
       id="id_lamwovillages"
       type="geojson"
-      data={"/geojson_maps/mergedfile.geojson"}
+      data={"/geojson_maps/lamwo_villages.geojson"}
       promoteId="ID"
     >
       <Layer
@@ -36,37 +36,10 @@ const VillageLayers = () => {
             0.3,
             1,
           ],
-          "fill-outline-color": [
-            "case",
-            ["boolean", ["feature-state", "click"], false],
-            "#000",
-            "#696969",
-          ],
         }}
       />
-      {/* <Layer
-        id="village_name"
-        type="symbol"
-        source="id_lamowvillages"
-        layout={{
-          "text-field": ["get", "addr_vname"],
-          "text-size": 12,
-          "text-offset": [0, 0.6],
-          "text-anchor": "center",
-        }}
-        paint={{
-          "text-color": "#000000",
-          "text-halo-color": "#ffffff",
-          "text-halo-width": 1,
-          "text-opacity": [
-            "case",
-            ["boolean", ["feature-state", "click"], false],
-            1,
-            0,
-          ],
-        }}
-      /> */}
-      {/* <Layer
+
+      <Layer
         id="lamwo_villages_outline"
         type="line"
         source="id_lamwovillages"
@@ -84,7 +57,7 @@ const VillageLayers = () => {
             0.5,
           ],
         }}
-      /> */}
+      />
     </Source>
   );
 };

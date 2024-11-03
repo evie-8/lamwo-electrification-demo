@@ -1,14 +1,15 @@
 "use client";
-import styles from "@/app/styles/villages.module.css";
 import { useCallback, useEffect, useState } from "react";
-import VillageCard from "./village-card";
-import { useInView } from "react-intersection-observer";
-import { fetchVillages, getTotalPages } from "@/lib/api";
 import { Loader2 } from "lucide-react";
-import { categoriesVillages } from "@/constants";
-import { Skeleton } from "../ui/skeleton";
+import { useInView } from "react-intersection-observer";
 import Image from "next/image";
+import styles from "@/app/styles/villages.module.css";
+import VillageCard from "@/app/components/home/village-card";
+import { fetchVillages, getTotalPages } from "@/lib/api";
+import { categoriesVillages } from "@/constants";
+import { Skeleton } from "@/app/components/ui/skeleton";
 import { VillageData } from "@/types";
+
 const Villages = ({ searchQuery }: { searchQuery?: string }) => {
   const { ref, inView } = useInView();
   const [page, setPage] = useState(0);

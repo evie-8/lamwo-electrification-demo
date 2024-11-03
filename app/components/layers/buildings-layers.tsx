@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Layer, Source } from "react-map-gl";
-import { useMapContext } from "../../providers/map-provider";
+import { useMapContext } from "@/app/providers/map-provider";
 import { iconNames, iconUrls } from "@/constants";
 
 const BuildingLayers = () => {
@@ -119,25 +119,16 @@ const BuildingLayers = () => {
           ],
         }}
       />
-      {/* <Layer
-          id="uncategorized_buildings"
-          type="fill"
-          source="lamwo_buildings"
-          filter={["==", ["get", "category"], null]}
-          paint={{
-            "fill-color": "#00f", // Color of the fill
-            "fill-opacity": 0.3, // Opacity of the fill
-          }}
-        /> */}
+
       <Layer
         id="uncategorized_buildings"
         type="line"
         source="lamwo_buildings"
         filter={["==", ["get", "category"], null]}
         paint={{
-          "line-color": "#00f", // Color of the outline (black)
-          "line-width": 1.5, // Increase the width of the outline (adjust this value for size)
-          "line-opacity": 1, // Full opacity for the outline
+          "line-color": "#00f",
+          "line-width": 1.5,
+          "line-opacity": 1,
         }}
       />
     </Source>
