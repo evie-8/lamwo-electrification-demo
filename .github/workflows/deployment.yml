@@ -38,11 +38,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build
-
       - name: Lint
         run: npm run lint
+
+      - name: Build
+        run: npm run build
 
       # Initializes a deployment status for preview environments.
       # Runs for all branches except main.
