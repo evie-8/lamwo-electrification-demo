@@ -31,7 +31,7 @@ const MainSideBar = () => {
       {screen !== "Villages Details" ? (
         <section
           className={`${styles.main_sidebar}
-          } ${rightSideBar ? "flex" : "hidden"}`}
+           ${rightSideBar ? "flex" : "hidden"}`}
         >
           <nav>
             <div>

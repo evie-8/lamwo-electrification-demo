@@ -156,9 +156,7 @@ const LayersSideBar = () => {
 
   return (
     <div
-      className={`${styles.layer_sidebar} ${
-        width < 1024 ? "hidden" : "flex"
-      }  ${sideBar ? "flex" : "hidden"}`}
+      className={`${styles.layer_sidebar}  ${width < 1024 || !sideBar ? "hidden" : "flex"}`}
     >
       <div className={styles.title}>
         <div className={styles.title_wrapper}>
