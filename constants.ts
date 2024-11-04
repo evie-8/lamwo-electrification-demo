@@ -13,7 +13,7 @@ export const iconNames = [
   "uncategorized-icon",
 ];
 
-export  const categoriesVillages = [
+export const categoriesVillages = [
   {
     category: "Candidate for solar home systems",
     text: "Solar Candidate",
