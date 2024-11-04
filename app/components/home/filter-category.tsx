@@ -3,6 +3,8 @@ import { FilterSpecification } from "mapbox-gl";
 import Image from "next/image";
 import { MapRef } from "react-map-gl";
 import styles from "@/app/styles/filter-category.module.css";
+import { categoryColorMapping } from "@/constants";
+
 interface Props {
   title: string;
   items: Array<{ id: string; text: string; url?: string; color?: string }>;
@@ -14,14 +16,6 @@ interface Props {
     React.SetStateAction<{ [key: string]: boolean }>
   >;
 }
-
-export const categoryColorMapping: { [key: string]: string } = {
-  candidate_for_solar_home_systems: "#CCC",
-  candidate_minigrid_site: "#4682B4",
-  existing_minigrid_site: "#3CB371",
-  grid_extension: "#FF7F50",
-  default: "#EDEDED",
-};
 
 const FilterCategory = ({
   title,
