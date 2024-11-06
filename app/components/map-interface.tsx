@@ -22,7 +22,6 @@ const MapInterface = () => {
     filteredBuildings,
     setFilteredBuildings,
     setDetailsVillage,
-    screen,
     setScreen,
     sideBar,
     rightSideBar,
@@ -97,14 +96,14 @@ const MapInterface = () => {
 
   useEffect(() => {
     if (map) {
-      if (screen !== "Villages Details") {
+      if (!selectedFeature) {
         map.resize(); // Call resize on the map when sidebars change
         centerMap();
       } else {
         map.resize();
       }
     }
-  }, [sideBar, rightSideBar, map, screen, centerMap]);
+  }, [sideBar, rightSideBar, map, selectedFeature, centerMap]);
 
   useEffect(() => {
     let newZoom = zoom;
