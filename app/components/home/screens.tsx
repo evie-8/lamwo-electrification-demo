@@ -8,6 +8,7 @@ import { useMapContext } from "@/app/providers/map-provider";
 interface Props {
   children: React.ReactNode;
 }
+
 const Screens = ({ children }: Props) => {
   const { screen, setScreen, rightSideBar } = useMapContext();
   const scrollRef = useRef<HTMLDivElement | null>(null);
