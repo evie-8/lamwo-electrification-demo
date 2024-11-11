@@ -9,7 +9,13 @@ import { useMapContext } from "@/app/providers/map-provider";
 import FilterCategory from "@/app/components/home/filter-category";
 import useWindowDimensions from "@/hooks/window-dimensions";
 import { LayerKeys } from "@/types";
-import { buildingCategories, categoryColorMapping, grids, layers } from "@/constants";
+import {
+  buildingCategories,
+  categoryColorMapping,
+  grids,
+  layers,
+} from "@/constants";
+//import { DualThumbSlider } from "../ui/slider";
 
 const LayersSideBar = () => {
   const defaultLayerVisibility = {
@@ -114,7 +120,8 @@ const LayersSideBar = () => {
           mapRef={mapRef}
           title="Villages"
           items={layers}
-        />{" "}
+        />
+        {/* <DualThumbSlider /> */}
         <FilterCategory
           layerVisibility={layerVisibility}
           setLayerVisibility={setLayerVisibility}

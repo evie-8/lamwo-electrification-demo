@@ -51,6 +51,7 @@ body {
   @apply  text-gray-800
 }
 
+
 .map-container {
  @apply relative w-full h-screen items-center justify-center mx-0
 }
@@ -99,3 +100,65 @@ body {
 }
 
 }
+
+
+/* Remove the default popup tip */
+.mapboxgl-popup-tip {
+  display: none;
+}
+
+/* Style the popup content with rounded corners and custom color
+.mapboxgl-popup-content {
+  color: #1f2937;
+  border-radius: 20px;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif !important;
+} */
+
+/* This CSS code is styling a specific part of a popup content in a mapboxgl map. */
+/* .mapboxgl-popup-content div span{
+  position: absolute;
+  inset:0;
+  width: 100%;
+  height: 6px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #2258AA;
+} */
+
+/* Style for main headings or strong text */
+/* .mapboxgl-popup-content strong {
+  font-weight: 600;
+} */
+
+/* Style for dividing line */
+/* .mapboxgl-popup-content hr {
+  margin: 8px 0;
+  background-color: #000;
+  height: 1px;
+  border: none;
+} */
+
+/* Styling for the capacity tag */
+/* .mapboxgl-popup-content .capacity-tag {
+  border: 1px solid rgb(34, 88, 170);
+  border-radius: 20px;
+  background-color: rgb(34, 88, 170);;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  font-weight: 500;
+} */
+
+/* .mapboxgl-popup-close-button {
+  position: absolute;
+  top: 40px;
+  margin: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid #282850;
+  padding: 4px;
+} */

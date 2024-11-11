@@ -1,102 +1,100 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  BarChart,
-  RadialAreaChart,
-  RadialAxis,
-  PieChart,
-  PieArcSeries,
-} from "reaviz";
-import { MapIcon } from "lucide-react";
+// import {
+//   BarChart,
+//   RadialAreaChart,
+//   RadialAxis,
+//   PieChart,
+//   PieArcSeries,
+// } from "reaviz";
+// import { MapIcon } from "lucide-react";
 import Image from "next/image";
 import villages from "@/public/villages.json";
-import { measureCoordDistance } from "@/utils";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/app/components/ui/carousel";
-import { categoriesVillages } from "@/constants";
-import { NESCategoryData, PowerAnalysis, VillageData } from "@/types";
+//import { measureCoordDistance } from "@/utils";
+// import {
+//   Carousel,
+//   CarouselContent,
+//   CarouselItem,
+//   CarouselNext,
+//   CarouselPrevious,
+// } from "@/app/components/ui/carousel";
+//import { categoriesVillages } from "@/constants";
+import { PowerAnalysis, VillageData } from "@/types";
 
-const VillageDetails = ({ data }: { data: VillageData | null | undefined }) => {
-  const [NESCategoryData, setNESCategory] = useState<NESCategoryData[]>([]);
-  const [nearbyAreas, setNearbyAreas] = useState<VillageData[]>([]);
+const VillageDetails = ({ data }: { data: VillageData }) => {
+  //const [NESCategoryData, setNESCategory] = useState<NESCategoryData[]>([]);
+  //const [nearbyAreas, setNearbyAreas] = useState<VillageData[]>([]);
 
-  const getCategory = (cat: string) => {
-    const category = categoriesVillages.find((c) => c.category === cat);
-    return category?.text;
-  };
+  // const getCategory = (cat: string) => {
+  //   const category = categoriesVillages.find((c) => c.category === cat);
+  //   return category?.text;
+  // };
 
-  getCategory("Grid extension");
+  // const villagesData = villages.map((village) => {
+  //   return {
+  //     ...village,
+  //     NES_category: getCategory(village.NES_category),
+  //     distanceFromArea: 0,
+  //   };
+  // });
 
-  const villagesData = villages.map((village) => {
-    return {
-      ...village,
-      NES_category: getCategory(village.NES_category),
-      distanceFromArea: 0,
-    };
-  });
+  // let nesData: NESCategoryData[] = [];
+  // let totalEmissions = 0;
+  // let nearAreas: VillageData[] = [];
 
-  let nesData: NESCategoryData[] = [];
-  let totalEmissions = 0;
-  let nearAreas: VillageData[] = [];
+  // useEffect(() => {
+  //   if (!data) return;
 
-  useEffect(() => {
-    if (!data) return;
+  //   // plot NES electrification strategy
+  //   villagesData.forEach((village) => {
+  //     const psInstance = nesData.find((y) => y.key === village?.NES_category);
 
-    // plot NES electrification strategy
-    villagesData.forEach((village) => {
-      const psInstance = nesData.find((y) => y.key === village?.NES_category);
+  //     if (psInstance) {
+  //       psInstance.data += 1;
+  //     } else {
+  //       nesData.push({
+  //         key: String(village?.NES_category),
+  //         data: 1,
+  //       });
+  //     }
+  //     totalEmissions += 1;
+  //   });
 
-      if (psInstance) {
-        psInstance.data += 1;
-      } else {
-        nesData.push({
-          key: String(village?.NES_category),
-          data: 1,
-        });
-      }
-      totalEmissions += 1;
-    });
+  //   nesData.forEach((x) => {
+  //     if (x.data !== 0) {
+  //       x.data = (x.data / totalEmissions) * 100;
+  //     } else {
+  //       x.data = 0;
+  //     }
+  //   });
 
-    nesData.forEach((x) => {
-      if (x.data !== 0) {
-        x.data = (x.data / totalEmissions) * 100;
-      } else {
-        x.data = 0;
-      }
-    });
+  //   nesData = nesData.sort((a, b) => b.data - a.data);
+  //   setNESCategory(nesData);
 
-    nesData = nesData.sort((a, b) => b.data - a.data);
-    setNESCategory(nesData);
+  //   // produce data for the nearby areas to explore
+  //   villagesData.forEach((x) => {
+  //     if (data.latitude && data.longitude) {
+  //       x.distanceFromArea = measureCoordDistance(
+  //         data.latitude,
+  //         data.longitude,
+  //         x.latitude,
+  //         x.longitude,
+  //         "k"
+  //       );
+  //       nearAreas.push(x);
+  //     }
+  //   });
 
-    // produce data for the nearby areas to explore
-    villagesData.forEach((x) => {
-      if (data.latitude && data.longitude) {
-        x.distanceFromArea = measureCoordDistance(
-          data.latitude,
-          data.longitude,
-          x.latitude,
-          x.longitude,
-          "k"
-        );
-        nearAreas.push(x);
-      }
-    });
+  //   nearAreas = nearAreas.sort(
+  //     (a, b) => Number(a.distanceFromArea) - Number(b.distanceFromArea)
+  //   );
+  //   setNearbyAreas(nearAreas);
+  // }, [data]);
 
-    nearAreas = nearAreas.sort(
-      (a, b) => Number(a.distanceFromArea) - Number(b.distanceFromArea)
-    );
-    setNearbyAreas(nearAreas);
-  }, [data]);
-
-  if (!data) {
-    return <div>Loading...</div>; // Return a loading message when no data is passed
-  }
+  // if (!data) {
+  //   return <div>Loading...</div>; // Return a loading message when no data is passed
+  // }
 
   return (
     <>
@@ -172,7 +170,7 @@ const VillageDetails = ({ data }: { data: VillageData | null | undefined }) => {
           </li>
         </ol>
 
-        <div className="pl-3 mt-4 flex items-center justify-center w-full">
+        {/* <div className="pl-3 mt-4 flex items-center justify-center w-full">
           <BarChart
             height={280}
             className="mt-4"
@@ -188,7 +186,7 @@ const VillageDetails = ({ data }: { data: VillageData | null | undefined }) => {
               },
             ]}
           />
-        </div>
+        </div> */}
 
         <h2 className="mt-4 text-lg font-extrabold text-sunbird-navy-blue">
           Potential for renewable energy
@@ -253,7 +251,7 @@ const VillageDetails = ({ data }: { data: VillageData | null | undefined }) => {
           )}
         </div>
 
-        <h3 className="mt-4 my-2 flex gap-2 items-center ">
+        {/* <h3 className="mt-4 my-2 flex gap-2 items-center ">
           <MapIcon
             size={15}
             fontWeight={700}
@@ -296,11 +294,11 @@ const VillageDetails = ({ data }: { data: VillageData | null | undefined }) => {
             <CarouselPrevious />
             <CarouselNext />
           </div>
-        </Carousel>
+        </Carousel> */}
 
-        <hr />
+        {/* <hr /> */}
 
-        <h2 className="my-4 text-lg text-sunbird-navy-blue font-extrabold">
+        {/* <h2 className="my-4 text-lg text-sunbird-navy-blue font-extrabold">
           Overall electrification outlook for Lamwo
         </h2>
         <p>
@@ -340,15 +338,15 @@ const VillageDetails = ({ data }: { data: VillageData | null | undefined }) => {
               />
             }
           />
-        </div>
+        </div> */}
 
-        <ol className="my-3 pl-8">
+        {/* <ol className="my-3 pl-8">
           {NESCategoryData.map((x: NESCategoryData) => (
             <li key={x.key}>
               <strong>{x.key}</strong> - {x.data.toFixed(3)}%
             </li>
           ))}
-        </ol>
+        </ol> */}
       </div>
     </>
   );

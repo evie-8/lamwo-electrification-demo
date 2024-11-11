@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Map, { NavigationControl, MapMouseEvent } from "react-map-gl";
-import MapLayers from "@/app/components/layers/map-layers";
+import MapLayers from "@/app/components/layers-and-markers/map-layers";
 import { useMapContext } from "@/app/providers/map-provider";
 import villages from "@/public/villages.json";
 import ResetControl from "@/app/components/reset-control";

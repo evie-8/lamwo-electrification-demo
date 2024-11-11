@@ -1,3 +1,6 @@
+import { Feature, Polygon } from "geojson";
+import { Coordinates } from "@/types";
+
 /**
  * The function `measureCoordDistance` calculates the distance between two coordinates on Earth given
  * their latitude and longitude values.
@@ -45,3 +48,53 @@ export const measureCoordDistance = (
       return dist;
     }
   }
+
+export const destination = (coords: Coordinates, distance:number, bearing: number) => {
+    const radian = (deg: number) => (deg * Math.PI) / 180;
+    const degree = (rad: number) => (rad * 180) / Math.PI;
+
+    const lat1 = radian(coords?.latitude);
+    const lon1 = radian(coords?.longitude);
+    const brng = radian(bearing);
+
+    const lat2 = Math.asin(
+      Math.sin(lat1) * Math.cos(distance) +
+        Math.cos(lat1) * Math.sin(distance) * Math.cos(brng)
+    );
+    const lon2 =
+      lon1 +
+      Math.atan2(
+        Math.sin(brng) * Math.sin(distance) * Math.cos(lat1),
+        Math.cos(distance) - Math.sin(lat1) * Math.sin(lat2)
+      );
+
+    return {
+      latitude: degree(lat2),
+      longitude: degree(lon2),
+    };
+  };
+
+
+export const createCircle = (center: [number, number], radiusInKm = 1) => {
+  const points = 64;
+  const coords = { latitude: center[1], longitude: center[0] };
+  const kmToRadius = radiusInKm / 6371; // Earth’s radius in km
+
+  const circle:Feature<Polygon> = {
+    type: "Feature",
+    geometry: {
+      type: "Polygon",
+      coordinates: [[]],
+    },
+    properties: {}
+  };
+
+  for (let i = 0; i < points; i++) {
+    const angle = (i * 360) / points;
+    const point = destination(coords, kmToRadius, angle);
+    circle.geometry.coordinates[0].push([point.longitude, point.latitude]);
+  }
+  circle.geometry.coordinates[0].push(circle.geometry.coordinates[0][0]); // Close the circle
+
+  return circle;
+};

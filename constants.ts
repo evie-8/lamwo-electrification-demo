@@ -91,13 +91,13 @@ export const grids = [
     id: "candidate_MGs_layer",
     text: "Candidate mini grid",
     color: "",
-    url: "/location.png",
+    url: "/candidate-mini-grid.png",
   },
   {
     id: "existing_MGs_layer",
     text: "Existing mini grid",
     color: "",
-    url: "/location1.png",
+    url: "/existing-mini-grid.png",
   },
   {
     id: "grid_electricity",

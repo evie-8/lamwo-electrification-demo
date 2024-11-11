@@ -40,7 +40,12 @@ export type PowerAnalysis = {
     vegetation_percentile: number;
     village: string;
   };
-  
+
+  export type Coordinates = {
+    latitude: number;
+    longitude: number;
+  }
+
   export type LayerKeys = 
   | "candidate_for_solar_home_systems"
   | "candidate_minigrid_site"
